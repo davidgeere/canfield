@@ -8,19 +8,71 @@
 
 /* Begin PBXBuildFile section */
 		DFA169D4298C2EE80089381F /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169D3298C2EE80089381F /* Application.swift */; };
-		DFA169D6298C2EE80089381F /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169D5298C2EE80089381F /* TableView.swift */; };
+		DFA169D6298C2EE80089381F /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169D5298C2EE80089381F /* GameView.swift */; };
 		DFA169D8298C2EEA0089381F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFA169D7298C2EEA0089381F /* Assets.xcassets */; };
 		DFA169DB298C2EEA0089381F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFA169DA298C2EEA0089381F /* Preview Assets.xcassets */; };
-		DFA169E4298C31B70089381F /* TableLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169E3298C31B70089381F /* TableLayoutView.swift */; };
+		DFA169E6298C32760089381F /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169E5298C32760089381F /* TableView.swift */; };
+		DFA169E8298C33010089381F /* PlacementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169E7298C33010089381F /* PlacementView.swift */; };
+		DFA169ED298C343B0089381F /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169EC298C343B0089381F /* Card.swift */; };
+		DFA169EF298C34A10089381F /* Placement.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169EE298C34A10089381F /* Placement.swift */; };
+		DFA169F1298C35B50089381F /* Suite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169F0298C35B50089381F /* Suite.swift */; };
+		DFA169F3298C35C00089381F /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169F2298C35C00089381F /* Column.swift */; };
+		DFA169F5298C37010089381F /* Rank.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169F4298C37010089381F /* Rank.swift */; };
+		DFA169F8298C3A2E0089381F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169F7298C3A2E0089381F /* String.swift */; };
+		DFA169FB298C3B960089381F /* Inflector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169FA298C3B960089381F /* Inflector.swift */; };
+		DFA169FD298C3D690089381F /* Pair.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169FC298C3D690089381F /* Pair.swift */; };
+		DFA169FF298C3DE10089381F /* Face.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169FE298C3DE10089381F /* Face.swift */; };
+		DFA16A02298C402A0089381F /* PlacementPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A01298C402A0089381F /* PlacementPreferenceKey.swift */; };
+		DFA16A05298C40680089381F /* PlacementData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A04298C40680089381F /* PlacementData.swift */; };
+		DFA16A08298C41B70089381F /* PlacementSenderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A07298C41B70089381F /* PlacementSenderModifier.swift */; };
+		DFA16A0A298C41C70089381F /* PlacementReceiverModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A09298C41C70089381F /* PlacementReceiverModifier.swift */; };
+		DFA16A0C298C42970089381F /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A0B298C42970089381F /* View.swift */; };
+		DFA16A0F298C441A0089381F /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A0E298C441A0089381F /* Globals.swift */; };
+		DFA16A12298C4AA00089381F /* FullScreenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A11298C4AA00089381F /* FullScreenModifier.swift */; };
+		DFA16A15298C4B970089381F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A14298C4B970089381F /* CardView.swift */; };
+		DFA16A17298C4C550089381F /* PlayableCardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A16298C4C550089381F /* PlayableCardModifier.swift */; };
+		DFA16A19298C4C7F0089381F /* CardEventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A18298C4C7F0089381F /* CardEventData.swift */; };
+		DFA16A1B298C4CA90089381F /* CardEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A1A298C4CA90089381F /* CardEvent.swift */; };
+		DFB8DB67298C51AA00AB7787 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB66298C51AA00AB7787 /* Game.swift */; };
+		DFB8DB69298C51EA00AB7787 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB68298C51EA00AB7787 /* Deck.swift */; };
+		DFB8DB6B298C58F700AB7787 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB6A298C58F700AB7787 /* Table.swift */; };
+		DFB8DB6D298C62F000AB7787 /* TrackBoundsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB6C298C62F000AB7787 /* TrackBoundsPreferenceKey.swift */; };
+		DFB8DB6F298C63A900AB7787 /* TrackBoundsModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB6E298C63A900AB7787 /* TrackBoundsModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DFA169D0298C2EE80089381F /* Canfield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Canfield.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA169D3298C2EE80089381F /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
-		DFA169D5298C2EE80089381F /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
+		DFA169D5298C2EE80089381F /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		DFA169D7298C2EEA0089381F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DFA169DA298C2EEA0089381F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		DFA169E3298C31B70089381F /* TableLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableLayoutView.swift; sourceTree = SOURCE_ROOT; };
+		DFA169E5298C32760089381F /* TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
+		DFA169E7298C33010089381F /* PlacementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementView.swift; sourceTree = "<group>"; };
+		DFA169EC298C343B0089381F /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		DFA169EE298C34A10089381F /* Placement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placement.swift; sourceTree = "<group>"; };
+		DFA169F0298C35B50089381F /* Suite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suite.swift; sourceTree = "<group>"; };
+		DFA169F2298C35C00089381F /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
+		DFA169F4298C37010089381F /* Rank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rank.swift; sourceTree = "<group>"; };
+		DFA169F7298C3A2E0089381F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		DFA169FA298C3B960089381F /* Inflector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inflector.swift; sourceTree = "<group>"; };
+		DFA169FC298C3D690089381F /* Pair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pair.swift; sourceTree = "<group>"; };
+		DFA169FE298C3DE10089381F /* Face.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Face.swift; sourceTree = "<group>"; };
+		DFA16A01298C402A0089381F /* PlacementPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementPreferenceKey.swift; sourceTree = "<group>"; };
+		DFA16A04298C40680089381F /* PlacementData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementData.swift; sourceTree = "<group>"; };
+		DFA16A07298C41B70089381F /* PlacementSenderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementSenderModifier.swift; sourceTree = "<group>"; };
+		DFA16A09298C41C70089381F /* PlacementReceiverModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementReceiverModifier.swift; sourceTree = "<group>"; };
+		DFA16A0B298C42970089381F /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		DFA16A0E298C441A0089381F /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		DFA16A11298C4AA00089381F /* FullScreenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenModifier.swift; sourceTree = "<group>"; };
+		DFA16A14298C4B970089381F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		DFA16A16298C4C550089381F /* PlayableCardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableCardModifier.swift; sourceTree = "<group>"; };
+		DFA16A18298C4C7F0089381F /* CardEventData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEventData.swift; sourceTree = "<group>"; };
+		DFA16A1A298C4CA90089381F /* CardEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEvent.swift; sourceTree = "<group>"; };
+		DFB8DB66298C51AA00AB7787 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		DFB8DB68298C51EA00AB7787 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		DFB8DB6A298C58F700AB7787 /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
+		DFB8DB6C298C62F000AB7787 /* TrackBoundsPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackBoundsPreferenceKey.swift; sourceTree = "<group>"; };
+		DFB8DB6E298C63A900AB7787 /* TrackBoundsModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackBoundsModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +105,8 @@
 		DFA169D2298C2EE80089381F /* Canfield */ = {
 			isa = PBXGroup;
 			children = (
+				DFA169E9298C33E30089381F /* Library */,
+				DFA169EB298C341F0089381F /* Models */,
 				DFA169E1298C318D0089381F /* Views */,
 				DFA169D3298C2EE80089381F /* Application.swift */,
 				DFA169D7298C2EEA0089381F /* Assets.xcassets */,
@@ -72,8 +126,9 @@
 		DFA169E1298C318D0089381F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DFA16A13298C4B870089381F /* Card */,
 				DFA169E2298C319E0089381F /* Table */,
-				DFA169D5298C2EE80089381F /* TableView.swift */,
+				DFA169D5298C2EE80089381F /* GameView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -81,9 +136,112 @@
 		DFA169E2298C319E0089381F /* Table */ = {
 			isa = PBXGroup;
 			children = (
-				DFA169E3298C31B70089381F /* TableLayoutView.swift */,
+				DFA169E5298C32760089381F /* TableView.swift */,
+				DFA169E7298C33010089381F /* PlacementView.swift */,
 			);
 			path = Table;
+			sourceTree = "<group>";
+		};
+		DFA169E9298C33E30089381F /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				DFA16A10298C45A60089381F /* Constants */,
+				DFA16A06298C41250089381F /* Modifiers */,
+				DFA16A03298C40540089381F /* Data */,
+				DFA16A00298C400F0089381F /* Preferences */,
+				DFA169F9298C3A920089381F /* Core */,
+				DFA169F6298C39AA0089381F /* Extensions */,
+				DFA169EA298C34060089381F /* Enums */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		DFA169EA298C34060089381F /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				DFA169EE298C34A10089381F /* Placement.swift */,
+				DFA169F0298C35B50089381F /* Suite.swift */,
+				DFA169F2298C35C00089381F /* Column.swift */,
+				DFA169F4298C37010089381F /* Rank.swift */,
+				DFA169FC298C3D690089381F /* Pair.swift */,
+				DFA169FE298C3DE10089381F /* Face.swift */,
+				DFA16A1A298C4CA90089381F /* CardEvent.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		DFA169EB298C341F0089381F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DFA169EC298C343B0089381F /* Card.swift */,
+				DFB8DB66298C51AA00AB7787 /* Game.swift */,
+				DFB8DB68298C51EA00AB7787 /* Deck.swift */,
+				DFB8DB6A298C58F700AB7787 /* Table.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DFA169F6298C39AA0089381F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DFA169F7298C3A2E0089381F /* String.swift */,
+				DFA16A0B298C42970089381F /* View.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DFA169F9298C3A920089381F /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				DFA169FA298C3B960089381F /* Inflector.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		DFA16A00298C400F0089381F /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				DFA16A01298C402A0089381F /* PlacementPreferenceKey.swift */,
+				DFB8DB6C298C62F000AB7787 /* TrackBoundsPreferenceKey.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		DFA16A03298C40540089381F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				DFA16A04298C40680089381F /* PlacementData.swift */,
+				DFA16A18298C4C7F0089381F /* CardEventData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		DFA16A06298C41250089381F /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				DFA16A07298C41B70089381F /* PlacementSenderModifier.swift */,
+				DFA16A09298C41C70089381F /* PlacementReceiverModifier.swift */,
+				DFA16A11298C4AA00089381F /* FullScreenModifier.swift */,
+				DFA16A16298C4C550089381F /* PlayableCardModifier.swift */,
+				DFB8DB6E298C63A900AB7787 /* TrackBoundsModifier.swift */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		DFA16A10298C45A60089381F /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				DFA16A0E298C441A0089381F /* Globals.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		DFA16A13298C4B870089381F /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				DFA16A14298C4B970089381F /* CardView.swift */,
+			);
+			path = Card;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,9 +314,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFA169D6298C2EE80089381F /* TableView.swift in Sources */,
+				DFA169D6298C2EE80089381F /* GameView.swift in Sources */,
+				DFA16A0F298C441A0089381F /* Globals.swift in Sources */,
+				DFA169E6298C32760089381F /* TableView.swift in Sources */,
+				DFA16A0A298C41C70089381F /* PlacementReceiverModifier.swift in Sources */,
+				DFA169F8298C3A2E0089381F /* String.swift in Sources */,
+				DFA169ED298C343B0089381F /* Card.swift in Sources */,
+				DFB8DB6D298C62F000AB7787 /* TrackBoundsPreferenceKey.swift in Sources */,
+				DFA16A1B298C4CA90089381F /* CardEvent.swift in Sources */,
+				DFA169EF298C34A10089381F /* Placement.swift in Sources */,
+				DFA16A15298C4B970089381F /* CardView.swift in Sources */,
+				DFB8DB6F298C63A900AB7787 /* TrackBoundsModifier.swift in Sources */,
+				DFA16A05298C40680089381F /* PlacementData.swift in Sources */,
+				DFA16A02298C402A0089381F /* PlacementPreferenceKey.swift in Sources */,
+				DFA169FF298C3DE10089381F /* Face.swift in Sources */,
+				DFA16A12298C4AA00089381F /* FullScreenModifier.swift in Sources */,
+				DFA169FD298C3D690089381F /* Pair.swift in Sources */,
+				DFA16A19298C4C7F0089381F /* CardEventData.swift in Sources */,
+				DFA169E8298C33010089381F /* PlacementView.swift in Sources */,
+				DFB8DB67298C51AA00AB7787 /* Game.swift in Sources */,
+				DFA16A08298C41B70089381F /* PlacementSenderModifier.swift in Sources */,
+				DFA169F3298C35C00089381F /* Column.swift in Sources */,
+				DFA169F5298C37010089381F /* Rank.swift in Sources */,
+				DFA16A0C298C42970089381F /* View.swift in Sources */,
+				DFB8DB6B298C58F700AB7787 /* Table.swift in Sources */,
+				DFA169F1298C35B50089381F /* Suite.swift in Sources */,
+				DFB8DB69298C51EA00AB7787 /* Deck.swift in Sources */,
+				DFA169FB298C3B960089381F /* Inflector.swift in Sources */,
+				DFA16A17298C4C550089381F /* PlayableCardModifier.swift in Sources */,
 				DFA169D4298C2EE80089381F /* Application.swift in Sources */,
-				DFA169E4298C31B70089381F /* TableLayoutView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
