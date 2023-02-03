@@ -38,6 +38,9 @@ struct CardView: View {
                     }
                     .overlay(alignment: .bottom) {
                             VStack {
+                                
+                                Text("O: \(card.order)")
+                                
                                 if card.parent != nil {
                                     Text("P: \(card.parent!.suite.symbol) \(card.parent!.rank.symbol)")
                                 }

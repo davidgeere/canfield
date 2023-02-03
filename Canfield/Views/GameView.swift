@@ -23,16 +23,18 @@ struct GameView: View {
                         CardView(card)
                             .playable(card) { data in
                                 
-                                data.card.face = data.card.face.toggle()
-                                
-                                self.game.refresh()
-                                
+                                switch data.card.placement {
+                                case .stock:
+                                    self.game.waste(data)
+                                default:
+                                    self.game.place(data)
+                                }
                             } onDrag: { data in
                                 self.game.moving(data)
                                 
                             } onDrop: { data in
                                 
-                                self.game.over(data)
+                                self.game.drop(data)
                             }
                     }
                 }

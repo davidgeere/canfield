@@ -16,6 +16,20 @@ enum Placement: Equatable, Hashable {
     case foundation( _ suite: Suite )
     case tableau( _ column: Column )
     
+    var suite: Suite? {
+        switch self {
+        case .foundation(let suite) : return suite
+        default: return nil
+        }
+    }
+    
+    var column: Column? {
+        switch self {
+        case .tableau(let column) : return column
+        default: return nil
+        }
+    }
+    
     var is_foundation: Bool {
         switch self {
         case .foundation(.clubs), .foundation(.hearts), .foundation(.spades), .foundation(.diamonds): return true

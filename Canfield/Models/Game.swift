@@ -140,68 +140,130 @@ class Game: ObservableObject {
     }
     
 
-    private func drop_on_card(_ card: Card, available: Card) {
+    private func drop_on_card(_ card: Card, placement:Placement, available: Card? = nil) -> Bool {
         
-        if let previous = self.cards.first(where: { return $0.placement == card.placement && $0.order == card.order - 1 }) {
-            previous.available = true
-            previous.face = .up
-            previous.refresh()
+        guard self.valid_drop_on_card(card, placement: placement, available: available) else { return false }
+        
+        if card.placement == .waste {
+            
+            let wasted = self.cards.filter( { return $0.placement == .waste } ).count
+            
+            if wasted <= 0 {
+                
+                if let stock = self.cards.first(where: { return $0.placement == .stock }) {
+                    self.waste(stock)
+                }
+                
+            }
+            
+        } else {
+            if let previous = self.cards.first(where: { return $0.placement == card.placement && $0.order == card.order - 1 }) {
+                
+                previous.available = true
+                previous.face = .up
+                previous.refresh()
+                
+            }
         }
         
         if let parent = card.parent {
+            
             card.parent = nil
             parent.child = nil
             parent.refresh()
+            
         }
         
-        available.available = false
+        var pique: CGFloat = .zero
+        var bounds: CGRect = .zero
+        
+        if let available = available {
+            
+            pique = available.placement.is_foundation ? 0.0 : 40.0
+            
+            bounds = available.bounds
+            
+            card.bounds = CGRect(x: bounds.minX, y: bounds.minY + pique, width: card.bounds.width, height: card.bounds.height)
+            
+            available.available = false
+            available.child = card
+            
+            card.placement = available.placement
+            card.order = available.order + 1
+            card.parent = available
+            
+            available.refresh()
+            
+        } else {
+            
+            bounds = self.table[placement]
+            
+            card.bounds = CGRect(x: bounds.midX, y: bounds.midY + pique, width: card.bounds.width, height: card.bounds.height)
+            
+            card.placement = placement
+            card.order = 1
+            card.parent = nil
+            
+        }
         
         card.moving = false
         
-        card.placement = available.placement
-        
-        card.bounds = CGRect(x: available.bounds.minX, y: available.bounds.minY + 40, width: card.bounds.width, height: card.bounds.height)
-        card.order = available.order + 1
-        card.parent = available
-        
-        available.child = card
-        
         card.refresh()
-        available.refresh()
         
         self.refresh()
         
+        return true
     }
     
-    private func valid_tableau_drop(_ card: Card, available: Card) -> Bool {
-        guard available.suite.pair != card.suite.pair  else { return false }
+    private func valid_tableau_drop(_ card: Card, placement: Placement, available: Card? = nil) -> Bool {
         
-        guard available.rank.previous != nil else { return false }
-        
-        guard available.rank.previous == card.rank else { return false }
+        if let available = available {
+            
+            guard available.suite.pair != card.suite.pair  else { return false }
+            
+            guard available.rank.previous != nil else { return false }
+            
+            guard available.rank.previous == card.rank else { return false }
+            
+        } else {
+            
+            guard card.rank == .king else { return false }
+            
+        }
         
         return true
     }
     
-    private func valid_foundation_drop(_ card: Card, available: Card) -> Bool {
-        guard available.suite.pair == card.suite.pair  else { return false }
+    private func valid_foundation_drop(_ card: Card, placement: Placement, available: Card? = nil) -> Bool {
         
-        guard available.rank.next != nil else { return false }
+        if let available = available {
         
-        guard available.rank.next == card.rank else { return false }
+            guard available.suite.pair == card.suite.pair  else { return false }
+            
+            guard available.rank.next != nil else { return false }
+            
+            guard available.rank.next == card.rank else { return false }
+            
+        } else {
+            
+            guard card.rank == .ace else { return false }
+            
+            guard card.suite == placement.suite else { return false }
+            
+        }
         
         return true
     }
     
-    private func valid_drop_on_card(_ card: Card, available: Card) -> Bool {
+    private func valid_drop_on_card(_ card: Card, placement: Placement, available: Card? = nil) -> Bool {
         
-        if available.placement.is_tableau {
+        if placement.is_tableau {
             
-            guard self.valid_tableau_drop(card, available: available) else { return false }
+            guard self.valid_tableau_drop(card, placement: placement, available: available) else { return false }
             
-        } else if available.placement.is_foundation {
+        } else if placement.is_foundation {
             
-            guard self.valid_foundation_drop(card, available: available) else { return false }
+            guard self.valid_foundation_drop(card, placement: placement, available: available) else { return false }
             
         } else {
             
@@ -222,24 +284,37 @@ class Game: ObservableObject {
         return true
     }
     
-    public func over(_ data: CardEventData) {
-            
+    private func drop_on_cards(_ data: CardEventData) -> Bool {
+        
         let card = data.card
         let event = data.event
         let location = data.location
         
         for available in self.cards.filter({ return $0.available && $0.id != card.id && ($0.placement != .waste || $0.placement != .stock) }) {
             
-            let bounds = available.bounds
             
-            guard drop_in_bounds(location: location, area: available.bounds) && event == .drop else { continue }
+            if event == .drop {
+                
+                let bounds = available.bounds
+                
+                guard drop_in_bounds(location: location, area: bounds) else { continue }
+                
+            }
             
-            guard self.valid_drop_on_card(card, available: available) else { continue }
+            guard self.drop_on_card(card, placement: available.placement, available: available) else { continue }
             
-            self.drop_on_card(card, available: available)
-            
-            return
+            return true
         }
+        
+        return false
+        
+    }
+    
+    private func drop_on_tableau(_ data: CardEventData) -> Bool {
+        
+        let card = data.card
+        let event = data.event
+        let location = data.location
         
         for column in Column.allCases {
 
@@ -247,74 +322,143 @@ class Game: ObservableObject {
 
             guard data.card.placement != placement else { continue }
 
-            let bounds = self.table[placement]
-
-            guard drop_in_bounds(location: data.location, area: bounds) && data.event == .drop else { continue }
-
-            card.moving = false
-            card.bounds = CGRect(x: bounds.midX, y: bounds.midY, width: card.bounds.width, height: card.bounds.height)
-
-            self.refresh()
-
-            return
+            if event == .drop {
+                
+                let bounds = self.table[placement]
+                
+                guard drop_in_bounds(location: location, area: bounds) else { continue }
+            }
+            
+            if let available = self.cards.first( where: { return $0.placement == placement && $0.available } ) {
+                
+                guard self.drop_on_card(card, placement: placement, available: available) else { continue }
+                
+                return true
+                
+            }
+            
+            guard self.drop_on_card(card, placement: placement) else { continue }
+            
+            return true
         }
         
-//        for suite in Suite.allCases {
-//
-//            let placement:Placement = .foundation(suite)
-//
-//            let bounds = self.table[placement]
-//
-//            guard bounds.contains(location) && event == .drop else { continue }
-//
-//            card.moving = false
-//            card.bounds = CGRect(x: bounds.midX, y: bounds.midY, width: card.bounds.width, height: card.bounds.height)
-//
-//            self.refresh()
-//
-//            return
-//        }
+        return false
         
-        //// -------
+    }
+    
+    private func drop_on_foundation(_ data: CardEventData) -> Bool {
         
-        //
-        //        for data in self.foundation_data {
-        //            if data.bounds.contains(event_data.location) {
-        //                let layout = self.to_layout(event_data.card.placement)
-        //
-        //                if self.deck.valid_drag_build_up(event_data.card, suite: data.suite, layout: layout) {
-        //
-        //                    event_data.card.matched = true
-        //
-        //                    if event_data.event == .drop {
-        //                        if self.deck.drag_build_up(event_data.card, suite: data.suite, layout: layout) {
-        //                            event_data.card.matched = false
-        //                            return
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //
-        //        for data in self.tableau_data {
-        //            if data.bounds.contains(event_data.position) {
-        //                let layout = self.to_layout(event_data.card.placement)
-        //
-        //                if self.deck.valid_drag_build_down(event_data.card, column: data.column, layout: layout) {
-        //
-        //                    print("tableau")
-        //
-        //                    event_data.card.matched = true
-        //
-        //                    if event_data.event == .drop {
-        //                        if self.deck.drag_build_down(event_data.card, column: data.column, layout: layout) {
-        //                            event_data.card.matched = false
-        //                            return
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
+        let card = data.card
+        let event = data.event
+        let location = data.location
+        
+        for suite in Suite.allCases {
+            
+            let placement:Placement = .foundation(suite)
+            
+            if event == .drop {
+                
+                let bounds = self.table[placement]
+                
+                guard drop_in_bounds(location: location, area: bounds) else { continue }
+            }
+            
+            if let available = self.cards.first( where: { return $0.placement == placement && $0.available } ) {
+                
+                guard self.drop_on_card(card, placement: placement, available: available) else { continue }
+                
+                return true
+                
+            }
+            
+            guard self.drop_on_card(card, placement: placement) else { continue }
+            
+            return true
+        }
+        
+        return false
+        
+    }
+    
+    public func waste(_ card: Card) {
+        
+        let wasted = self.cards.filter( { return $0.placement == .waste } ).count
+        
+        if wasted > 0 {
+            
+            for stocked in self.cards.filter( { return $0.placement == .stock } ) {
+                
+                stocked.order = stocked.order + wasted
+                
+                stocked.refresh()
+            }
+            
+        }
+        
+        var order = 1
+        
+        for wasted in self.cards.filter( { return $0.placement == .waste } ) {
+        
+            let bounds = self.table[.stock]
+            
+            wasted.placement = .stock
+            wasted.bounds = CGRect(x: bounds.midX, y: bounds.midY, width: card.bounds.width, height: card.bounds.height)
+            wasted.moving = false
+            wasted.order = order
+            wasted.face = .down
+            
+            wasted.refresh()
+            
+            order += 1
+
+        }
+        
+        let bounds = self.table[.waste]
+        
+        card.bounds = CGRect(x: bounds.midX, y: bounds.midY, width: card.bounds.width, height: card.bounds.height)
+        
+        card.placement = .waste
+        card.face = .up
+        card.order = 1
+        card.parent = nil
+        card.child = nil
+        
+        card.moving = false
+        
+        card.refresh()
+        
+        self.refresh()
+        
+    }
+    
+    public func waste(_ data: CardEventData) {
+        
+        self.waste(data.card)
+        
+    }
+    
+    public func place(_ data: CardEventData) {
+        
+        guard data.event == .tap else { return }
+        
+        guard !drop_on_cards(data) else { return }
+        
+        guard !drop_on_tableau(data) else { return }
+        
+        guard !drop_on_foundation(data) else { return }
+        
+    }
+    
+    public func drop(_ data: CardEventData) {
+        
+        guard data.event == .drop else { return }
+        
+        guard !drop_on_cards(data) else { return }
+        
+        guard !drop_on_tableau(data) else { return }
+        
+        guard !drop_on_foundation(data) else { return }
+
     }
     
     public func position(_ card:Card, extra:CGPoint = .zero) -> CGRect {
