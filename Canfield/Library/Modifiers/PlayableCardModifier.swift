@@ -17,10 +17,10 @@ struct PlayableCardModifier : ViewModifier {
     private var drop: ((CardEventData) -> Void)? = nil
     private var drag: ((CardEventData) -> Void)? = nil
 
-    public var card: Card
+    @Binding public var card: Card
 
-    init(_ card: Card, onTap: ((CardEventData) -> Void)? = nil, onDrag: ((CardEventData) -> Void)? = nil, onDrop: ((CardEventData) -> Void)? = nil) {
-        self.card = card
+    init(_ card: Binding<Card>, onTap: ((CardEventData) -> Void)? = nil, onDrag: ((CardEventData) -> Void)? = nil, onDrop: ((CardEventData) -> Void)? = nil) {
+        self._card = card
         
         self.tap = onTap
         self.drag = onDrag
@@ -30,7 +30,7 @@ struct PlayableCardModifier : ViewModifier {
     func body(content: Content) -> some View {
         content
             .offset(x: self.position.width, y: self.position.height)
-            .simultaneousGesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("table"))
+            .simultaneousGesture(DragGesture(minimumDistance: 0, coordinateSpace: .named(Globals.TABLE.NAME))
                 .onChanged { value in
                     guard card.available || card.face == .up else { return }
                     
@@ -48,12 +48,12 @@ struct PlayableCardModifier : ViewModifier {
                     guard card.available || card.face == .up else { return }
                     
                     withAnimation(.spring()) {
-                        self.position = .zero
-                        self.location = .zero
-                        
                         if let drop = self.drop {
                             drop(CardEventData(event: .drop, card: card, location: self.location))
                         }
+                        
+                        self.position = .zero
+                        self.location = .zero
                     }
                 })
             .highPriorityGesture(TapGesture().onEnded{

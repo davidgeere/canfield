@@ -15,38 +15,36 @@ struct TableView: View {
         VStack(spacing: 0) {
             VStack(spacing: 32) {
                 HStack(alignment: .top, spacing: 24) {
-                    PlacementView(for: .stock) // Stock
-                        .environmentObject(self.game)
+                    PlacementView(for: .stock).track(bounds: { self.game.table[.stock] = $0 })
                     
-                    PlacementView(for: .waste) // Waste
-                        .environmentObject(self.game)
+                    Color.clear.size(for: .card).track(bounds: { self.game.table[.waste] = $0 })
                     
                     Spacer()
-                    ForEach(Suite.allCases) { suite in // Foundation
+                    ForEach(Suite.allCases) { suite in
                         PlacementView(for: .foundation(suite))
-                            .environmentObject(self.game)
+                            .track(bounds: { self.game.table[.foundation(suite)] = $0 })
                     }
                 }
                 
                 HStack {
                     Spacer()
-                    HStack(alignment: .top, spacing: 24) { // Tableau
+                    HStack(alignment: .top, spacing: 24) {
                         ForEach(Column.allCases) { column in
-                            PlacementView(for: .tableau(column))
-                                .environmentObject(self.game)
+                            PlacementView(for: .tableau(column)).track(bounds: { self.game.table[.tableau(column)] = $0 })
                         }
                     }
                 }
                 Spacer()
             }
             .padding(32)
-            .fullscreen()
+            .size(for: .full)
         }
-        .fullscreen()
+        .size(for: .full)
         .background(Globals.TABLE.COLOR)
         .coordinateSpace(name: Globals.TABLE.NAME)
-        .track(bounds: { data in
-            self.game.table.bounds = data
+        .track(bounds: {
+            self.game.table.bounds = $0
+            self.game.state = .ready
         })
     }
 }

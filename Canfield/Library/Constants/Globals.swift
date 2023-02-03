@@ -11,8 +11,8 @@ import SwiftUI
 struct Globals {
     
     typealias GlobalTable = (NAME: String, COLOR: Color)
-    typealias GlobalCard = (WIDTH: CGFloat, HEIGHT: CGFloat)
+    typealias GlobalCard = (X: CGFloat, Y: CGFloat, WIDTH: CGFloat, HEIGHT: CGFloat, BOUNDS: CGRect)
     
     public static let TABLE: GlobalTable = GlobalTable(NAME: "table", COLOR: Color("table"))
-    public static let CARD: GlobalCard = GlobalCard(WIDTH: 130, HEIGHT: 182)
+    public static let CARD: GlobalCard = GlobalCard(X: .zero, Y: .zero,WIDTH: 130, HEIGHT: 182, BOUNDS: CGRect(x: CARD.WIDTH * -1, y: CARD.HEIGHT * -1, width: CARD.WIDTH, height: CARD.HEIGHT))
 }

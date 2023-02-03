@@ -18,7 +18,15 @@ enum Column: Int, CaseIterable, Codable, Identifiable {
     case seven = 7
     
     var id: Int {
-        return rawValue
+        return self.rawValue
+    }
+    
+    var value: Int {
+        return self.rawValue
+    }
+    
+    var count: Int {
+        return self.value - 1
     }
     
 }

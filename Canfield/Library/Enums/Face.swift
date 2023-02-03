@@ -17,4 +17,11 @@ enum Face {
         case .down: return "down"
         }
     }
+    
+    public func toggle() -> Face {
+        switch self {
+        case .up: return .down
+        case .down: return .up
+        }
+    }
 }
