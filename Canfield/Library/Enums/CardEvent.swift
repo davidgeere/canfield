@@ -11,4 +11,5 @@ enum CardEvent {
     case tap
     case drag
     case drop
+    case reset
 }

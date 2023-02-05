@@ -36,23 +36,10 @@ struct CardView: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                     }
-                    .overlay(alignment: .bottom) {
-                            VStack {
-                                
-                                Text("O: \(card.order)")
-                                
-                                if card.parent != nil {
-                                    Text("P: \(card.parent!.suite.symbol) \(card.parent!.rank.symbol)")
-                                }
-                                
-                                if card.child != nil {
-                                    Text("C: \(card.child!.suite.symbol) \(card.child!.rank.symbol)")
-                                }
-                            }
-                            .foregroundColor(.black)
-                            .font(.footnote)
-                            .rotation3DEffect(.degrees(180), axis: self.axis)
-                    }
+//                    .overlay {
+//                        CardDebugView(self.$card)
+//                            .rotation3DEffect(.degrees(180), axis: self.axis)
+//                    }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .clipShape(RoundedRectangle(cornerRadius: 4))
@@ -61,12 +48,14 @@ struct CardView: View {
             .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .opacity(card.placement == .none ? 0 : 1)
-            .shadow(radius: card.moving ? 8 : 0)
+            .shadow(radius: card.moving ? 8 : 2)
             .rotation3DEffect(card.face == .up ? .degrees(180): .zero, axis: self.axis)
             .animation(.default, value: card.face)
+            .border(card.match ? .red : .clear , width: card.match ? 2.0 : 0.0)
         }
-        .position(card.bounds.origin)
-        .zIndex(card.moving ? 1000 : Double(card.order) )
+        .offset(x: card.offset.width, y: card.offset.height)
+        .position(x: card.bounds.midX, y: card.bounds.midY)
+        .zIndex( card.zindex )
     }
 }
 

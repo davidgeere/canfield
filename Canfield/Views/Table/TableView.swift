@@ -15,7 +15,11 @@ struct TableView: View {
         VStack(spacing: 0) {
             VStack(spacing: 32) {
                 HStack(alignment: .top, spacing: 24) {
-                    PlacementView(for: .stock).track(bounds: { self.game.table[.stock] = $0 })
+                    PlacementView(for: .stock)
+                        .track(bounds: { self.game.table[.stock] = $0 })
+                        .onTapGesture {
+                            self.game.restock()
+                        }
                     
                     Color.clear.size(for: .card).track(bounds: { self.game.table[.waste] = $0 })
                     

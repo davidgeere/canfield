@@ -39,4 +39,15 @@ class Table {
             return self.placements[placement] = newValue
         }
     }
+    
+    public func placement(area: CGRect) -> Placement? {
+        for placement in Placement.allCases {
+            
+            guard area.within(area: self[placement]) else { continue }
+            
+            return placement
+        }
+        
+        return nil
+    }
 }

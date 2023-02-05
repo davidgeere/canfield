@@ -29,4 +29,12 @@ enum Column: Int, CaseIterable, Codable, Identifiable {
         return self.value - 1
     }
     
+    var order: Int {
+        return self.rawValue * 100
+    }
+    
+    var name: String {
+        return self.value.words()
+    }
+    
 }

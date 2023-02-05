@@ -21,24 +21,32 @@ struct GameView: View {
                 ZStack {
                     ForEach(self.$game.cards) { card in
                         CardView(card)
-                            .playable(card) { data in
-                                
-                                switch data.card.placement {
-                                case .stock:
-                                    self.game.waste(data)
-                                default:
-                                    self.game.place(data)
-                                }
-                            } onDrag: { data in
-                                self.game.moving(data)
-                                
-                            } onDrop: { data in
-                                
-                                self.game.drop(data)
-                            }
+                            .playable(
+                                card,
+                                onTap: {
+                                    switch $0.card.placement {
+                                    case .stock: self.game.waste($0)
+                                    case .waste: self.game.place($0)
+                                    case .foundation: return
+                                    case .tableau: self.game.place($0)
+                                    default: return
+                                    }
+                                },
+                                onDrag: {
+                                    self.game.drag($0)
+                                },
+                                onDrop: {
+                                    self.game.drop($0)
+                                },
+                                onReset: {
+                                    self.game.regroup($0)
+                                })
                     }
                 }
                 .size(for: .full)
+                
+//                LayoutDebugView()
+//                    .environmentObject(self.game)
             }
             .size(for: .full)
         }

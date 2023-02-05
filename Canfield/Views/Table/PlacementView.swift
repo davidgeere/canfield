@@ -18,15 +18,20 @@ struct PlacementView: View {
     var body: some View {
         VStack {
             switch self.placement {
-            case .stock, .waste, .none, .ready:
+            case .waste, .none, .ready:
                 EmptyView()
-            case .tableau:
-                Circle()
-                    .background(RoundedRectangle(cornerRadius: .infinity).stroke(.white.opacity(0.4), lineWidth: 2))
+            case .stock:
+                Image("icons/large/refresh")
+                    .resizable()
                     .frame(width: 59, height: 59)
-                    .foregroundColor(.clear)
+                    .foregroundColor(.white.opacity(0.4))
+            case .tableau:
+                Image("icons/large/open")
+                    .resizable()
+                    .frame(width: 59, height: 59)
+                    .foregroundColor(.white.opacity(0.4))
             case .foundation(let suite):
-                Image("suites/\(suite.name)")
+                Image("icons/large/\(suite.name)")
                     .resizable()
                     .frame(width: 59, height: 59)
                     .foregroundColor(.white.opacity(0.4))

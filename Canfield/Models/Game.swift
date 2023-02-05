@@ -31,115 +31,8 @@ class Game: ObservableObject {
         self.cards = Deck.draw
     }
     
-    public func refresh() {
-        self.objectWillChange.send()
-    }
+    //MARK: Private Methods
     
-    public func restart() {
-        
-        for card in self.cards {
-            card.available = false
-            card.moving = true
-            card.face = .up
-            card.placement = .ready
-            card.bounds = self.position(card)
-            card.parent = nil
-            card.child = nil
-            
-            self.refresh()
-        }
-        
-        self.cards.shuffle()
-        
-        var order = 1
-        
-        for card in self.cards {
-            card.face = .down
-            card.placement = .ready
-            card.moving = false
-            card.order = order
-            
-            order += 1
-        }
-        
-        self.state = .setup
-        
-        self.refresh()
-        
-        self.deal()
-        
-    }
-    
-    public func setup() {
-        guard self.state == .ready else { return }
-        
-        for card in self.cards {
-            card.available = false
-            card.face = .down
-            card.placement = .none
-            card.bounds = self.position(card)
-        }
-        
-        self.refresh()
-
-        for card in self.cards {
-            card.placement = .ready
-        }
-        
-        self.state = .setup
-        
-        self.refresh()
-    }
-    
-    public func deal() {
-        
-        guard self.state == .setup else { return }
-        
-        for column in Column.allCases {
-            for i in 0...column.count {
-                guard let card = self.cards.first(where: { return $0.placement == .ready }) else { break }
-
-                if column.count == i {
-                    card.available = true
-                    card.face = .up
-                }
-                card.order = i + 1
-                card.placement = .tableau(column)
-                card.bounds = self.position(card, extra: CGPoint(x: 0, y: i * 20))
-                
-                self.refresh()
-            }
-        }
-        
-        var order = 1
-        
-        while let card = self.cards.first(where: { return $0.placement == .ready }) {
-            card.placement = .stock
-            card.bounds = self.position(card)
-            card.order = order
-            
-            order += 1
-            
-            self.refresh()
-        }
-        
-        self.state = .dealt
-    }
-    
-    public func moving(_ data: CardEventData) {
-        
-        guard !data.card.moving else { return }
-        
-        data.card.moving = true
-        
-        if let child = data.card.child {
-            child.moving = true
-        }
-        
-        self.refresh()
-    }
-    
-
     private func drop_on_card(_ card: Card, placement:Placement, available: Card? = nil) -> Bool {
         
         guard self.valid_drop_on_card(card, placement: placement, available: available) else { return false }
@@ -179,7 +72,7 @@ class Game: ObservableObject {
         
         if let available = available {
             
-            pique = available.placement.is_foundation ? 0.0 : 40.0
+            pique = available.placement.is_foundation ? 0.0 : Globals.CARD.OFFSET.UP
             
             bounds = available.bounds
             
@@ -191,6 +84,7 @@ class Game: ObservableObject {
             card.placement = available.placement
             card.order = available.order + 1
             card.parent = available
+            card.offset = .zero
             
             available.refresh()
             
@@ -203,6 +97,7 @@ class Game: ObservableObject {
             card.placement = placement
             card.order = 1
             card.parent = nil
+            card.offset = .zero
             
         }
         
@@ -274,14 +169,25 @@ class Game: ObservableObject {
         return true
     }
     
-    private func drop_in_bounds(location: CGPoint, area: CGRect) -> Bool {
+    private func is_colliding(_ dragging: CGRect, target: CGRect) -> Bool {
+        return dragging.within(area: target)
+    }
+    
+    private func colliding( _ data: CardEventData) -> Card? {
         
-        let in_width = abs(area.origin.x - location.x) < area.width
-        let in_height = abs(area.origin.y - location.y) < area.height
+        let card = data.card
+        let location = data.location
         
-        guard in_height && in_width else { return false }
-        
-        return true
+        return self.cards.first( where: {
+            return (
+                $0.available &&
+                $0.id != card.id && (
+                    $0.placement != .waste ||
+                    $0.placement != .stock
+                ) &&
+                self.is_colliding(location, target: $0.bounds)
+            )
+        })
     }
     
     private func drop_on_cards(_ data: CardEventData) -> Bool {
@@ -292,12 +198,11 @@ class Game: ObservableObject {
         
         for available in self.cards.filter({ return $0.available && $0.id != card.id && ($0.placement != .waste || $0.placement != .stock) }) {
             
-            
             if event == .drop {
                 
                 let bounds = available.bounds
                 
-                guard drop_in_bounds(location: location, area: bounds) else { continue }
+                guard is_colliding(location, target: bounds) else { continue }
                 
             }
             
@@ -326,7 +231,7 @@ class Game: ObservableObject {
                 
                 let bounds = self.table[placement]
                 
-                guard drop_in_bounds(location: location, area: bounds) else { continue }
+                guard self.is_colliding(location, target: bounds) else { continue }
             }
             
             if let available = self.cards.first( where: { return $0.placement == placement && $0.available } ) {
@@ -360,7 +265,7 @@ class Game: ObservableObject {
                 
                 let bounds = self.table[placement]
                 
-                guard drop_in_bounds(location: location, area: bounds) else { continue }
+                guard self.is_colliding(location, target: bounds) else { continue }
             }
             
             if let available = self.cards.first( where: { return $0.placement == placement && $0.available } ) {
@@ -380,38 +285,161 @@ class Game: ObservableObject {
         
     }
     
-    public func waste(_ card: Card) {
+    //MARK: Public Methods
+    
+    public func refresh() {
+        self.objectWillChange.send()
+    }
+    
+    public func restart() {
         
-        let wasted = self.cards.filter( { return $0.placement == .waste } ).count
-        
-        if wasted > 0 {
+        for card in self.cards {
+            card.available = false
+            card.moving = true
+            card.face = .up
+            card.placement = .ready
+            card.bounds = self.position(card)
+            card.parent = nil
+            card.child = nil
+            card.offset = .zero
             
-            for stocked in self.cards.filter( { return $0.placement == .stock } ) {
+            self.refresh()
+        }
+        
+        self.cards.shuffle()
+        
+        var order = 1
+        
+        for card in self.cards {
+            card.face = .down
+            card.placement = .ready
+            card.moving = false
+            card.order = order
+            card.offset = .zero
+            
+            order += 1
+        }
+        
+        self.state = .setup
+        
+        self.refresh()
+        
+        self.deal()
+        
+    }
+    
+    public func setup() {
+        guard self.state == .ready else { return }
+        
+        for card in self.cards {
+            card.available = false
+            card.face = .down
+            card.placement = .none
+            card.bounds = self.position(card)
+            card.offset = .zero
+        }
+        
+        self.refresh()
+
+        for card in self.cards {
+            card.placement = .ready
+        }
+        
+        self.state = .setup
+        
+        self.refresh()
+    }
+    
+    public func deal() {
+        
+        guard self.state == .setup else { return }
+        
+        for column in Column.allCases {
+            for i in 0...column.count {
+                guard let card = self.cards.first(where: { return $0.placement == .ready }) else { break }
+
+                if column.count == i {
+                    card.available = true
+                    card.face = .up
+                }
+                card.order = i + 1
+                card.placement = .tableau(column)
+                card.bounds = self.position(card, extra: CGPoint(x: 0, y: CGFloat(i) * Globals.CARD.OFFSET.DOWN ))
+                card.offset = .zero
                 
-                stocked.order = stocked.order + wasted
-                
-                stocked.refresh()
+                self.refresh()
             }
-            
         }
         
         var order = 1
         
-        for wasted in self.cards.filter( { return $0.placement == .waste } ) {
+        while let card = self.cards.first(where: { return $0.placement == .ready }) {
+            card.placement = .stock
+            card.bounds = self.position(card)
+            card.order = order
+            card.offset = .zero
+            
+            order += 1
+            
+            self.refresh()
+        }
+        
+        self.state = .dealt
+    }
+    
+    public func regroup(_ data: CardEventData) {
+        
+        guard data.event == .reset else { return }
+        
+        data.card.offset = data.offset
+        data.card.location = data.location
+        data.card.moving = false
+        
+        self.refresh()
+    }
+    
+    public func drag(_ data: CardEventData) {
+        
+        guard data.event == .drag else { return }
+        
+        data.card.offset = data.offset
+        data.card.location = data.location
+        data.card.moving = true
+
+        self.refresh()
+    }
+    
+    public func restock() {
+        
+        var order = 1
+        
+        for card in self.cards.filter( { return $0.placement == .waste } ).reversed() {
         
             let bounds = self.table[.stock]
             
-            wasted.placement = .stock
-            wasted.bounds = CGRect(x: bounds.midX, y: bounds.midY, width: card.bounds.width, height: card.bounds.height)
-            wasted.moving = false
-            wasted.order = order
-            wasted.face = .down
+            card.placement = .stock
+            card.bounds = CGRect(x: bounds.midX, y: bounds.midY, width: card.bounds.width, height: card.bounds.height)
+            card.available = false
+            card.order = order
+            card.face = .down
+            card.moving = false
+            card.parent = nil
+            card.child = nil
+            card.offset = .zero
             
-            wasted.refresh()
+            card.refresh()
             
             order += 1
 
         }
+        
+        self.refresh()
+        
+    }
+    
+    public func waste(_ card: Card) {
+        
+        let wasted = self.cards.filter( { return $0.placement == .waste } ).count
         
         let bounds = self.table[.waste]
         
@@ -419,9 +447,10 @@ class Game: ObservableObject {
         
         card.placement = .waste
         card.face = .up
-        card.order = 1
+        card.order = wasted + 1
         card.parent = nil
         card.child = nil
+        card.offset = .zero
         
         card.moving = false
         
@@ -441,6 +470,10 @@ class Game: ObservableObject {
         
         guard data.event == .tap else { return }
         
+        data.card.moving = false
+        
+        self.refresh()
+        
         guard !drop_on_cards(data) else { return }
         
         guard !drop_on_tableau(data) else { return }
@@ -453,12 +486,17 @@ class Game: ObservableObject {
         
         guard data.event == .drop else { return }
         
-        guard !drop_on_cards(data) else { return }
+        data.card.offset = data.offset
+        data.card.moving = false
         
-        guard !drop_on_tableau(data) else { return }
-        
-        guard !drop_on_foundation(data) else { return }
-
+        guard !drop_on_cards(data),
+              !drop_on_tableau(data),
+              !drop_on_foundation(data) else {
+            
+            self.refresh()
+            
+            return
+        }
     }
     
     public func position(_ card:Card, extra:CGPoint = .zero) -> CGRect {
@@ -471,8 +509,8 @@ class Game: ObservableObject {
             
         } else {
             
-            let x = self.table[card.placement].origin.x + (self.table[card.placement].width / 2) + extra.x
-            let y = self.table[card.placement].origin.y + (self.table[card.placement].height / 2) + extra.y
+            let x = self.table[card.placement].minX + extra.x
+            let y = self.table[card.placement].minY + extra.y
             
             return CGRect(x: x, y: y, width: Globals.CARD.WIDTH, height: Globals.CARD.HEIGHT)
         }

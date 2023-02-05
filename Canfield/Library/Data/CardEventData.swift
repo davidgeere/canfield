@@ -10,5 +10,6 @@ import Foundation
 struct CardEventData {
     var event: CardEvent
     var card: Card
-    var location: CGPoint
+    var location: CGRect
+    var offset: CGSize
 }

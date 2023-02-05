@@ -9,6 +9,15 @@ import Foundation
 import SwiftUI
 
 extension View {
+    
+    @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
+        }
+    }
+    
     func track(bounds: @escaping (CGRect) -> Void) -> some View {
         modifier(TrackBoundsModifier(receive: bounds))
     }
@@ -17,7 +26,7 @@ extension View {
         modifier(ViewSizeModifier(size: size))
     }
     
-    func playable(_ card: Binding<Card>, onTap: ((CardEventData) -> Void)? = nil, onDrag: ((CardEventData) -> Void)? = nil, onDrop: ((CardEventData) -> Void)? = nil) -> some View {
-        modifier(PlayableCardModifier(card, onTap: onTap, onDrag: onDrag, onDrop: onDrop))
+    func playable(_ card: Binding<Card>, onTap: ((CardEventData) -> Void)? = nil, onDrag: ((CardEventData) -> Void)? = nil, onDrop: ((CardEventData) -> Void)? = nil, onReset: ((CardEventData) -> Void)? = nil) -> some View {
+        modifier(PlayableCardModifier(card, onTap: onTap, onDrag: onDrag, onDrop: onDrop, onReset: onReset))
     }
 }

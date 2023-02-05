@@ -39,6 +39,10 @@ enum Suite: Int, CaseIterable, Identifiable, Codable {
         case .spades: return "♠"
         }
     }
+
+    var order: Int {
+        return self.rawValue * 100
+    }
     
     var pair: Pair {
         switch self {

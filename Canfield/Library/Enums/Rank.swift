@@ -38,7 +38,7 @@ enum Rank: Int, CaseIterable, Identifiable, Codable {
     var previous: Rank? {
         return Rank(rawValue: self.rawValue - 1)
     }
-    
+
     var symbol: String {
         switch self {
         case .ace: return "A"
