@@ -16,13 +16,27 @@ enum Placement: Equatable, Hashable, CaseIterable, Identifiable {
     case foundation( _ suite: Suite )
     case tableau( _ column: Column )
     
+    static var allTableaus: [Placement] {
+        return [.tableau(.one), .tableau(.two), .tableau(.three), .tableau(.four), .tableau(.five), .tableau(.six), .tableau(.seven)]
+    }
+    
+    static var allFoundations: [Placement] {
+        return [.foundation(.hearts), .foundation(.spades), .foundation(.diamonds), .foundation(.clubs)]
+    }
+    
+    static var allPlayable: [Placement] {
+        return allFoundations + allTableaus
+    }
+    
     static var allCases: [Placement] {
-        
-        let tableau:[Placement] = [.tableau(.one), .tableau(.two), .tableau(.three), .tableau(.four), .tableau(.five), .tableau(.six), .tableau(.seven)]
-        let foundation:[Placement] = [.foundation(.hearts), .foundation(.spades), .foundation(.diamonds), .foundation(.clubs)]
-        let other: [Placement] = [.stock, .waste]
-        
-        return other + tableau + foundation
+        return [.stock, .waste] + allPlayable
+    }
+    
+    var playable: Bool {
+        switch self {
+        case .foundation, .tableau : return true
+        default: return false
+        }
     }
     
     var suite: Suite? {

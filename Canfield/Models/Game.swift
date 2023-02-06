@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 class Game: ObservableObject {
-    
+
     public static let preview:Game = Game()
     
     @Published public var dragger: CGRect = .zero
@@ -35,9 +35,53 @@ class Game: ObservableObject {
     
     //MARK: Private Methods
     
-    private func drop_on_card(_ card: Card, placement:Placement, available: Card? = nil) -> Bool {
+    private func place(_ card: Card) {
         
-        guard self.valid_drop_on_card(card, placement: placement, available: available) else { return false }
+        switch card.rank {
+        case .ace:
+            self.place(card, on: .foundation( card.suite ))
+        case .king:
+            if let target = self.target(card, for: .foundation(card.suite)) {
+                self.place(card, on: target)
+            } else {
+                for column in Column.allCases {
+                    guard self.empty(tableau: column) else { continue }
+                    
+                    self.place(card, on: .tableau( column ))
+                    
+                    return
+                }
+            }
+        default:
+            if let target = self.target(card, for: .foundation(card.suite)) {
+                self.place(card, on: target)
+            } else {
+                for column in Column.allCases {
+                    guard let target = self.target(card, for: .tableau(column)) else { continue }
+                    
+                    self.place(card, on: target)
+                    
+                    return
+                }
+            }
+        }
+    }
+    
+    private func place(_ card: Card, on placement:Placement) {
+        self.place(card, placement: placement)
+    }
+    
+    private func place(_ card: Card, on target: Card) {
+        self.place(card, placement: target.placement, target: target)
+    }
+    
+    private func place(_ card: Card, placement: Placement, target: Card? = nil) {
+        
+        if let target = target {
+            guard card.valid(for: target) else { return }
+        } else {
+            guard card.valid(for: placement) else { return }
+        }
         
         if card.placement == .waste {
             self.redeal_stock()
@@ -47,15 +91,13 @@ class Game: ObservableObject {
         
         self.detach_from_previous_parent(card: card)
         
-        if let available = available {
-            self.place_card_on_card(child: card, parent: available)
+        if let target = target {
+            self.place_card_on_card(child: card, parent: target)
         } else {
             self.place_card_on_depot(card: card, placement: placement)
         }
         
         self.refresh()
-        
-        return true
     }
     
     private func redeal_stock() {
@@ -88,6 +130,7 @@ class Game: ObservableObject {
         parent.refresh()
         
         card.parent = nil
+        
     }
     
     private func place_card_on_depot(card: Card, placement: Placement) {
@@ -121,46 +164,6 @@ class Game: ObservableObject {
         
     }
     
-    private func valid_tableau_drop(_ card: Card, placement: Placement, available: Card? = nil) -> Bool {
-        
-        if let available = available {
-            
-            guard available.suite.pair != card.suite.pair  else { return false }
-            
-            guard available.rank.previous != nil else { return false }
-            
-            guard available.rank.previous == card.rank else { return false }
-            
-        } else {
-            
-            guard card.rank == .king else { return false }
-            
-        }
-        
-        return true
-    }
-    
-    private func valid_foundation_drop(_ card: Card, placement: Placement, available: Card? = nil) -> Bool {
-        
-        if let available = available {
-            
-            guard available.suite.pair == card.suite.pair  else { return false }
-            
-            guard available.rank.next != nil else { return false }
-            
-            guard available.rank.next == card.rank else { return false }
-            
-        } else {
-            
-            guard card.rank == .ace else { return false }
-            
-            guard card.suite == placement.suite else { return false }
-            
-        }
-        
-        return true
-    }
-    
     private func order_cards() {
         
         self.cards.sort { left, right in
@@ -175,141 +178,19 @@ class Game: ObservableObject {
             self.table[placement] = stacked_placement_bounds(placement: placement)
         }
         
-//        print("sorted start", String(repeating: "-", count: 20))
-//        self.cards.forEach( {
-//            print("card:", $0.symbol, "face:", $0.face, "avail:", $0.available, "order:", $0.order, "place:", $0.placement)
-//        })
-//        print("sorted end", String(repeating: "-", count: 20))
     }
     
-    private func valid_drop_on_card(_ card: Card, placement: Placement, available: Card? = nil) -> Bool {
-        switch placement {
-        case .tableau:
-            return self.valid_tableau_drop(card, placement: placement, available: available)
-        case .foundation:
-            return self.valid_foundation_drop(card, placement: placement, available: available)
-        default:
-            return false
+    private func drop(_ data: CardEventData, on placement: Placement) {
+        
+        if let target = self.cards.last( where: { return $0.placement == placement && $0.available } ) {
+            
+            self.place(data.card, on: target)
+            
+        } else {
+            
+            self.place(data.card, on: placement)
+            
         }
-    }
-    
-    private func is_colliding(_ dragging: CGRect, target: CGRect) -> Bool {
-        
-        return dragging.within(area: target)
-        
-    }
-    
-    private func collision(_ dragging: CGRect, target: CGRect) -> Double {
-        
-        return dragging.overlap(area: target)
-        
-    }
-    
-    private func colliding( _ data: CardEventData) -> Card? {
-        
-        let card = data.card
-        let location = data.location
-        
-        return self.cards.first( where: {
-            return (
-                $0.available &&
-                $0.id != card.id && (
-                    $0.placement != .waste ||
-                    $0.placement != .stock
-                ) &&
-                self.is_colliding(location, target: $0.bounds)
-            )
-        })
-    }
-    
-    private func drop_on_cards(_ data: CardEventData) -> Bool {
-        
-        guard data.event == .drop else { return false }
-        
-        guard let available = self.colliding(data) else { return false }
-        
-        return self.drop_on_card(data.card, placement: available.placement, available: available)
-        
-    }
-    
-    private func drop_on_tableau(_ data: CardEventData) -> Bool {
-        
-        guard data.event == .drop else { return false }
-        
-        let card = data.card
-        let location = data.location
-        
-        for column in Column.allCases {
-            
-            let placement:Placement = .tableau(column)
-            
-            guard data.card.placement != placement else { continue }
-            
-            guard self.is_colliding(location, target: self.table[placement]) else { continue }
-            
-            if let available = self.cards.first( where: { return $0.placement == placement && $0.available } ) {
-                
-                guard self.drop_on_card(card, placement: placement, available: available) else { continue }
-                
-                return true
-                
-            }
-            
-            guard self.drop_on_card(card, placement: placement) else { continue }
-            
-            return true
-        }
-        
-        return false
-        
-    }
-    
-    private func drop_on_foundation(_ data: CardEventData) -> Bool {
-        
-        guard data.event == .drop else { return false }
-        
-        let card = data.card
-        let location = data.location
-        
-        for suite in Suite.allCases {
-            
-            let placement:Placement = .foundation(suite)
-            
-            guard self.is_colliding(location, target: self.table[placement]) else { continue }
-
-            if let available = self.cards.first( where: { return $0.placement == placement && $0.available } ) {
-                
-                guard self.drop_on_card(card, placement: placement, available: available) else { continue }
-                
-                return true
-                
-            }
-            
-            guard self.drop_on_card(card, placement: placement) else { continue }
-            
-            return true
-        }
-        
-        return false
-        
-    }
-    
-    private func drop_on_placement(_ data: CardEventData, placement: Placement) -> Bool {
-        
-        guard data.event == .drop else { return false }
-        
-        let card = data.card
-        let location = data.location
-        
-        let availables = self.cards.filter({ return $0.placement == placement } )
-        
-        for av in availables {
-            print("card:", av.symbol, "face:", av.face, "avail:", av.available, "order:", av.order, "place:", av.placement)
-        }
-        
-        let available = self.cards.last( where: { return $0.placement == placement && $0.available } )
-        
-        return self.drop_on_card(card, placement: placement, available: available)
     }
     
     //MARK: Public Methods
@@ -436,14 +317,6 @@ class Game: ObservableObject {
         data.card.location = data.location
         data.card.moving = true
         
-        if let placement = self.placement(depot: data.location) {
-            
-            data.card.match = true
-//            self.drop_on_placement(data, placement: placement)
-        } else {
-            self.cards.forEach { $0.match = false }
-        }
-        
         self.refresh()
     }
     
@@ -451,7 +324,7 @@ class Game: ObservableObject {
         
         var order = 1
         
-        for card in self.cards.filter( { return $0.placement == .waste } ).reversed() {
+        for card in self.cards.filter( { return $0.placement == .waste } ) {
             
             card.placement = .stock
             card.bounds = self.position(card, in: .stock)
@@ -505,14 +378,9 @@ class Game: ObservableObject {
         
         data.card.moving = false
         
+        self.place(data.card)
+        
         self.refresh()
-        
-        guard !drop_on_cards(data) else { return }
-        
-        guard !drop_on_tableau(data) else { return }
-        
-        guard !drop_on_foundation(data) else { return }
-        
     }
     
     public func drop(_ data: CardEventData) {
@@ -523,7 +391,7 @@ class Game: ObservableObject {
         data.card.moving = false
         
         if let placement = self.placement(depot: data.location) {
-            self.drop_on_placement(data, placement: placement)
+            self.drop(data, on: placement)
         }
         
         self.refresh()
@@ -536,9 +404,7 @@ class Game: ObservableObject {
         
         for placement in Placement.allCases {
                         
-            let collision = self.collision(depot, target: self.table[placement])
-            
-            print("placement:", placement, "collision:", collision)
+            let collision = depot.overlap(area: self.table[placement])
             
             guard collision.rounded() > overlapped else { continue }
             
@@ -546,14 +412,7 @@ class Game: ObservableObject {
             captured = placement
         }
         
-        if let placement = captured {
-            
-            print("placement:", placement, "collision:", overlapped)
-            
-            return placement
-        }
-
-        return nil
+        return captured
     }
     
     private func stacked_placement_bounds(placement: Placement) -> CGRect {
@@ -584,6 +443,18 @@ class Game: ObservableObject {
             return self.table[placement]
         }
         
+    }
+    
+    private func target(_ card: Card, for placement: Placement) -> Card? {
+        return self.cards.last( where: { $0.placement == placement && $0.available && card.valid(for: $0) } )
+    }
+    
+    private func empty(foundation suite: Suite) -> Bool {
+        return self.empty(for: .foundation(suite))
+    }
+    
+    private func empty(tableau column: Column) -> Bool {
+        return self.empty(for: .tableau(column))
     }
     
     private func empty(for placement: Placement, with face: Face? = nil) -> Bool {

@@ -8,7 +8,7 @@
 import Foundation
 
 class Card: Identifiable, Equatable, ObservableObject {
-
+    
     var id:Int {
         return ((suite.value - 1) * Rank.count) + rank.value
     }
@@ -47,7 +47,7 @@ class Card: Identifiable, Equatable, ObservableObject {
                 child.order = self.order + 1
             }
             
-            self.refresh() 
+            self.refresh()
         }
     }
     
@@ -134,22 +134,66 @@ class Card: Identifiable, Equatable, ObservableObject {
         objectWillChange.send()
     }
     
+    public func valid(for placement: Placement) -> Bool {
+        switch placement {
+        case .tableau:
+            
+            guard self.rank == .king else { return false }
+            
+            return true
+            
+        case .foundation:
+            
+            guard self.rank == .ace,
+                  self.suite == placement.suite else { return false }
+            
+            return true
+            
+        default:
+            
+            return false
+        }
+    }
+    
+    public func valid(for target: Card) -> Bool {
+        switch target.placement {
+        case .tableau:
+            
+            guard target.suite.pair != self.suite.pair,
+                  target.rank.previous != nil,
+                  target.rank.previous == self.rank else { return false }
+            
+            return true
+            
+        case .foundation:
+            
+            guard target.suite.pair == self.suite.pair,
+                  target.rank.next != nil,
+                  target.rank.next == self.rank else { return false }
+            
+            return true
+            
+        default:
+            return false
+        }
+    }
+    
 #if DEBUG
-public func debug(_ method:String = .empty) {
-    
-    var parent_name = "none"
-    var child_name = "none"
-    
-    if let child = self.child {
-        child_name = child.symbol
+    public func debug(_ method:String = .empty) {
+        
+        var parent_name = "none"
+        var child_name = "none"
+        
+        if let child = self.child {
+            child_name = child.symbol
+        }
+        
+        if let parent = self.parent {
+            parent_name = parent.symbol
+        }
+        
+        print(method, "card:", self.symbol, " | ", self.placement.name, " | ", self.available, " | ", self.face, " | ", parent_name, " | ", child_name, " | ", self.bounds.origin, " | ", self.offset)
     }
-    
-    if let parent = self.parent {
-        parent_name = parent.symbol
-    }
-    
-    print(method, "card:", self.symbol, " | ", self.placement.name, " | ", self.available, " | ", self.face, " | ", parent_name, " | ", child_name, " | ", self.bounds.origin, " | ", self.offset)
-}
 #endif
     
 }
