@@ -11,10 +11,7 @@ class Table {
     
     private var placements: [Placement : CGRect]
     
-    public var bounds: CGRect
-    
     init() {
-        self.bounds = .zero
         self.placements = [:]
         
         self.placements[.stock] = CGRect.zero

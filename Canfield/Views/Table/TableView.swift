@@ -47,7 +47,10 @@ struct TableView: View {
         .background(Globals.TABLE.COLOR)
         .coordinateSpace(name: Globals.TABLE.NAME)
         .track(bounds: {
-            self.game.table.bounds = $0
+            
+            self.game.table[.none] = $0
+            self.game.table[.ready] = $0
+            
             self.game.state = .ready
         })
     }

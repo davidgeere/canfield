@@ -20,21 +20,33 @@ class Card: Identifiable, Equatable, ObservableObject {
     var symbol: String {
         return self.suite.symbol + self.rank.symbol
     }
+    
     let suite: Suite
     let rank: Rank
-    var placement: Placement
+    var placement: Placement {
+        didSet {
+            
+            if let child = self.child {
+                child.placement = self.placement
+            }
+            
+            self.refresh()
+        }
+    }
     var face: Face
-    var available: Bool
+    var available: Bool {
+        didSet {
+            self.refresh()
+        }
+    }
     
     var order: Int {
-        willSet {
-            if let parent = self.parent {
-                self.order = parent.order + newValue
-            } else {
-                self.order = self.placement.order + newValue
+        didSet {
+            
+            if let child = self.child {
+                child.order = self.order + 1
             }
-        }
-        didSet { 
+            
             self.refresh() 
         }
     }
@@ -93,9 +105,6 @@ class Card: Identifiable, Equatable, ObservableObject {
         return Double(self.order)
     }
     
-    var parent: Card?
-    var child: Card?
-    
     var match: Bool {
         didSet {
             if let child = self.child {
@@ -103,6 +112,9 @@ class Card: Identifiable, Equatable, ObservableObject {
             }
         }
     }
+    
+    var parent: Card?
+    var child: Card?
     
     init(suite: Suite, rank: Rank, placement:Placement = .none, face: Face = .down, available: Bool = false, moving: Bool = false, order: Int = 0, bounds: CGRect = Globals.CARD.BOUNDS, offset: CGSize = .zero, location: CGRect = .zero) {
         self.suite = suite

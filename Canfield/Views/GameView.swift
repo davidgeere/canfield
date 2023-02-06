@@ -34,12 +34,14 @@ struct GameView: View {
                                 },
                                 onDrag: {
                                     self.game.drag($0)
+                                    self.game.dragger = $0.location
                                 },
                                 onDrop: {
                                     self.game.drop($0)
                                 },
                                 onReset: {
                                     self.game.regroup($0)
+                                    self.game.dragger = $0.location
                                 })
                     }
                 }
@@ -47,6 +49,16 @@ struct GameView: View {
                 
 //                LayoutDebugView()
 //                    .environmentObject(self.game)
+                
+//                VStack( alignment: .leading) {
+//                    DebugRowView("X", values: [self.game.dragger.minX.round(precision: 0), self.game.dragger.midX.round(precision: 0), self.game.dragger.maxX.round(precision: 0)] )
+//                    DebugRowView("Y", values: [self.game.dragger.minY.round(precision: 0), self.game.dragger.midY.round(precision: 0), self.game.dragger.maxY.round(precision: 0)] )
+//                    Spacer()
+//                }
+//                .frame(width: self.game.dragger.width, height: self.game.dragger.height)
+//                .background(.clear)
+//                .border(.red, width: 2)
+//                .position(x: self.game.dragger.midX, y: self.game.dragger.midY)
             }
             .size(for: .full)
         }

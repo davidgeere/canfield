@@ -50,19 +50,19 @@ enum Placement: Equatable, Hashable, CaseIterable, Identifiable {
         }
     }
     
-    var is_foundation: Bool {
-        switch self {
-        case .foundation(.clubs), .foundation(.hearts), .foundation(.spades), .foundation(.diamonds): return true
-        default: return false
-        }
-    }
-    
-    var is_tableau: Bool {
-        switch self {
-        case .tableau(.one), .tableau(.two), .tableau(.three), .tableau(.four), .tableau(.five), .tableau(.six), .tableau(.seven): return true
-        default: return false
-        }
-    }
+//    var is_foundation: Bool {
+//        switch self {
+//        case .foundation(.clubs), .foundation(.hearts), .foundation(.spades), .foundation(.diamonds): return true
+//        default: return false
+//        }
+//    }
+//    
+//    var is_tableau: Bool {
+//        switch self {
+//        case .tableau(.one), .tableau(.two), .tableau(.three), .tableau(.four), .tableau(.five), .tableau(.six), .tableau(.seven): return true
+//        default: return false
+//        }
+//    }
     
     var id: String {
         return self.name
