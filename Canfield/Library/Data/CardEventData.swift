@@ -12,4 +12,5 @@ struct CardEventData {
     var card: Card
     var location: CGRect
     var offset: CGSize
+    var moving: Bool
 }

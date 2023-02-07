@@ -40,34 +40,33 @@ struct PlayableCardModifier : ViewModifier {
                 .onChanged { value in
                     guard card.available || card.face == .up else { return }
                     
-                    withAnimation(.spring()) {
-                        self.offset = value.translation
-                          self.location = CGRect(x: (self.card.bounds.minX + self.offset.width), y: (self.card.bounds.minY + self.offset.height), width: self.card.bounds.width, height: self.card.bounds.height)
-                        
-                        if let drag = self.drag {
-                            drag(CardEventData(event: .drag, card: card, location: self.location, offset: self.offset))
-                        }
+                    self.offset = value.translation
+                      self.location = CGRect(x: (self.card.bounds.minX + self.offset.width), y: (self.card.bounds.minY + self.offset.height), width: self.card.bounds.width, height: self.card.bounds.height)
+                    
+                    if let drag = self.drag {
+                        drag(CardEventData(event: .drag, card: card, location: self.location, offset: self.offset, moving: true))
                     }
                 }
                 .onEnded { value in
                     
-                    withAnimation(.spring()) {
-                        
-                        if let drop = self.drop {
-                            drop(CardEventData(event: .drop, card: card, location: self.location, offset: self.offset))
-                        }
-                        
-                        self.offset = .zero
-                        self.location = self.card.bounds
-                        
-                        if let reset = self.reset {
-                            reset(CardEventData(event: .reset, card: card, location: self.location, offset: self.offset))
-                        }
+                    if let drop = self.drop {
+                        drop(CardEventData(event: .drop, card: card, location: self.location, offset: self.offset, moving: true))
+                    }
+                    
+                    self.offset = .zero
+                    self.location = self.card.bounds
+                    
+                    if let reset = self.reset {
+                        reset(CardEventData(event: .reset, card: self.card, location: self.location, offset: self.offset, moving: false))
                     }
                 })
-            .highPriorityGesture(TapGesture().onEnded{
+            .highPriorityGesture(TapGesture().onEnded {
                 if let tap = self.tap {
-                    tap(CardEventData(event: .tap, card: card, location: self.card.bounds, offset: .zero))
+                    tap(CardEventData(event: .tap, card: self.card, location: self.card.bounds, offset: .zero, moving: true))
+                }
+                
+                if let reset = self.reset {
+                    reset(CardEventData(event: .reset, card: self.card, location: self.location, offset: self.offset, moving: false))
                 }
             })
     }

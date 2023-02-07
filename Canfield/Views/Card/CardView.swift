@@ -36,10 +36,14 @@ struct CardView: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                     }
-//                    .overlay(alignment: .top) {
-//                        CardDebugView($card)
-//                            .rotation3DEffect(.degrees(180), axis: self.axis)
-//                    }
+                }
+                .overlay(alignment: .top){
+                    HStack {
+                        Text("\(card.symbol)")
+                        Text("\(card.order)")
+                    }
+                    .font(.footnote)
+                    .rotation3DEffect(card.face == .up ? .degrees(180): .zero, axis: self.axis)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .clipShape(RoundedRectangle(cornerRadius: 4))
@@ -50,8 +54,8 @@ struct CardView: View {
             .opacity(card.placement == .none ? 0 : 1)
             .shadow(radius: card.moving ? 8 : card.order == 1 ? 2 : 0)
             .rotation3DEffect(card.face == .up ? .degrees(180): .zero, axis: self.axis)
-            .animation(.default, value: card.face)
-//            .border(card.match ? .red : .clear , width: card.match ? 2.0 : 0.0)
+            .animation(.easeIn(duration: 0.3), value: card.face)
+            .animation(.easeIn(duration: 0.3), value: card.placement)
         }
         .offset(x: card.offset.width, y: card.offset.height)
         .position(x: card.bounds.midX, y: card.bounds.midY)

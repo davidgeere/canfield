@@ -25,10 +25,15 @@ struct GameView: View {
                                 card,
                                 onTap: {
                                     switch $0.card.placement {
-                                    case .stock: self.game.waste($0)
-                                    case .waste: self.game.place($0)
+                                    case .stock:
+                                        self.game.waste($0)
+                                    case .waste:
+                                        self.game.place($0)
                                     case .foundation: return
-                                    case .tableau: self.game.place($0)
+                                    case .tableau:
+                                        
+                                        self.game.place($0)
+                                        
                                     default: return
                                     }
                                 },
@@ -41,26 +46,16 @@ struct GameView: View {
                                 },
                                 onReset: {
                                     self.game.regroup($0)
-                                    self.game.dragger = $0.location
                                 })
                     }
                 }
                 .size(for: .full)
-                
-//                LayoutDebugView()
-//                    .environmentObject(self.game)
-                
-//                VStack( alignment: .leading) {
-//                    DebugRowView("X", values: [self.game.dragger.minX.round(precision: 0), self.game.dragger.midX.round(precision: 0), self.game.dragger.maxX.round(precision: 0)] )
-//                    DebugRowView("Y", values: [self.game.dragger.minY.round(precision: 0), self.game.dragger.midY.round(precision: 0), self.game.dragger.maxY.round(precision: 0)] )
-//                    Spacer()
-//                }
-//                .frame(width: self.game.dragger.width, height: self.game.dragger.height)
-//                .background(.clear)
-//                .border(.red, width: 2)
-//                .position(x: self.game.dragger.midX, y: self.game.dragger.midY)
             }
             .size(for: .full)
+        }
+        .overlay(alignment: .bottom) {
+            ActionsView()
+                .environmentObject(self.game)
         }
         .size(for: .full)
         .background(Globals.TABLE.COLOR)

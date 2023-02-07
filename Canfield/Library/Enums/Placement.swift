@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum Placement: Equatable, Hashable, CaseIterable, Identifiable {
-    
+   
     case none
     case ready
     case stock
@@ -58,9 +59,9 @@ enum Placement: Equatable, Hashable, CaseIterable, Identifiable {
         case .none: return 0
         case .ready: return 1000
         case .stock: return 2000
-        case .waste: return 3000
-        case .foundation(let suite): return 4000 + suite.order
-        case .tableau(let column): return 5000 + column.order
+        case .tableau(let column): return 3000 + column.order
+        case .waste: return 4000
+        case .foundation(let suite): return 5000 + suite.order
         }
     }
     

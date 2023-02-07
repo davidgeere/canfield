@@ -7,6 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF1AE5CD2991D72000D7BFE8 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1AE5CC2991D72000D7BFE8 /* Text.swift */; };
+		DF1AE5CF2991D99100D7BFE8 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1AE5CE2991D99100D7BFE8 /* ActionsView.swift */; };
+		DF3AA84329918B9400CBE983 /* ShakeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3AA84229918B9400CBE983 /* ShakeEffect.swift */; };
+		DF3AA8452991944800CBE983 /* AnimationCompletionObserverModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3AA8442991944800CBE983 /* AnimationCompletionObserverModifier.swift */; };
+		DF3AA8472991D0C300CBE983 /* ActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3AA8462991D0C300CBE983 /* ActionView.swift */; };
+		DF3AA8492991D1DD00CBE983 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3AA8482991D1DD00CBE983 /* StatusView.swift */; };
+		DF3AA85F2991D29900CBE983 /* Gilroy-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA84B2991D29900CBE983 /* Gilroy-Regular.otf */; };
+		DF3AA8602991D29900CBE983 /* Gilroy-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA84C2991D29900CBE983 /* Gilroy-Black.otf */; };
+		DF3AA8612991D29900CBE983 /* Gilroy-UltraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA84D2991D29900CBE983 /* Gilroy-UltraLight.otf */; };
+		DF3AA8622991D29900CBE983 /* Gilroy-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA84E2991D29900CBE983 /* Gilroy-BlackItalic.otf */; };
+		DF3AA8632991D29900CBE983 /* Gilroy-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA84F2991D29900CBE983 /* Gilroy-RegularItalic.otf */; };
+		DF3AA8642991D29A00CBE983 /* Gilroy-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA8502991D29900CBE983 /* Gilroy-LightItalic.otf */; };
+		DF3AA8652991D29A00CBE983 /* Gilroy-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA8512991D29900CBE983 /* Gilroy-ThinItalic.otf */; };
+		DF3AA8662991D29A00CBE983 /* Gilroy-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA8522991D29900CBE983 /* Gilroy-HeavyItalic.otf */; };
+		DF3AA8672991D29A00CBE983 /* Gilroy-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA8532991D29900CBE983 /* Gilroy-BoldItalic.otf */; };
+		DF3AA8682991D29A00CBE983 /* Gilroy-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA8542991D29900CBE983 /* Gilroy-SemiBoldItalic.otf */; };
+		DF3AA8692991D29A00CBE983 /* Gilroy-UltraLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA8552991D29900CBE983 /* Gilroy-UltraLightItalic.otf */; };
+		DF3AA86A2991D29A00CBE983 /* Gilroy-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA8562991D29900CBE983 /* Gilroy-Medium.otf */; };
+		DF3AA86B2991D29A00CBE983 /* Gilroy-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA8572991D29900CBE983 /* Gilroy-Heavy.otf */; };
+		DF3AA86C2991D29A00CBE983 /* Gilroy-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA8582991D29900CBE983 /* Gilroy-Bold.otf */; };
+		DF3AA86D2991D29A00CBE983 /* Gilroy-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA8592991D29900CBE983 /* Gilroy-SemiBold.otf */; };
+		DF3AA86E2991D29A00CBE983 /* Gilroy-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA85A2991D29900CBE983 /* Gilroy-Light.otf */; };
+		DF3AA86F2991D29A00CBE983 /* Gilroy-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA85B2991D29900CBE983 /* Gilroy-ExtraBold.otf */; };
+		DF3AA8702991D29A00CBE983 /* Gilroy-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA85C2991D29900CBE983 /* Gilroy-MediumItalic.otf */; };
+		DF3AA8712991D29A00CBE983 /* Gilroy-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA85D2991D29900CBE983 /* Gilroy-ExtraBoldItalic.otf */; };
+		DF3AA8722991D29A00CBE983 /* Gilroy-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DF3AA85E2991D29900CBE983 /* Gilroy-Thin.otf */; };
+		DF3AA8762991D31400CBE983 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3AA8752991D31400CBE983 /* Font.swift */; };
+		DF3AA8782991D33C00CBE983 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3AA8772991D33C00CBE983 /* UIFont.swift */; };
 		DFA169D4298C2EE80089381F /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169D3298C2EE80089381F /* Application.swift */; };
 		DFA169D6298C2EE80089381F /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169D5298C2EE80089381F /* GameView.swift */; };
 		DFA169D8298C2EEA0089381F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFA169D7298C2EEA0089381F /* Assets.xcassets */; };
@@ -45,6 +73,35 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF09C0F02991D5AF00A2D442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DF1AE5CC2991D72000D7BFE8 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		DF1AE5CE2991D99100D7BFE8 /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
+		DF3AA84229918B9400CBE983 /* ShakeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeEffect.swift; sourceTree = "<group>"; };
+		DF3AA8442991944800CBE983 /* AnimationCompletionObserverModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationCompletionObserverModifier.swift; sourceTree = "<group>"; };
+		DF3AA8462991D0C300CBE983 /* ActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionView.swift; sourceTree = "<group>"; };
+		DF3AA8482991D1DD00CBE983 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
+		DF3AA84B2991D29900CBE983 /* Gilroy-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Regular.otf"; sourceTree = "<group>"; };
+		DF3AA84C2991D29900CBE983 /* Gilroy-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Black.otf"; sourceTree = "<group>"; };
+		DF3AA84D2991D29900CBE983 /* Gilroy-UltraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-UltraLight.otf"; sourceTree = "<group>"; };
+		DF3AA84E2991D29900CBE983 /* Gilroy-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-BlackItalic.otf"; sourceTree = "<group>"; };
+		DF3AA84F2991D29900CBE983 /* Gilroy-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-RegularItalic.otf"; sourceTree = "<group>"; };
+		DF3AA8502991D29900CBE983 /* Gilroy-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-LightItalic.otf"; sourceTree = "<group>"; };
+		DF3AA8512991D29900CBE983 /* Gilroy-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ThinItalic.otf"; sourceTree = "<group>"; };
+		DF3AA8522991D29900CBE983 /* Gilroy-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-HeavyItalic.otf"; sourceTree = "<group>"; };
+		DF3AA8532991D29900CBE983 /* Gilroy-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-BoldItalic.otf"; sourceTree = "<group>"; };
+		DF3AA8542991D29900CBE983 /* Gilroy-SemiBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-SemiBoldItalic.otf"; sourceTree = "<group>"; };
+		DF3AA8552991D29900CBE983 /* Gilroy-UltraLightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-UltraLightItalic.otf"; sourceTree = "<group>"; };
+		DF3AA8562991D29900CBE983 /* Gilroy-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Medium.otf"; sourceTree = "<group>"; };
+		DF3AA8572991D29900CBE983 /* Gilroy-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Heavy.otf"; sourceTree = "<group>"; };
+		DF3AA8582991D29900CBE983 /* Gilroy-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Bold.otf"; sourceTree = "<group>"; };
+		DF3AA8592991D29900CBE983 /* Gilroy-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-SemiBold.otf"; sourceTree = "<group>"; };
+		DF3AA85A2991D29900CBE983 /* Gilroy-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Light.otf"; sourceTree = "<group>"; };
+		DF3AA85B2991D29900CBE983 /* Gilroy-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ExtraBold.otf"; sourceTree = "<group>"; };
+		DF3AA85C2991D29900CBE983 /* Gilroy-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-MediumItalic.otf"; sourceTree = "<group>"; };
+		DF3AA85D2991D29900CBE983 /* Gilroy-ExtraBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ExtraBoldItalic.otf"; sourceTree = "<group>"; };
+		DF3AA85E2991D29900CBE983 /* Gilroy-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Thin.otf"; sourceTree = "<group>"; };
+		DF3AA8752991D31400CBE983 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		DF3AA8772991D33C00CBE983 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		DFA169D0298C2EE80089381F /* Canfield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Canfield.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA169D3298C2EE80089381F /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		DFA169D5298C2EE80089381F /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -94,6 +151,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF3AA84A2991D29900CBE983 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DF3AA84B2991D29900CBE983 /* Gilroy-Regular.otf */,
+				DF3AA84C2991D29900CBE983 /* Gilroy-Black.otf */,
+				DF3AA84D2991D29900CBE983 /* Gilroy-UltraLight.otf */,
+				DF3AA84E2991D29900CBE983 /* Gilroy-BlackItalic.otf */,
+				DF3AA84F2991D29900CBE983 /* Gilroy-RegularItalic.otf */,
+				DF3AA8502991D29900CBE983 /* Gilroy-LightItalic.otf */,
+				DF3AA8512991D29900CBE983 /* Gilroy-ThinItalic.otf */,
+				DF3AA8522991D29900CBE983 /* Gilroy-HeavyItalic.otf */,
+				DF3AA8532991D29900CBE983 /* Gilroy-BoldItalic.otf */,
+				DF3AA8542991D29900CBE983 /* Gilroy-SemiBoldItalic.otf */,
+				DF3AA8552991D29900CBE983 /* Gilroy-UltraLightItalic.otf */,
+				DF3AA8562991D29900CBE983 /* Gilroy-Medium.otf */,
+				DF3AA8572991D29900CBE983 /* Gilroy-Heavy.otf */,
+				DF3AA8582991D29900CBE983 /* Gilroy-Bold.otf */,
+				DF3AA8592991D29900CBE983 /* Gilroy-SemiBold.otf */,
+				DF3AA85A2991D29900CBE983 /* Gilroy-Light.otf */,
+				DF3AA85B2991D29900CBE983 /* Gilroy-ExtraBold.otf */,
+				DF3AA85C2991D29900CBE983 /* Gilroy-MediumItalic.otf */,
+				DF3AA85D2991D29900CBE983 /* Gilroy-ExtraBoldItalic.otf */,
+				DF3AA85E2991D29900CBE983 /* Gilroy-Thin.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		DFA169C7298C2EE80089381F = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +197,8 @@
 		DFA169D2298C2EE80089381F /* Canfield */ = {
 			isa = PBXGroup;
 			children = (
+				DF09C0F02991D5AF00A2D442 /* Info.plist */,
+				DF3AA84A2991D29900CBE983 /* Fonts */,
 				DFA169E9298C33E30089381F /* Library */,
 				DFA169EB298C341F0089381F /* Models */,
 				DFA169E1298C318D0089381F /* Views */,
@@ -200,6 +286,9 @@
 				DFA16A0B298C42970089381F /* View.swift */,
 				DFE6B60F298F045A00F539FB /* Geometry.swift */,
 				DFE6B616298F3E2800F539FB /* Numeric.swift */,
+				DF3AA8752991D31400CBE983 /* Font.swift */,
+				DF3AA8772991D33C00CBE983 /* UIFont.swift */,
+				DF1AE5CC2991D72000D7BFE8 /* Text.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -234,6 +323,8 @@
 				DFA16A16298C4C550089381F /* PlayableCardModifier.swift */,
 				DFB8DB6E298C63A900AB7787 /* TrackBoundsModifier.swift */,
 				DFB8DB72298C759B00AB7787 /* ViewSizeModifier.swift */,
+				DF3AA84229918B9400CBE983 /* ShakeEffect.swift */,
+				DF3AA8442991944800CBE983 /* AnimationCompletionObserverModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -258,6 +349,9 @@
 			isa = PBXGroup;
 			children = (
 				DFB8DB77298C7C0400AB7787 /* HeaderView.swift */,
+				DF3AA8462991D0C300CBE983 /* ActionView.swift */,
+				DF3AA8482991D1DD00CBE983 /* StatusView.swift */,
+				DF1AE5CE2991D99100D7BFE8 /* ActionsView.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -330,8 +424,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF3AA8702991D29A00CBE983 /* Gilroy-MediumItalic.otf in Resources */,
+				DF3AA8612991D29900CBE983 /* Gilroy-UltraLight.otf in Resources */,
+				DF3AA8632991D29900CBE983 /* Gilroy-RegularItalic.otf in Resources */,
+				DF3AA86F2991D29A00CBE983 /* Gilroy-ExtraBold.otf in Resources */,
+				DF3AA85F2991D29900CBE983 /* Gilroy-Regular.otf in Resources */,
 				DFA169DB298C2EEA0089381F /* Preview Assets.xcassets in Resources */,
+				DF3AA8682991D29A00CBE983 /* Gilroy-SemiBoldItalic.otf in Resources */,
+				DF3AA8622991D29900CBE983 /* Gilroy-BlackItalic.otf in Resources */,
+				DF3AA86A2991D29A00CBE983 /* Gilroy-Medium.otf in Resources */,
+				DF3AA8652991D29A00CBE983 /* Gilroy-ThinItalic.otf in Resources */,
+				DF3AA8672991D29A00CBE983 /* Gilroy-BoldItalic.otf in Resources */,
 				DFA169D8298C2EEA0089381F /* Assets.xcassets in Resources */,
+				DF3AA86C2991D29A00CBE983 /* Gilroy-Bold.otf in Resources */,
+				DF3AA8642991D29A00CBE983 /* Gilroy-LightItalic.otf in Resources */,
+				DF3AA8722991D29A00CBE983 /* Gilroy-Thin.otf in Resources */,
+				DF3AA8602991D29900CBE983 /* Gilroy-Black.otf in Resources */,
+				DF3AA8692991D29A00CBE983 /* Gilroy-UltraLightItalic.otf in Resources */,
+				DF3AA8712991D29A00CBE983 /* Gilroy-ExtraBoldItalic.otf in Resources */,
+				DF3AA86E2991D29A00CBE983 /* Gilroy-Light.otf in Resources */,
+				DF3AA8662991D29A00CBE983 /* Gilroy-HeavyItalic.otf in Resources */,
+				DF3AA86B2991D29A00CBE983 /* Gilroy-Heavy.otf in Resources */,
+				DF3AA86D2991D29A00CBE983 /* Gilroy-SemiBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,17 +456,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF3AA8452991944800CBE983 /* AnimationCompletionObserverModifier.swift in Sources */,
 				DFA169D6298C2EE80089381F /* GameView.swift in Sources */,
 				DFA16A0F298C441A0089381F /* Globals.swift in Sources */,
 				DFA169E6298C32760089381F /* TableView.swift in Sources */,
+				DF3AA8762991D31400CBE983 /* Font.swift in Sources */,
 				DFE6B617298F3E2800F539FB /* Numeric.swift in Sources */,
 				DFB8DB73298C759B00AB7787 /* ViewSizeModifier.swift in Sources */,
+				DF3AA8492991D1DD00CBE983 /* StatusView.swift in Sources */,
 				DFB8DB75298C773300AB7787 /* ViewSize.swift in Sources */,
 				DFA169F8298C3A2E0089381F /* String.swift in Sources */,
 				DFE6B610298F045A00F539FB /* Geometry.swift in Sources */,
 				DFE6B612298F2F1200F539FB /* LayoutDebugView.swift in Sources */,
 				DFA169ED298C343B0089381F /* Card.swift in Sources */,
 				DFE6B615298F3B7F00F539FB /* CardDebugView.swift in Sources */,
+				DF3AA8472991D0C300CBE983 /* ActionView.swift in Sources */,
 				DFB8DB6D298C62F000AB7787 /* TrackBoundsPreferenceKey.swift in Sources */,
 				DFA16A1B298C4CA90089381F /* CardEvent.swift in Sources */,
 				DFA169EF298C34A10089381F /* Placement.swift in Sources */,
@@ -361,9 +479,11 @@
 				DFA169FF298C3DE10089381F /* Face.swift in Sources */,
 				DFA169FD298C3D690089381F /* Pair.swift in Sources */,
 				DFA16A19298C4C7F0089381F /* CardEventData.swift in Sources */,
+				DF1AE5CF2991D99100D7BFE8 /* ActionsView.swift in Sources */,
 				DFA169E8298C33010089381F /* PlacementView.swift in Sources */,
 				DFB8DB67298C51AA00AB7787 /* Game.swift in Sources */,
 				DFA169F3298C35C00089381F /* Column.swift in Sources */,
+				DF1AE5CD2991D72000D7BFE8 /* Text.swift in Sources */,
 				DFA169F5298C37010089381F /* Rank.swift in Sources */,
 				DFB8DB78298C7C0400AB7787 /* HeaderView.swift in Sources */,
 				DFA16A0C298C42970089381F /* View.swift in Sources */,
@@ -371,7 +491,9 @@
 				DFB8DB6B298C58F700AB7787 /* Table.swift in Sources */,
 				DFA169F1298C35B50089381F /* Suite.swift in Sources */,
 				DFB8DB69298C51EA00AB7787 /* Deck.swift in Sources */,
+				DF3AA84329918B9400CBE983 /* ShakeEffect.swift in Sources */,
 				DFA169FB298C3B960089381F /* Inflector.swift in Sources */,
+				DF3AA8782991D33C00CBE983 /* UIFont.swift in Sources */,
 				DFA16A17298C4C550089381F /* PlayableCardModifier.swift in Sources */,
 				DFA169D4298C2EE80089381F /* Application.swift in Sources */,
 				DFE6B619298F484700F539FB /* DebugRowView.swift in Sources */,
@@ -506,6 +628,7 @@
 				DEVELOPMENT_TEAM = 2MNBFRSE89;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Canfield/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Canfield;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -538,6 +661,7 @@
 				DEVELOPMENT_TEAM = 2MNBFRSE89;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Canfield/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Canfield;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

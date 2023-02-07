@@ -13,32 +13,14 @@ struct HeaderView: View {
     
     var body: some View {
         HStack {
-            HStack {
-                Group {
-//                    Text("Moves")
-//                    Text("\(self.game.moves.count)")
-
-                    switch self.game.state {
-                    case .none, .ready, .setup:
-                        Text("Start")
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    self.game.deal()
-                                }
-                            }
-                    case .dealt, .started, .paused, .ended:
-                        Text("Restart")
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    self.game.restart()
-                                }
-                            }
-                    }
-                    
-                    
-                }
-                .foregroundColor(.white)
-            }
+            
+            ActionView(name: "settings")
+            Spacer()
+            StatusView(name: "time", value: 0)
+            StatusView(name: "moves", value: self.$game.moves.count)
+            StatusView(name: "score", value: 0)
+            Spacer()
+            ActionView(name: "leaderboard")
         }
         .padding()
         .frame(maxWidth: .infinity)

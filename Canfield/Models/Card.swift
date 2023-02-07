@@ -13,8 +13,8 @@ class Card: Identifiable, Equatable, ObservableObject {
         return ((suite.value - 1) * Rank.count) + rank.value
     }
     
-    static func == (lhs: Card, rhs: Card) -> Bool {
-        return lhs.id == rhs.id
+    static func == (left: Card, right: Card) -> Bool {
+        return left.id == right.id
     }
     
     var symbol: String {
@@ -23,6 +23,7 @@ class Card: Identifiable, Equatable, ObservableObject {
     
     let suite: Suite
     let rank: Rank
+    
     var placement: Placement {
         didSet {
             
@@ -30,10 +31,16 @@ class Card: Identifiable, Equatable, ObservableObject {
                 child.placement = self.placement
             }
             
+//            self.moving = false
+            
             self.refresh()
         }
     }
-    var face: Face
+    var face: Face {
+        didSet {
+            self.refresh()
+        }
+    }
     var available: Bool {
         didSet {
             self.refresh()
@@ -41,7 +48,7 @@ class Card: Identifiable, Equatable, ObservableObject {
     }
     
     var order: Int {
-        didSet {
+         didSet {
             
             if let child = self.child {
                 child.order = self.order + 1
@@ -82,6 +89,12 @@ class Card: Identifiable, Equatable, ObservableObject {
                 child.offset = self.offset
             }
             
+            if self.offset == .zero {
+                self.moving = false
+            } else {
+                self.moving = true
+            }
+            
             self.refresh()
         }
     }
@@ -99,10 +112,10 @@ class Card: Identifiable, Equatable, ObservableObject {
     
     var zindex: Double {
         if self.moving {
-            return Double(self.order * 10 )
+            return Double(self.placement.order + self.order) * 10
+        } else {
+            return Double(self.placement.order + self.order)
         }
-        
-        return Double(self.order)
     }
     
     var match: Bool {
@@ -114,6 +127,7 @@ class Card: Identifiable, Equatable, ObservableObject {
     }
     
     var parent: Card?
+    
     var child: Card?
     
     init(suite: Suite, rank: Rank, placement:Placement = .none, face: Face = .down, available: Bool = false, moving: Bool = false, order: Int = 0, bounds: CGRect = Globals.CARD.BOUNDS, offset: CGSize = .zero, location: CGRect = .zero) {
