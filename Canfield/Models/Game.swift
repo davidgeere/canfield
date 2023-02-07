@@ -109,6 +109,67 @@ class Game: ObservableObject {
         self.refresh()
     }
     
+    public func undo() {
+        if let move = self.moves.popLast() {
+            self.undo(move)
+        }
+    }
+    
+    private func undo(_ move: Move) {
+        
+        // if there was no previous parent
+        if move.placement.from == .waste {
+            if let last = self.last(for: .waste) {
+                self.restock(last)
+            }
+        } else {
+            self.flip_back_previous_card(placement: move.placement.from)
+        }
+        
+        // Reattach to previous parent
+        if let parent = move.parent.from {
+            
+            parent.available = false
+            parent.child = move.card
+            parent.refresh()
+            
+            move.card.parent = parent
+            
+        }
+
+        if let target = move.parent.to {
+            
+            // Detach from new parent
+            target.available = true
+            target.child = nil
+            target.refresh()
+
+            // move back to previous place
+            move.card.order = self.order(for: move.placement.from) + 1
+
+            move.card.bounds = self.position(move.card, in: move.placement.from, on: move.parent.from)
+
+            move.card.placement = move.placement.from
+            move.card.parent = move.parent.from
+            move.card.offset = .zero
+
+            move.card.available = move.card.child == nil
+
+            move.card.refresh()
+            
+        } else {
+            
+            move.card.order = self.order(for: move.placement.from) + 1
+            move.card.bounds = self.position(move.card, in: move.placement.from)
+            move.card.placement = move.placement.from
+            move.card.available = move.card.child == nil
+            move.card.offset = .zero
+            
+        }
+
+        self.refresh()
+    }
+    
     private func redeal_stock() {
         
         let wasted = self.cards.filter( { return $0.placement == .waste } ).count
@@ -122,7 +183,7 @@ class Game: ObservableObject {
     
     private func flip_back_previous_card(placement: Placement) {
         
-        guard let previous = self.cards.last(where: { return $0.placement == placement }) else { return }
+        guard let previous = self.last(for: placement) else { return }
         
         previous.available = false
         previous.face = .down
@@ -132,7 +193,7 @@ class Game: ObservableObject {
     
     private func flip_over_previous_card(placement: Placement) {
         
-        guard let previous = self.cards.first(where: { return $0.placement == placement }) else { return }
+        guard let previous = self.last(for: placement) else { return }
         
         previous.available = true
         previous.face = .up
@@ -279,7 +340,7 @@ class Game: ObservableObject {
     }
     
     private func last(for placement: Placement) -> Card? {
-        return self.cards.last(where: { $0.placement == placement })
+        return self.cards.filter( { $0.placement == placement } ).sorted(by: { $0.order < $1.order } ).last
     }
     
     private func order(for placement: Placement) -> Int {
@@ -296,6 +357,10 @@ class Game: ObservableObject {
         } else {
             return self.cards.filter({ $0.placement == placement }).count
         }
+    }
+    
+    private func read(all placement: Placement) -> [Card] {
+        return self.cards.filter({ $0.placement == placement }).sorted(by: { $0.order < $1.order })
     }
 
     private func position(_ card: Card, in placement: Placement, on target: Card? = nil) -> CGRect {
@@ -384,65 +449,6 @@ class Game: ObservableObject {
         
         self.objectWillChange.send()
         
-    }
-    
-    public func undo() {
-        if let move = self.moves.popLast() {
-            self.undo(move)
-        }
-    }
-    
-    private func undo(_ move: Move) {
-        
-        // Reattach to previous parent
-        if let parent = move.parent.from {
-            
-            parent.available = false
-            parent.child = move.card
-            parent.refresh()
-            
-            move.card.parent = parent
-            
-        } else {
-            // if there was no previous parent
-            if move.placement.from == .waste {
-                ///self.redeal_stock() next to figure this out
-            } else {
-                self.flip_back_previous_card(placement: move.placement.from)
-            }
-        }
-
-        if let target = move.parent.to {
-            
-            // Detach from new parent
-            target.available = true
-            target.child = nil
-            target.refresh()
-
-            // move back to previous place
-            move.card.order = self.order(for: move.placement.from) + 1
-
-            move.card.bounds = self.position(move.card, in: move.placement.from, on: move.parent.from)
-
-            move.card.placement = move.placement.from
-            move.card.parent = move.parent.from
-            move.card.offset = .zero
-
-            move.card.available = move.card.child == nil
-
-            move.card.refresh()
-            
-        } else {
-            move.card.order = 1
-            move.card.bounds = self.position(move.card, in: move.placement.from)
-            move.card.placement = move.placement.from
-            move.card.available = move.card.child == nil
-            move.card.offset = .zero
-        }
-
-
-
-        self.refresh()
     }
     
     public func restart() {
@@ -567,28 +573,26 @@ class Game: ObservableObject {
     
     public func restock() {
         
-        var order = 1
-        
         for card in self.cards.filter( { return $0.placement == .waste } ) {
-            
-            card.placement = .stock
-            card.bounds = self.position(card, in: .stock)
-            card.available = false
-            card.order = order
-            card.face = .down
-            card.moving = false
-            card.parent = nil
-            card.child = nil
-            card.offset = .zero
-            
-            card.refresh()
-            
-            order += 1
-            
+            self.restock(card)
         }
         
         self.refresh()
+    }
+    
+    public func restock(_ card: Card) {
         
+        card.placement = .stock
+        card.bounds = self.position(card, in: .stock)
+        card.available = false
+        card.order = self.order(for: .stock) + 1
+        card.face = .down
+        card.moving = false
+        card.parent = nil
+        card.child = nil
+        card.offset = .zero
+        
+        card.refresh()
     }
     
     public func waste(_ card: Card) {
