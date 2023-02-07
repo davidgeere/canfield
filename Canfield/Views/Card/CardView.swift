@@ -37,14 +37,14 @@ struct CardView: View {
                         }
                     }
                 }
-                .overlay(alignment: .top){
-                    HStack {
-                        Text("\(card.symbol)")
-                        Text("\(card.order)")
-                    }
-                    .font(.footnote)
-                    .rotation3DEffect(card.face == .up ? .degrees(180): .zero, axis: self.axis)
-                }
+//                .overlay(alignment: .top){
+//                    HStack {
+//                        Text("\(card.symbol)")
+//                        Text("\(card.order)")
+//                    }
+//                    .font(.footnote)
+//                    .rotation3DEffect(card.face == .up ? .degrees(180): .zero, axis: self.axis)
+//                }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .clipShape(RoundedRectangle(cornerRadius: 4))
             }

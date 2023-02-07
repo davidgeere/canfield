@@ -10,7 +10,7 @@ import SwiftUI
 struct StatusView: View {
     
     public var name: String
-    @State public var value: Int
+    @Binding public var value: Int
     
     var body: some View {
         HStack( spacing: 4) {
@@ -42,7 +42,7 @@ struct StatusView_Previews: PreviewProvider {
     static var value: Int = 1000
     static var previews: some View {
         ZStack {
-            StatusView(name: "Moves", value: value)
+            StatusView(name: "Moves", value: .constant(value))
         }
         .size(for: .full)
         .background(Globals.TABLE.COLOR)

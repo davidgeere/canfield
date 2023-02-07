@@ -15,11 +15,15 @@ struct HeaderView: View {
         HStack {
             
             ActionView(name: "settings")
+            
             Spacer()
-            StatusView(name: "time", value: 0)
-            StatusView(name: "moves", value: self.$game.moves.count)
-            StatusView(name: "score", value: 0)
+            
+            StatusView(name: "time", value: .constant(0))
+            StatusView(name: "moves", value: self.$game.moves)
+            StatusView(name: "score", value: .constant(0))
+            
             Spacer()
+            
             ActionView(name: "leaderboard")
         }
         .padding()

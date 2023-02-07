@@ -13,8 +13,6 @@ class Game: ObservableObject {
 
     public static let preview:Game = Game()
     
-    @Published public var dragger: CGRect = .zero
-    
     @Published public var cards: [Card]
     @Published public var state: GameState {
         didSet {
@@ -24,7 +22,9 @@ class Game: ObservableObject {
         }
     }
     
-    @Published public var moves: [Move]
+    @Published public var undo_moves: [Move]
+    
+    @Published public var moves: Int
     
     public var table: Table
     
@@ -33,7 +33,8 @@ class Game: ObservableObject {
         self.state = .none
         self.table = Table()
         self.cards = Deck.draw
-        self.moves = []
+        self.undo_moves = []
+        self.moves = 0
         
     }
     
@@ -110,7 +111,7 @@ class Game: ObservableObject {
     }
     
     public func undo() {
-        if let move = self.moves.popLast() {
+        if let move = self.undo_moves.popLast() {
             self.undo(move)
         }
     }
@@ -166,6 +167,8 @@ class Game: ObservableObject {
             move.card.offset = .zero
             
         }
+        
+        self.moves += 1
 
         self.refresh()
     }
@@ -422,22 +425,13 @@ class Game: ObservableObject {
     
     private func move(_ card: Card, placement: (from: Placement, to: Placement), parent: (from: Card?, to: Card?)) {
         
-        let move = Move(id: self.moves.endIndex + 1, card: card, placement: placement, parent: parent)
+        let move = Move(id: self.undo_moves.endIndex + 1, card: card, placement: placement, parent: parent)
         
-        self.moves.append(move)
+        self.undo_moves.append(move)
         
-        var from_parent = "none"
-        var to_parent = "none"
+        self.moves += 1
         
-        if let parent_from = parent.from {
-            from_parent = parent_from.symbol
-        }
-        
-        if let parent_to = parent.to {
-            to_parent = parent_to.symbol
-        }
-        
-        print("id:", move.id, "card:", card.symbol, "placement: ","from:", placement.from.name, "to:", placement.to.name, "parent:","from:", from_parent, "to:", to_parent)
+        self.refresh()
         
     }
     
@@ -479,6 +473,9 @@ class Game: ObservableObject {
             
             order += 1
         }
+        
+        self.undo_moves = []
+        self.moves = 0
         
         self.state = .setup
         

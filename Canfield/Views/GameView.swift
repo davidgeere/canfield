@@ -39,7 +39,6 @@ struct GameView: View {
                                 },
                                 onDrag: {
                                     self.game.drag($0)
-                                    self.game.dragger = $0.location
                                 },
                                 onDrop: {
                                     self.game.drop($0)
