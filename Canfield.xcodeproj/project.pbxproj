@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		DF1AE5CD2991D72000D7BFE8 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1AE5CC2991D72000D7BFE8 /* Text.swift */; };
 		DF1AE5CF2991D99100D7BFE8 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1AE5CE2991D99100D7BFE8 /* ActionsView.swift */; };
+		DF1AE5D12992DABA00D7BFE8 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1AE5D02992DABA00D7BFE8 /* GameStatus.swift */; };
+		DF1AE5D32992E4C000D7BFE8 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1AE5D22992E4C000D7BFE8 /* Move.swift */; };
 		DF3AA84329918B9400CBE983 /* ShakeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3AA84229918B9400CBE983 /* ShakeEffect.swift */; };
 		DF3AA8452991944800CBE983 /* AnimationCompletionObserverModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3AA8442991944800CBE983 /* AnimationCompletionObserverModifier.swift */; };
 		DF3AA8472991D0C300CBE983 /* ActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3AA8462991D0C300CBE983 /* ActionView.swift */; };
@@ -76,6 +78,8 @@
 		DF09C0F02991D5AF00A2D442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DF1AE5CC2991D72000D7BFE8 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		DF1AE5CE2991D99100D7BFE8 /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
+		DF1AE5D02992DABA00D7BFE8 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
+		DF1AE5D22992E4C000D7BFE8 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		DF3AA84229918B9400CBE983 /* ShakeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeEffect.swift; sourceTree = "<group>"; };
 		DF3AA8442991944800CBE983 /* AnimationCompletionObserverModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationCompletionObserverModifier.swift; sourceTree = "<group>"; };
 		DF3AA8462991D0C300CBE983 /* ActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionView.swift; sourceTree = "<group>"; };
@@ -264,6 +268,7 @@
 				DFA16A1A298C4CA90089381F /* CardEvent.swift */,
 				DFB8DB74298C773300AB7787 /* ViewSize.swift */,
 				DFB8DB79298C8D2A00AB7787 /* GameState.swift */,
+				DF1AE5D02992DABA00D7BFE8 /* GameStatus.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 				DFB8DB66298C51AA00AB7787 /* Game.swift */,
 				DFB8DB68298C51EA00AB7787 /* Deck.swift */,
 				DFB8DB6A298C58F700AB7787 /* Table.swift */,
+				DF1AE5D22992E4C000D7BFE8 /* Move.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -487,6 +493,8 @@
 				DFA169F5298C37010089381F /* Rank.swift in Sources */,
 				DFB8DB78298C7C0400AB7787 /* HeaderView.swift in Sources */,
 				DFA16A0C298C42970089381F /* View.swift in Sources */,
+				DF1AE5D32992E4C000D7BFE8 /* Move.swift in Sources */,
+				DF1AE5D12992DABA00D7BFE8 /* GameStatus.swift in Sources */,
 				DFB8DB7A298C8D2A00AB7787 /* GameState.swift in Sources */,
 				DFB8DB6B298C58F700AB7787 /* Table.swift in Sources */,
 				DFA169F1298C35B50089381F /* Suite.swift in Sources */,

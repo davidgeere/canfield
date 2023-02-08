@@ -37,4 +37,22 @@ enum Column: Int, CaseIterable, Codable, Identifiable {
         return self.value.words()
     }
     
+    var next: Column {
+        if self.rawValue + 1 <= 7 {
+            return Column(rawValue: self.rawValue + 1)!
+        } else {
+            return Column(rawValue: 1)!
+        }
+    }
+    
+    var previous: Column {
+        
+        if self.rawValue - 1 >= 1 {
+            return Column(rawValue: self.rawValue - 1)!
+        } else {
+            return Column(rawValue: 7)!
+        }
+        
+    }
+    
 }

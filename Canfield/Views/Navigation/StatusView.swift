@@ -9,21 +9,20 @@ import SwiftUI
 
 struct StatusView: View {
     
-    public var name: String
-    @Binding public var value: Int
+    @Binding public var status: Status
     
     var body: some View {
         HStack( spacing: 4) {
-            Image("icons/small/\(self.name.lowercased())")
+            Image("icons/small/\(self.status.key.value)")
                 .resizable()
                 .frame(width: 24, height: 24)
                 .foregroundColor(.white)
             
             HStack( spacing: 16) {
-                Text(self.name)
+                Text(self.status.key.value)
                     .font(size: 17, .medium)
                 
-                Text(String(self.value))
+                Text(String(self.status.display))
                     .font(size: 17, .semiBold)
                     
             }
@@ -39,10 +38,11 @@ struct StatusView: View {
 
 struct StatusView_Previews: PreviewProvider {
     
-    static var value: Int = 1000
+    static var status = Status(key: .moves, value: 0)
+    
     static var previews: some View {
         ZStack {
-            StatusView(name: "Moves", value: .constant(value))
+            StatusView(status: .constant(status))
         }
         .size(for: .full)
         .background(Globals.TABLE.COLOR)

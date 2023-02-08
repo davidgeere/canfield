@@ -52,4 +52,22 @@ enum Suite: Int, CaseIterable, Identifiable, Codable {
             return .even
         }
     }
+    
+    var next: Suite {
+        if self.rawValue + 1 <= 4 {
+            return Suite(rawValue: self.rawValue + 1)!
+        } else {
+            return Suite(rawValue: 1)!
+        }
+    }
+    
+    var previous: Suite {
+        
+        if self.rawValue - 1 >= 1 {
+            return Suite(rawValue: self.rawValue - 1)!
+        } else {
+            return Suite(rawValue: 4)!
+        }
+        
+    }
 }

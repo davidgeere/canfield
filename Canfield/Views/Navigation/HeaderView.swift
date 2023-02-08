@@ -18,9 +18,9 @@ struct HeaderView: View {
             
             Spacer()
             
-            StatusView(name: "time", value: .constant(0))
-            StatusView(name: "moves", value: self.$game.moves)
-            StatusView(name: "score", value: .constant(0))
+            ForEach(self.$game.status) { status in
+                StatusView(status: status)
+            }
             
             Spacer()
             

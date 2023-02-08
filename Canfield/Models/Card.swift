@@ -31,8 +31,6 @@ class Card: Identifiable, Equatable, ObservableObject {
                 child.placement = self.placement
             }
             
-//            self.moving = false
-            
             self.refresh()
         }
     }
@@ -126,6 +124,8 @@ class Card: Identifiable, Equatable, ObservableObject {
         }
     }
     
+    var revealed: Bool
+    
     var parent: Card?
     
     var child: Card?
@@ -142,6 +142,7 @@ class Card: Identifiable, Equatable, ObservableObject {
         self.offset = offset
         self.location = location
         self.match = false
+        self.revealed = false
     }
     
     public func refresh() {

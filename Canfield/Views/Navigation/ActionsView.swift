@@ -28,10 +28,28 @@ struct ActionsView: View {
                         self.game.deal()
                     }
             }
+            
+            ActionView(name: "auto")
+                .onTapGesture {
+                    self.game.autocomplete()
+                }
+            
             ActionView(name: "undo")
                 .onTapGesture {
                     self.game.undo()
                 }
+            
+//            if self.game.autocompletable {
+//                ActionView(name: "auto")
+//                    .onTapGesture {
+//                        self.game.autocomplete()
+//                    }
+//            } else {
+//                ActionView(name: "undo")
+//                    .onTapGesture {
+//                        self.game.undo()
+//                    }
+//            }
         }
         .padding(16)
         .frame(height: 64)

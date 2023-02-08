@@ -33,11 +33,16 @@ enum Placement: Equatable, Hashable, CaseIterable, Identifiable {
         return [.stock, .waste] + allPlayable
     }
     
+    var tableau: Bool {
+        return Placement.allTableaus.contains { return $0 == self }
+    }
+    
+    var foundation: Bool {
+        return Placement.allFoundations.contains { return $0 == self }
+    }
+    
     var playable: Bool {
-        switch self {
-        case .foundation, .tableau : return true
-        default: return false
-        }
+        return Placement.allPlayable.contains { return $0 == self }
     }
     
     var suite: Suite? {
@@ -64,20 +69,6 @@ enum Placement: Equatable, Hashable, CaseIterable, Identifiable {
         case .foundation(let suite): return 5000 + suite.order
         }
     }
-    
-//    var is_foundation: Bool {
-//        switch self {
-//        case .foundation(.clubs), .foundation(.hearts), .foundation(.spades), .foundation(.diamonds): return true
-//        default: return false
-//        }
-//    }
-//    
-//    var is_tableau: Bool {
-//        switch self {
-//        case .tableau(.one), .tableau(.two), .tableau(.three), .tableau(.four), .tableau(.five), .tableau(.six), .tableau(.seven): return true
-//        default: return false
-//        }
-//    }
     
     var id: String {
         return self.name
