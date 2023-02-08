@@ -31,7 +31,8 @@ struct ActionsView: View {
             
             ActionView(name: "auto")
                 .onTapGesture {
-                    self.game.autocomplete()
+//                    self.game.autocomplete()
+                    self.game.autoplay()
                 }
             
             ActionView(name: "undo")

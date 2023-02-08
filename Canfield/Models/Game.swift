@@ -394,7 +394,7 @@ class Game: ObservableObject {
     }
     
     private func target(_ card: Card, for placement: Placement) -> Card? {
-        return self.cards.last( where: { $0.placement == placement && $0.available && card.valid(for: $0) } )
+        return self.cards.last( where: { return $0.placement == placement && $0.available && card.valid(for: $0) } )
     }
     
     private func empty_tableaus() -> [Placement] {
@@ -411,15 +411,60 @@ class Game: ObservableObject {
     
     private func empty(for placement: Placement, with face: Face? = nil) -> Bool {
         if let face = face {
-            return self.cards.filter({ $0.placement == placement && $0.face == face }).isEmpty
+            return self.cards.filter({ return $0.placement == placement && $0.face == face }).isEmpty
         } else {
-            return self.cards.filter({ $0.placement == placement }).isEmpty
+            return self.cards.filter({ return $0.placement == placement }).isEmpty
         }
     }
     
     private func last(for placement: Placement) -> Card? {
-        return self.cards.filter( { $0.placement == placement } ).sorted(by: { $0.order < $1.order } ).last
+        return self.cards.filter( { return $0.placement == placement } ).sorted(by: { $0.order < $1.order } ).last
     }
+    
+    private func receiveable(for placement: Placement) -> Card? {
+        return self.cards.filter( { return $0.placement.tableau && $0.available } ).last
+    }
+    
+    private func receiveable(for card: Card) -> Card? {
+        return self.cards.filter( { return $0.placement.tableau && $0.available && card.valid(for: $0) } ).last
+    }
+    
+    private func receiveables(for card: Card) -> [Card] {
+        return self.cards.filter( { return $0.placement.tableau && $0.available && card.valid(for: $0) } )
+    }
+    
+    private func receiveables() -> [Card] {
+        return self.cards.filter( { return $0.placement.tableau && $0.available } )
+    }
+    
+    private func moveable(for placement: Placement) -> Card? {
+        return self.cards.filter( { return $0.placement == placement && $0.revealed } ).sorted(by: { $0.order < $1.order } ).first
+    }
+    
+    private func moveables() -> [Card] {
+        
+        var moveables: [Card] = []
+        
+        for placement in Placement.allTableaus {
+            guard let moveable = self.moveable(for: placement) else { continue }
+            
+            moveables.append(moveable)
+        }
+        
+        return moveables
+        
+    }
+    
+    private func playables() -> [Card] {
+        
+        let receiveables = self.receiveables()
+        let moveables = self.moveables()
+
+        return moveables.union(with: receiveables)
+        
+    }
+    
+    
     
     private func order(for placement: Placement) -> Int {
         if let card = self.last(for: placement) {
@@ -940,6 +985,64 @@ class Game: ObservableObject {
         
     }
     
+    private func refill_waste() {
+        if self.empty(for: .waste) {
+            if let stock = self.last(for: .stock) {
+                self.waste(stock)
+            }
+        }
+    }
+    
+    private func tableau_aces_to_foundation() {
+        let tableau_aces = self.cards.filter( { return $0.placement.tableau && $0.available && $0.rank == .ace } )
+        
+        for tableau_ace in tableau_aces {
+            self.card_ace_to_foundation(tableau_ace)
+        }
+    }
+    
+    private func waste_ace_to_foundation() -> Bool {
+        
+        self.refill_waste()
+        
+        guard let waste = self.cards.last( where: { return $0.placement == .waste && $0.rank == .ace } ) else { return false }
+        
+        return self.card_ace_to_foundation(waste)
+    }
+    
+    private func waste_king_to_tableau() -> Bool {
+        
+        self.refill_waste()
+        
+        guard let waste = self.cards.last( where: { return $0.placement == .waste && $0.rank == .king } ) else { return false }
+        
+        return self.card_king_to_tableau(waste)
+    }
+    
+    private func card_king_to_tableau(_ card: Card) -> Bool {
+        
+        guard card.rank == .king else { return false }
+        
+        guard card.order > 1 else { return false }
+        
+        guard let placement = self.empty_tableaus().first else { return false }
+        
+        self.place(card, on: placement)
+        
+        return true
+        
+    }
+    
+    private func card_ace_to_foundation(_ card: Card) -> Bool {
+        
+        guard card.rank == .ace else { return false }
+        
+        self.place(card, on: .foundation(card.suite))
+        
+        return true
+        
+    }
+    
     public func autoplay() {
         
         Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { timer in
@@ -956,79 +1059,40 @@ class Game: ObservableObject {
                 self.waste(stock)
             }
             
-            // place the aces on foundations from waste
-            if let waste_ace = self.cards.last( where: { return $0.placement == .waste && $0.rank == .ace } ) {
-                self.place(waste_ace, on: .foundation(waste_ace.suite))
-            }
+            self.waste_ace_to_foundation()
             
-            let tableau_aces = self.cards.filter( { return $0.placement.tableau && $0.available && $0.rank == .ace } )
-            
-            for tableau_ace in tableau_aces {
-                self.place(tableau_ace, on: .foundation(tableau_ace.suite))
-            }
+            self.tableau_aces_to_foundation()
             
             // go over each tableau column to find matches (we need to figure out if there are any more moves available)
             
-            for column in Column.allCases {
-                if let card = self.last(for: .tableau(column)) {
+            let playables = self.playables()
 
-                    if card.rank == .ace {
-                        self.place(card, on: .foundation(card.suite))
-                        continue
-                    }
-                    
-                    guard card.rank != .king else { continue }
-                    
-                    
-                } else {
-                    
-                    guard let tableau_king = self.cards.first(where: { return $0.placement.tableau && $0.available && $0.rank == .king } ) else { continue }
-                    
-                    self.place(tableau_king, on: .tableau(column))
+            for playable in playables {
+                
+                guard !self.card_ace_to_foundation(playable) else { continue }
+                
+                guard !self.card_king_to_tableau(playable) else { continue }
+
+                guard let receivable = self.receiveable(for: playable) else { continue }
+                
+                if let parent = playable.parent {
+                    guard receivable.rank != parent.rank else { continue }
                 }
-            }
-            
-            let tableau_cards = self.cards.filter( { return $0.placement.tableau && $0.available } )
-            
-            for tableau_card in tableau_cards {
-                
-                if tableau_card.rank == .king {
-                    if let placement = self.empty_tableaus().first {
-                        self.place(tableau_card, on: placement)
-                        
-                        continue
-                    }
-                }
-                
-                guard let target = tableau_cards.first(where: { return tableau_card.valid(for: $0) }) else { continue }
-                
-                self.place(tableau_card, on: target)
+                    
+                self.place(playable, on: receivable)
                 
             }
             
+            self.refill_waste()
             
-//            let foundations = self.cards.filter( { return $0.placement.foundation && $0.available } )
-//
-//            for card in tableaus {
-//
-//                guard let match = tableaus.first(where: { return card.valid(for: $0) }) else { continue }
-//
-//                self.place(card, on: match)
-//
-//                return
-//            }
-//
-//            if let waste = self.cards.last( where: { return $0.placement == .waste } ) {
-//
-//                switch waste.rank {
-//                case .ace:
-//                    self.place(waste, on: .foundation(waste.suite))
-//                default:
-//                    guard let match = tableaus.first(where: { return waste.valid(for: $0) }) else { return }
-//
-//                    self.place(waste, on: match)
-//                }
-//            }
+            if let waste = self.cards.filter( { return $0.placement == .waste } ).sorted(by: { return $0.order < $1.order }).last {
+                
+                guard !self.card_king_to_tableau(waste) else { return }
+                
+                guard let match = self.receiveable(for: waste) else { return }
+                
+                self.place(waste, on: match)
+            }
         }
     }
     
@@ -1073,5 +1137,22 @@ class Game: ObservableObject {
             
             suite = suite.next
         }
+    }
+
+    public func moves_available() -> Bool {
+        
+        let receiveables = self.receiveables()
+        
+        let playables = self.playables()
+        
+        for playable in playables {
+            
+            guard receiveables.last(where: { return playable.valid(for: $0) }) != nil else { continue }
+            
+            return true
+            
+        }
+        
+        return false
     }
 }
