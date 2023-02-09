@@ -39,8 +39,9 @@ struct PlacementView: View {
         }
         .size(for: .card)
         .background(.white.opacity(0.2))
+        .background(RoundedRectangle(cornerRadius: 10).stroke(.white.opacity(0.4), lineWidth: 4))
         .clipShape(RoundedRectangle(cornerRadius: 10))
-        .background(RoundedRectangle(cornerRadius: 10).stroke(.white.opacity(0.4), lineWidth: 2))
+        
     }
 }
 

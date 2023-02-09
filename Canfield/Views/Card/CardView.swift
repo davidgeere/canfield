@@ -37,14 +37,6 @@ struct CardView: View {
                         }
                     }
                 }
-//                .overlay(alignment: .top){
-//                    HStack {
-//                        Text("\(card.symbol)")
-//                        Text("\(card.order)")
-//                    }
-//                    .font(.footnote)
-//                    .rotation3DEffect(card.face == .up ? .degrees(180): .zero, axis: self.axis)
-//                }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .clipShape(RoundedRectangle(cornerRadius: 4))
             }
@@ -52,7 +44,10 @@ struct CardView: View {
             .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .opacity(card.placement == .none ? 0 : 1)
-            .shadow(radius: card.moving ? 8 : card.order == 1 ? 2 : 0)
+            .shadow(color: .black.opacity(0.2),
+                    radius: card.moving ? 8 : card.order == 1 ? 2 : (card.placement.tableau && card.order > 1) ? 2 : 2,
+                    x: 0,
+                    y: (card.placement.tableau && card.order > 1) ? -1 : 0)
             .rotation3DEffect(card.face == .up ? .degrees(180): .zero, axis: self.axis)
             .animation(.easeIn(duration: 0.3), value: card.face)
             .animation(.easeIn(duration: 0.3), value: card.placement)
@@ -60,6 +55,7 @@ struct CardView: View {
         .offset(x: card.offset.width, y: card.offset.height)
         .position(x: card.bounds.midX, y: card.bounds.midY)
         .zIndex( card.zindex )
+        .rotationEffect(.degrees( card.tilt ), anchor: .center)
     }
 }
 

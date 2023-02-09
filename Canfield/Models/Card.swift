@@ -31,6 +31,10 @@ class Card: Identifiable, Equatable, ObservableObject {
                 child.placement = self.placement
             }
             
+            if self.order > 0 {
+                self.tilt = Double.random(in: -1.0...1.0)
+            }
+            
             self.refresh()
         }
     }
@@ -124,6 +128,8 @@ class Card: Identifiable, Equatable, ObservableObject {
         }
     }
     
+    var tilt: Double
+    
     var revealed: Bool
     
     var parent: Card?
@@ -143,6 +149,7 @@ class Card: Identifiable, Equatable, ObservableObject {
         self.location = location
         self.match = false
         self.revealed = false
+        self.tilt = 0.0
     }
     
     public func refresh() {

@@ -238,6 +238,7 @@ class Game: ObservableObject {
         }
         
         self.moves += 1
+        self.score -= 10
 
         self.refresh()
     }
@@ -401,15 +402,15 @@ class Game: ObservableObject {
         return Placement.allTableaus.filter({ return self.empty(tableau: $0.column! )})
     }
     
-    private func empty(foundation suite: Suite) -> Bool {
+    public func empty(foundation suite: Suite) -> Bool {
         return self.empty(for: .foundation(suite))
     }
     
-    private func empty(tableau column: Column) -> Bool {
+    public func empty(tableau column: Column) -> Bool {
         return self.empty(for: .tableau(column))
     }
     
-    private func empty(for placement: Placement, with face: Face? = nil) -> Bool {
+    public func empty(for placement: Placement, with face: Face? = nil) -> Bool {
         if let face = face {
             return self.cards.filter({ return $0.placement == placement && $0.face == face }).isEmpty
         } else {
@@ -562,6 +563,34 @@ class Game: ObservableObject {
         move.debug()
         
         self.moves += 1
+        
+        if revealed.from != revealed.to {
+            self.score += 10
+        }
+        
+        if card.placement.foundation {
+            if card.rank == .ace {
+                self.score += 50
+            } else {
+                self.score += 10
+            }
+        }
+        
+        if card.placement.tableau {
+            if card.rank == .king && card.order == 1 {
+                self.score += 20
+            }
+        }
+        
+        if placement.from != placement.to {
+            if placement.from.foundation {
+                if card.rank == .ace {
+                    self.score -= 30
+                } else {
+                    self.score -= 10
+                }
+            }
+        }
         
         self.refresh()
         

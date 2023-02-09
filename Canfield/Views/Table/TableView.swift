@@ -34,7 +34,8 @@ struct TableView: View {
                     Spacer()
                     HStack(alignment: .top, spacing: 24) {
                         ForEach(Column.allCases) { column in
-                            PlacementView(for: .tableau(column)).track(bounds: { self.game.table[.tableau(column)] = $0 })
+                            PlacementView(for: .tableau(column))
+                                .track(bounds: { self.game.table[.tableau(column)] = $0 })
                         }
                     }
                 }
