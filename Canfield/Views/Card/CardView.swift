@@ -24,13 +24,13 @@ struct CardView: View {
                 VStack {
                     ZStack (alignment: .top) {
                         if self.card.face == .up && self.card.placement != .stock {
-                            Image("deck.default.\(card.suite.name).\(card.rank.name)")
+                            Image("deck.chunky.\(card.suite.name).\(card.rank.name)")
                                 .resizable()
                                 .scaledToFill()
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .rotation3DEffect(.degrees(180), axis: self.axis)
                         } else {
-                            Image("deck.default.back")
+                            Image("deck.chunky.back")
                                 .resizable()
                                 .scaledToFill()
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
