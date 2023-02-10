@@ -72,12 +72,13 @@ class Card: Identifiable, Equatable, ObservableObject {
         }
     }
     
+    //FIXME: - Bound offset
     var bounds: CGRect {
         didSet {
             
             if let child = self.child {
                 child.offset = self.offset
-                child.bounds = CGRect(origin: CGPoint(x: self.bounds.origin.x, y: self.bounds.origin.y + Globals.CARD.OFFSET.UP), size: self.bounds.size)
+                child.bounds = CGRect(origin: CGPoint(x: self.bounds.origin.x, y: self.bounds.origin.y + 20), size: self.bounds.size)
             }
             
             self.refresh()
@@ -136,7 +137,7 @@ class Card: Identifiable, Equatable, ObservableObject {
     
     var child: Card?
     
-    init(suite: Suite, rank: Rank, placement:Placement = .none, face: Face = .down, available: Bool = false, moving: Bool = false, order: Int = 0, bounds: CGRect = Globals.CARD.BOUNDS, offset: CGSize = .zero, location: CGRect = .zero) {
+    init(suite: Suite, rank: Rank, placement:Placement = .none, face: Face = .down, available: Bool = false, moving: Bool = false, order: Int = 0, bounds: CGRect = .zero, offset: CGSize = .zero, location: CGRect = .zero) {
         self.suite = suite
         self.rank = rank
         self.placement = placement

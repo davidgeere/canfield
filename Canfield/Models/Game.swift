@@ -59,6 +59,18 @@ class Game: ObservableObject {
     
     @Published public var status: [Status]
     
+    @Published public var card_size: CGSize {
+        didSet {
+            
+            self.cards.forEach( {
+                $0.bounds = self.position($0, in: $0.placement, on: $0.parent)
+            })
+            
+            self.refresh()
+            
+        }
+    }
+    
     private var moves: Int {
         didSet {
             
@@ -100,9 +112,16 @@ class Game: ObservableObject {
         self.moves = 0
         self.score = 0
         
+        self.card_size = CGSize(width: Globals.CARD.WIDTH, height: Globals.CARD.WIDTH)
+        
     }
     
     //MARK: Private Methods
+    public func relayout(_ bounds: CGRect) {
+        
+        self.card_size = bounds.size
+    }
+    
     private func status(for key: GameStatus, value: Int) {
          
         if let index = self.status.firstIndex(where: { $0.key == key }) {
@@ -518,24 +537,26 @@ class Game: ObservableObject {
         var bounds: CGRect = .zero
         var stagger: CGFloat = .zero
         var location: CGPoint = .zero
+        var stagger_size = (self.card_size.height * (40/182))
         
         if let target = target {
             
-            stagger = target.face == .up ? Globals.CARD.OFFSET.UP : Globals.CARD.OFFSET.DOWN
+            //FIXME: - Bound offset
+            stagger = target.face == .up ? stagger_size : stagger_size / 2
             
             bounds = target.bounds
             
         } else {
-            
-            stagger = CGFloat(card.order - 1) * Globals.CARD.OFFSET.DOWN
+            //FIXME: - Bound offset
+            stagger = CGFloat(card.order - 1) * (stagger_size / 2)
             
             bounds = self.table[placement]
         }
         
         switch placement {
         case .none, .ready:
-            
-            location = CGPoint(x: bounds.midX, y: bounds.maxY + Globals.CARD.HEIGHT)
+            //FIXME: - Bound height
+            location = CGPoint(x: bounds.midX, y: bounds.maxY + self.card_size.height)
             
         case .tableau:
             
@@ -546,8 +567,8 @@ class Game: ObservableObject {
             location = CGPoint(x: bounds.minX, y: bounds.minY)
             
         }
-        
-        return CGRect(x: location.x, y: location.y, width: Globals.CARD.WIDTH, height: Globals.CARD.HEIGHT)
+        //FIXME: - Bound All
+        return CGRect(x: location.x, y: location.y, width: self.card_size.width, height: self.card_size.height)
     }
     
     private func move(_ card: Card, placement: MoveState<Placement>, revealed: MoveState<Bool>) {
@@ -734,8 +755,6 @@ class Game: ObservableObject {
 
             self.refresh()
         }
-        
-//        self.test_setup()
         
         self.elapsed = 0
         self.moves = 0

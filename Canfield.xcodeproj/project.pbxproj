@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF01B94729958D2100442C61 /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF01B94629958D2100442C61 /* CGSize.swift */; };
 		DF1AE5CD2991D72000D7BFE8 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1AE5CC2991D72000D7BFE8 /* Text.swift */; };
 		DF1AE5CF2991D99100D7BFE8 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1AE5CE2991D99100D7BFE8 /* ActionsView.swift */; };
 		DF1AE5D12992DABA00D7BFE8 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1AE5D02992DABA00D7BFE8 /* GameStatus.swift */; };
@@ -68,6 +69,15 @@
 		DFB8DB78298C7C0400AB7787 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB77298C7C0400AB7787 /* HeaderView.swift */; };
 		DFB8DB7A298C8D2A00AB7787 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB79298C8D2A00AB7787 /* GameState.swift */; };
 		DFBB330B2994948200639F99 /* VisibilityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBB330A2994948200639F99 /* VisibilityModifier.swift */; };
+		DFBB331E29955D3B00639F99 /* iPhoneLargePortraitGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBB331D29955D3B00639F99 /* iPhoneLargePortraitGameView.swift */; };
+		DFBB332029955D4A00639F99 /* iPhoneMediumPortraitGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBB331F29955D4A00639F99 /* iPhoneMediumPortraitGameView.swift */; };
+		DFBB332229955D5500639F99 /* iPhoneSmallPortraitGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBB332129955D5500639F99 /* iPhoneSmallPortraitGameView.swift */; };
+		DFBB332429955D6600639F99 /* iPadPortraitGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBB332329955D6600639F99 /* iPadPortraitGameView.swift */; };
+		DFBB332629955D7600639F99 /* iPadLandscapeGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBB332529955D7600639F99 /* iPadLandscapeGameView.swift */; };
+		DFBB332829955D8C00639F99 /* iPhoneLargeLandscapeGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBB332729955D8C00639F99 /* iPhoneLargeLandscapeGameView.swift */; };
+		DFBB332A29955D9800639F99 /* iPhoneMediumLandscapeGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBB332929955D9800639F99 /* iPhoneMediumLandscapeGameView.swift */; };
+		DFBB332C29955DA600639F99 /* iPhoneSmallLandscapeGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBB332B29955DA600639F99 /* iPhoneSmallLandscapeGameView.swift */; };
+		DFBB332E29955DB500639F99 /* iMacGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBB332D29955DB500639F99 /* iMacGameView.swift */; };
 		DFD40385299453CA00FE41D5 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD40384299453CA00FE41D5 /* Array.swift */; };
 		DFE6B610298F045A00F539FB /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B60F298F045A00F539FB /* Geometry.swift */; };
 		DFE6B612298F2F1200F539FB /* LayoutDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B611298F2F1200F539FB /* LayoutDebugView.swift */; };
@@ -77,6 +87,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF01B94629958D2100442C61 /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
 		DF09C0F02991D5AF00A2D442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DF1AE5CC2991D72000D7BFE8 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		DF1AE5CE2991D99100D7BFE8 /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
@@ -140,6 +151,15 @@
 		DFB8DB77298C7C0400AB7787 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		DFB8DB79298C8D2A00AB7787 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		DFBB330A2994948200639F99 /* VisibilityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityModifier.swift; sourceTree = "<group>"; };
+		DFBB331D29955D3B00639F99 /* iPhoneLargePortraitGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhoneLargePortraitGameView.swift; sourceTree = "<group>"; };
+		DFBB331F29955D4A00639F99 /* iPhoneMediumPortraitGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhoneMediumPortraitGameView.swift; sourceTree = "<group>"; };
+		DFBB332129955D5500639F99 /* iPhoneSmallPortraitGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhoneSmallPortraitGameView.swift; sourceTree = "<group>"; };
+		DFBB332329955D6600639F99 /* iPadPortraitGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadPortraitGameView.swift; sourceTree = "<group>"; };
+		DFBB332529955D7600639F99 /* iPadLandscapeGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadLandscapeGameView.swift; sourceTree = "<group>"; };
+		DFBB332729955D8C00639F99 /* iPhoneLargeLandscapeGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhoneLargeLandscapeGameView.swift; sourceTree = "<group>"; };
+		DFBB332929955D9800639F99 /* iPhoneMediumLandscapeGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhoneMediumLandscapeGameView.swift; sourceTree = "<group>"; };
+		DFBB332B29955DA600639F99 /* iPhoneSmallLandscapeGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhoneSmallLandscapeGameView.swift; sourceTree = "<group>"; };
+		DFBB332D29955DB500639F99 /* iMacGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMacGameView.swift; sourceTree = "<group>"; };
 		DFD40384299453CA00FE41D5 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		DFE6B60F298F045A00F539FB /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
 		DFE6B611298F2F1200F539FB /* LayoutDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutDebugView.swift; sourceTree = "<group>"; };
@@ -228,6 +248,7 @@
 		DFA169E1298C318D0089381F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DFBB330E29955BC900639F99 /* Layouts */,
 				DFE6B613298F2F9700F539FB /* Debug */,
 				DFB8DB76298C7BF500AB7787 /* Navigation */,
 				DFA16A13298C4B870089381F /* Card */,
@@ -300,6 +321,7 @@
 				DF3AA8772991D33C00CBE983 /* UIFont.swift */,
 				DF1AE5CC2991D72000D7BFE8 /* Text.swift */,
 				DFD40384299453CA00FE41D5 /* Array.swift */,
+				DF01B94629958D2100442C61 /* CGSize.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -366,6 +388,70 @@
 				DF1AE5CE2991D99100D7BFE8 /* ActionsView.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		DFBB330E29955BC900639F99 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				DFBB331A29955CDF00639F99 /* iMac */,
+				DFBB331629955CBE00639F99 /* iPhone */,
+				DFBB331529955CB700639F99 /* iPad */,
+			);
+			path = Layouts;
+			sourceTree = "<group>";
+		};
+		DFBB331529955CB700639F99 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				DFBB332329955D6600639F99 /* iPadPortraitGameView.swift */,
+				DFBB332529955D7600639F99 /* iPadLandscapeGameView.swift */,
+			);
+			path = iPad;
+			sourceTree = "<group>";
+		};
+		DFBB331629955CBE00639F99 /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				DFBB331929955CD800639F99 /* Small */,
+				DFBB331829955CD200639F99 /* Medium */,
+				DFBB331729955CCC00639F99 /* Large */,
+			);
+			path = iPhone;
+			sourceTree = "<group>";
+		};
+		DFBB331729955CCC00639F99 /* Large */ = {
+			isa = PBXGroup;
+			children = (
+				DFBB331D29955D3B00639F99 /* iPhoneLargePortraitGameView.swift */,
+				DFBB332729955D8C00639F99 /* iPhoneLargeLandscapeGameView.swift */,
+			);
+			path = Large;
+			sourceTree = "<group>";
+		};
+		DFBB331829955CD200639F99 /* Medium */ = {
+			isa = PBXGroup;
+			children = (
+				DFBB331F29955D4A00639F99 /* iPhoneMediumPortraitGameView.swift */,
+				DFBB332929955D9800639F99 /* iPhoneMediumLandscapeGameView.swift */,
+			);
+			path = Medium;
+			sourceTree = "<group>";
+		};
+		DFBB331929955CD800639F99 /* Small */ = {
+			isa = PBXGroup;
+			children = (
+				DFBB332129955D5500639F99 /* iPhoneSmallPortraitGameView.swift */,
+				DFBB332B29955DA600639F99 /* iPhoneSmallLandscapeGameView.swift */,
+			);
+			path = Small;
+			sourceTree = "<group>";
+		};
+		DFBB331A29955CDF00639F99 /* iMac */ = {
+			isa = PBXGroup;
+			children = (
+				DFBB332D29955DB500639F99 /* iMacGameView.swift */,
+			);
+			path = iMac;
 			sourceTree = "<group>";
 		};
 		DFE6B613298F2F9700F539FB /* Debug */ = {
@@ -471,6 +557,7 @@
 				DF3AA8452991944800CBE983 /* AnimationCompletionObserverModifier.swift in Sources */,
 				DFBB330B2994948200639F99 /* VisibilityModifier.swift in Sources */,
 				DFA169D6298C2EE80089381F /* GameView.swift in Sources */,
+				DFBB332A29955D9800639F99 /* iPhoneMediumLandscapeGameView.swift in Sources */,
 				DFA16A0F298C441A0089381F /* Globals.swift in Sources */,
 				DFA169E6298C32760089381F /* TableView.swift in Sources */,
 				DF3AA8762991D31400CBE983 /* Font.swift in Sources */,
@@ -480,6 +567,7 @@
 				DFB8DB75298C773300AB7787 /* ViewSize.swift in Sources */,
 				DFA169F8298C3A2E0089381F /* String.swift in Sources */,
 				DFE6B610298F045A00F539FB /* Geometry.swift in Sources */,
+				DFBB332C29955DA600639F99 /* iPhoneSmallLandscapeGameView.swift in Sources */,
 				DFE6B612298F2F1200F539FB /* LayoutDebugView.swift in Sources */,
 				DFA169ED298C343B0089381F /* Card.swift in Sources */,
 				DFE6B615298F3B7F00F539FB /* CardDebugView.swift in Sources */,
@@ -487,8 +575,13 @@
 				DFB8DB6D298C62F000AB7787 /* TrackBoundsPreferenceKey.swift in Sources */,
 				DFA16A1B298C4CA90089381F /* CardEvent.swift in Sources */,
 				DFD40385299453CA00FE41D5 /* Array.swift in Sources */,
+				DFBB332029955D4A00639F99 /* iPhoneMediumPortraitGameView.swift in Sources */,
+				DF01B94729958D2100442C61 /* CGSize.swift in Sources */,
 				DFA169EF298C34A10089381F /* Placement.swift in Sources */,
+				DFBB332429955D6600639F99 /* iPadPortraitGameView.swift in Sources */,
+				DFBB332E29955DB500639F99 /* iMacGameView.swift in Sources */,
 				DFA16A15298C4B970089381F /* CardView.swift in Sources */,
+				DFBB332229955D5500639F99 /* iPhoneSmallPortraitGameView.swift in Sources */,
 				DFB8DB6F298C63A900AB7787 /* TrackBoundsModifier.swift in Sources */,
 				DFA169FF298C3DE10089381F /* Face.swift in Sources */,
 				DFA169FD298C3D690089381F /* Pair.swift in Sources */,
@@ -499,6 +592,7 @@
 				DFA169F3298C35C00089381F /* Column.swift in Sources */,
 				DF1AE5CD2991D72000D7BFE8 /* Text.swift in Sources */,
 				DFA169F5298C37010089381F /* Rank.swift in Sources */,
+				DFBB331E29955D3B00639F99 /* iPhoneLargePortraitGameView.swift in Sources */,
 				DFB8DB78298C7C0400AB7787 /* HeaderView.swift in Sources */,
 				DFA16A0C298C42970089381F /* View.swift in Sources */,
 				DF1AE5D32992E4C000D7BFE8 /* Move.swift in Sources */,
@@ -506,6 +600,8 @@
 				DFB8DB7A298C8D2A00AB7787 /* GameState.swift in Sources */,
 				DFB8DB6B298C58F700AB7787 /* Table.swift in Sources */,
 				DFA169F1298C35B50089381F /* Suite.swift in Sources */,
+				DFBB332829955D8C00639F99 /* iPhoneLargeLandscapeGameView.swift in Sources */,
+				DFBB332629955D7600639F99 /* iPadLandscapeGameView.swift in Sources */,
 				DFB8DB69298C51EA00AB7787 /* Deck.swift in Sources */,
 				DF3AA84329918B9400CBE983 /* ShakeEffect.swift in Sources */,
 				DFA169FB298C3B960089381F /* Inflector.swift in Sources */,
@@ -660,6 +756,9 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.bundance.Canfield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -693,6 +792,9 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.bundance.Canfield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

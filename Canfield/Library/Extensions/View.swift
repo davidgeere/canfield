@@ -23,7 +23,7 @@ extension View {
     }
     
     func size(for size: ViewSize) -> some View {
-        modifier(ViewSizeModifier(size: size))
+        modifier(ViewSizeModifier(layout: size))
     }
     
     func hide(_ hide: Bool = true, remove: Bool = true) -> some View {

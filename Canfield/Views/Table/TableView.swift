@@ -12,36 +12,51 @@ struct TableView: View {
     @EnvironmentObject private var game: Game
     
     var body: some View {
-        VStack(spacing: 0) {
-            VStack(spacing: 32) {
-                HStack(alignment: .top, spacing: 24) {
+        VStack(alignment: .trailing, spacing: 0) {
+            VStack(spacing: (self.game.card_size.width * (34/130))) {
+                HStack(alignment: .top, spacing: (self.game.card_size.width * (36/130))) {
                     PlacementView(for: .stock)
-                        .track(bounds: { self.game.table[.stock] = $0 })
+                        .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
+                        .frame(maxWidth: .infinity)
+//                        .track(bounds: {
+//                            self.game.table[.stock] = $0
+//                        })
                         .onTapGesture {
                             self.game.restock()
                         }
                     
-                    Color.clear.size(for: .card).track(bounds: { self.game.table[.waste] = $0 })
+                    Color.clear
+                        .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
+                        .frame(maxWidth: .infinity)
+//                        .track(bounds: { self.game.table[.waste] = $0 })
                     
-                    Spacer()
+                    Color.clear
+                        .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
+                        .frame(maxWidth: .infinity)
+                        .track(bounds: { self.game.relayout($0) })
+                    
                     ForEach(Suite.allCases) { suite in
                         PlacementView(for: .foundation(suite))
-                            .track(bounds: { self.game.table[.foundation(suite)] = $0 })
+                            .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
+                            .frame(maxWidth: .infinity)
+//                            .track(bounds: { self.game.table[.foundation(suite)] = $0 })
                     }
                 }
                 
-                HStack {
-                    Spacer()
-                    HStack(alignment: .top, spacing: 24) {
+                HStack(spacing: 0) {
+                    Spacer(minLength: 0)
+                    HStack(alignment: .top, spacing: (self.game.card_size.width * (36/130))) {
                         ForEach(Column.allCases) { column in
                             PlacementView(for: .tableau(column))
-                                .track(bounds: { self.game.table[.tableau(column)] = $0 })
+                                .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
+                                .frame(maxWidth: .infinity)
+//                                .track(bounds: { self.game.table[.tableau(column)] = $0 })
                         }
                     }
                 }
                 Spacer()
             }
-            .padding(32)
+            .padding((self.game.card_size.width * (34/130)))
             .size(for: .full)
         }
         .size(for: .full)
@@ -52,7 +67,9 @@ struct TableView: View {
             self.game.table[.none] = $0
             self.game.table[.ready] = $0
             
-            self.game.state = .ready
+            if self.game.state == .none {
+                self.game.state = .ready
+            }
         })
     }
 }

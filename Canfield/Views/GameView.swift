@@ -63,7 +63,52 @@ struct GameView: View {
 
 struct TableView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
-            .environmentObject(Game.preview)
+        
+        Group { // All
+            Group { // Landscape
+                GameView()
+                    .previewDevice(PreviewDevice(rawValue: "iPhone 13 mini"))
+                    .previewDisplayName("iPhone Small Landscape")
+                
+                GameView()
+                    .previewDevice(PreviewDevice(rawValue: "iPhone 14"))
+                    .previewDisplayName("iPhone Medium Landscape")
+                
+                GameView()
+                    .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro Max"))
+                    .previewDisplayName("iPhone Large Landscape")
+                
+                GameView()
+                    .previewDevice(PreviewDevice(rawValue: "iPad Pro (11-inch)"))
+                    .previewDisplayName("iPad Landscape")
+                
+                GameView()
+                    .previewDevice(PreviewDevice(rawValue: "Mac Catalyst"))
+                    .previewDisplayName("Mac")
+            }
+            .previewInterfaceOrientation(.landscapeRight)
+            
+            Group {
+                GameView()
+                    .previewDevice(PreviewDevice(rawValue: "iPhone 13 mini"))
+                    .previewDisplayName("iPhone Small Portrait")
+                
+                GameView()
+                    .previewDevice(PreviewDevice(rawValue: "iPhone 14"))
+                    .previewDisplayName("iPhone Medium Portrait")
+                
+                GameView()
+                    .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro Max"))
+                    .previewDisplayName("iPhone Large Portrait")
+                
+                GameView()
+                    .previewDevice(PreviewDevice(rawValue: "iPad Pro (11-inch)"))
+                    .previewDisplayName("iPad Portrait")
+            }
+            .previewInterfaceOrientation(.portrait)
+        }
+        .environmentObject(Game.preview)
+        
+        
     }
 }

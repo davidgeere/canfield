@@ -10,14 +10,29 @@ import SwiftUI
 
 struct ViewSizeModifier: ViewModifier {
     
-    let size: ViewSize
+    let layout: ViewSize
+    @State private var origin: CGSize
+    
+    private var size: CGSize
+    
+    init(layout: ViewSize) {
+        self.size = CGSize(width: 750, height: 1050)
+        self.layout = layout
+        self.origin = CGSize(width: size.width, height: size.width / size.ratio)
+    }
     
     func body(content: Content) -> some View {
-        switch size {
+        switch self.layout {
         case .card:
-            content.frame(width: Globals.CARD.WIDTH, height: Globals.CARD.HEIGHT)
+            content
+                .aspectRatio(self.size, contentMode: .fit)
+                .frame(maxWidth: .infinity)
         case .full:
             content.frame(maxWidth: .infinity, maxHeight: .infinity)
+        case .vertical:
+            content.frame(maxHeight: .infinity)
+        case .horizontal:
+            content.frame(maxWidth: .infinity)
         }
     }
 }

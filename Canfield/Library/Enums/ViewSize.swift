@@ -10,4 +10,6 @@ import Foundation
 enum ViewSize {
     case card
     case full
+    case horizontal
+    case vertical
 }
