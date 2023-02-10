@@ -24,7 +24,9 @@ struct TrackBoundsModifier: ViewModifier {
                     value: geometry.frame(in: .named(Globals.TABLE.NAME)))
             })
             .onPreferenceChange(TrackBoundsPreferenceKey.self){ value in
-                self.receive(value)
+                DispatchQueue.main.async {
+                    self.receive(value)
+                }
             }
     }
 }

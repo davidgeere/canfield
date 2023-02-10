@@ -11,44 +11,28 @@ struct GameView: View {
     
     @EnvironmentObject private var game: Game
     
+    @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+    
     var body: some View {
         VStack {
+            //            if horizontalSizeClass == .compact && verticalSizeClass == .regular {
+            //                Text("iPhone Portrait")
+            //            } else if horizontalSizeClass == .regular && verticalSizeClass == .compact {
+            //                Text("iPhone Landscape")
+            //            } else if horizontalSizeClass == .compact && verticalSizeClass == .compact {
+            //                Text("Small iPhone Landscape")
+            //            } else if horizontalSizeClass == .regular && verticalSizeClass == .regular {
+            //                Text("iPad Portrait/Landscape")
+            //            }
+            
             HeaderView()
             ZStack(alignment: .top) {
                 TableView()
                     .environmentObject(self.game)
                 
-                ZStack {
-                    ForEach(self.$game.cards) { card in
-                        CardView(card)
-                            .playable(
-                                card,
-                                onTap: {
-                                    switch $0.card.placement {
-                                    case .stock:
-                                        self.game.waste($0)
-                                    case .waste:
-                                        self.game.place($0)
-                                    case .foundation: return
-                                    case .tableau:
-                                        
-                                        self.game.place($0)
-                                        
-                                    default: return
-                                    }
-                                },
-                                onDrag: {
-                                    self.game.drag($0)
-                                },
-                                onDrop: {
-                                    self.game.drop($0)
-                                },
-                                onReset: {
-                                    self.game.regroup($0)
-                                })
-                    }
-                }
-                .size(for: .full)
+                CardsView()
+                    .environmentObject(self.game)
             }
             .size(for: .full)
         }

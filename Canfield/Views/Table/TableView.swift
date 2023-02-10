@@ -18,9 +18,7 @@ struct TableView: View {
                     PlacementView(for: .stock)
                         .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
                         .frame(maxWidth: .infinity)
-//                        .track(bounds: {
-//                            self.game.table[.stock] = $0
-//                        })
+                        .track(bounds: { self.game.table[.stock] = $0 })
                         .onTapGesture {
                             self.game.restock()
                         }
@@ -28,7 +26,7 @@ struct TableView: View {
                     Color.clear
                         .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
                         .frame(maxWidth: .infinity)
-//                        .track(bounds: { self.game.table[.waste] = $0 })
+                        .track(bounds: { self.game.table[.waste] = $0 })
                     
                     Color.clear
                         .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
@@ -39,7 +37,7 @@ struct TableView: View {
                         PlacementView(for: .foundation(suite))
                             .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
                             .frame(maxWidth: .infinity)
-//                            .track(bounds: { self.game.table[.foundation(suite)] = $0 })
+                            .track(bounds: { self.game.table[.foundation(suite)] = $0 })
                     }
                 }
                 
@@ -50,7 +48,7 @@ struct TableView: View {
                             PlacementView(for: .tableau(column))
                                 .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
                                 .frame(maxWidth: .infinity)
-//                                .track(bounds: { self.game.table[.tableau(column)] = $0 })
+                                .track(bounds: { self.game.table[.tableau(column)] = $0 })
                         }
                     }
                 }

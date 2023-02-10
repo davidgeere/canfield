@@ -49,10 +49,6 @@ struct PlacementView: View {
         .background(.white.opacity(0.2))
         .background(RoundedRectangle(cornerRadius: (self.game.card_size.width * (10 / 130) )  ).stroke(.white.opacity(0.4), lineWidth: 4))
         .clipShape(RoundedRectangle(cornerRadius: (self.game.card_size.width * (10 / 130) )  ))
-        .track(bounds: {
-            self.game.table[self.placement] = $0
-        })
-        
     }
 }
 
