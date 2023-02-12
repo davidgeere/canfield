@@ -36,7 +36,7 @@ struct PlayableCardModifier : ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .simultaneousGesture(DragGesture(minimumDistance: 0, coordinateSpace: .named(Globals.TABLE.NAME))
+            .simultaneousGesture(DragGesture(minimumDistance: 0, coordinateSpace: .named(GLOBALS.TABLE.NAME))
                 .onChanged { value in
                     guard card.available || card.face == .up else { return }
                     

@@ -45,6 +45,6 @@ struct StatusView_Previews: PreviewProvider {
             StatusView(status: .constant(status))
         }
         .size(for: .full)
-        .background(Globals.TABLE.COLOR)
+        .background(GLOBALS.TABLE.COLOR)
     }
 }

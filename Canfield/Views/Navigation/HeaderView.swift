@@ -14,7 +14,7 @@ struct HeaderView: View {
     var body: some View {
         HStack {
             
-            ActionView(name: "settings")
+            
             
             Spacer()
             
@@ -24,7 +24,7 @@ struct HeaderView: View {
             
             Spacer()
             
-            ActionView(name: "leaderboard")
+            
         }
         .padding()
         .frame(maxWidth: .infinity)
@@ -39,6 +39,6 @@ struct HeaderView_Previews: PreviewProvider {
                 .environmentObject(Game.preview)
         }
         .size(for: .full)
-        .background(Globals.TABLE.COLOR)
+        .background(GLOBALS.TABLE.COLOR)
     }
 }

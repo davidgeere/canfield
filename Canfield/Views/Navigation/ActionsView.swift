@@ -13,6 +13,9 @@ struct ActionsView: View {
     
     var body: some View {
         HStack(spacing: 32) {
+            
+            ActionView(name: "settings")
+            
             ActionView(name: "hint")
                 .onTapGesture {
                     self.game.restart()
@@ -40,6 +43,8 @@ struct ActionsView: View {
                         self.game.undo()
                     }
             }
+            
+            ActionView(name: "leaderboard")
         }
         .padding(16)
         .frame(height: 64)

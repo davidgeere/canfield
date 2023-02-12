@@ -72,12 +72,16 @@
 		DFB8DB78298C7C0400AB7787 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB77298C7C0400AB7787 /* HeaderView.swift */; };
 		DFB8DB7A298C8D2A00AB7787 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB79298C8D2A00AB7787 /* GameState.swift */; };
 		DFBB330B2994948200639F99 /* VisibilityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBB330A2994948200639F99 /* VisibilityModifier.swift */; };
+		DFC3B3612996B56C0050CB46 /* AdaptiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3602996B56C0050CB46 /* AdaptiveView.swift */; };
+		DFC3B3632996B5D10050CB46 /* SizePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3622996B5D10050CB46 /* SizePreferenceKey.swift */; };
+		DFC3B3652996B7340050CB46 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3642996B7340050CB46 /* FlexibleView.swift */; };
+		DFC3B3672996B7830050CB46 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3662996B7830050CB46 /* _FlexibleView.swift */; };
+		DFC3B36B2997337B0050CB46 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B36A2997337B0050CB46 /* GameScene.swift */; };
+		DFC3B36E299739780050CB46 /* CardNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B36D299739780050CB46 /* CardNode.swift */; };
+		DFC3B37029973C2A0050CB46 /* DepotNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B36F29973C2A0050CB46 /* DepotNode.swift */; };
 		DFD40385299453CA00FE41D5 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD40384299453CA00FE41D5 /* Array.swift */; };
 		DFE6B610298F045A00F539FB /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B60F298F045A00F539FB /* Geometry.swift */; };
-		DFE6B612298F2F1200F539FB /* LayoutDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B611298F2F1200F539FB /* LayoutDebugView.swift */; };
-		DFE6B615298F3B7F00F539FB /* CardDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B614298F3B7F00F539FB /* CardDebugView.swift */; };
 		DFE6B617298F3E2800F539FB /* Numeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B616298F3E2800F539FB /* Numeric.swift */; };
-		DFE6B619298F484700F539FB /* DebugRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B618298F484700F539FB /* DebugRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -148,12 +152,16 @@
 		DFB8DB77298C7C0400AB7787 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		DFB8DB79298C8D2A00AB7787 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		DFBB330A2994948200639F99 /* VisibilityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityModifier.swift; sourceTree = "<group>"; };
+		DFC3B3602996B56C0050CB46 /* AdaptiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveView.swift; sourceTree = "<group>"; };
+		DFC3B3622996B5D10050CB46 /* SizePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizePreferenceKey.swift; sourceTree = "<group>"; };
+		DFC3B3642996B7340050CB46 /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
+		DFC3B3662996B7830050CB46 /* _FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _FlexibleView.swift; sourceTree = "<group>"; };
+		DFC3B36A2997337B0050CB46 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		DFC3B36D299739780050CB46 /* CardNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardNode.swift; sourceTree = "<group>"; };
+		DFC3B36F29973C2A0050CB46 /* DepotNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepotNode.swift; sourceTree = "<group>"; };
 		DFD40384299453CA00FE41D5 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		DFE6B60F298F045A00F539FB /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
-		DFE6B611298F2F1200F539FB /* LayoutDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutDebugView.swift; sourceTree = "<group>"; };
-		DFE6B614298F3B7F00F539FB /* CardDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDebugView.swift; sourceTree = "<group>"; };
 		DFE6B616298F3E2800F539FB /* Numeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Numeric.swift; sourceTree = "<group>"; };
-		DFE6B618298F484700F539FB /* DebugRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,9 +229,11 @@
 		DFA169D2298C2EE80089381F /* Canfield */ = {
 			isa = PBXGroup;
 			children = (
+				DFC3B36C299739690050CB46 /* Nodes */,
 				DF09C0F02991D5AF00A2D442 /* Info.plist */,
 				DF3AA84A2991D29900CBE983 /* Fonts */,
 				DFA169E9298C33E30089381F /* Library */,
+				DFC3B369299733340050CB46 /* Scenes */,
 				DFA169EB298C341F0089381F /* Models */,
 				DFA169E1298C318D0089381F /* Views */,
 				DFA169D3298C2EE80089381F /* Application.swift */,
@@ -244,7 +254,6 @@
 		DFA169E1298C318D0089381F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DFE6B613298F2F9700F539FB /* Debug */,
 				DFB8DB76298C7BF500AB7787 /* Navigation */,
 				DFA16A13298C4B870089381F /* Card */,
 				DFA169E2298C319E0089381F /* Table */,
@@ -265,11 +274,12 @@
 		DFA169E9298C33E30089381F /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				DFC3B35F2996B55A0050CB46 /* Views */,
 				DF1CD6022995E09500986E2A /* Observers */,
 				DFA16A10298C45A60089381F /* Constants */,
 				DFA16A06298C41250089381F /* Modifiers */,
 				DFA16A03298C40540089381F /* Data */,
-				DFA16A00298C400F0089381F /* Preferences */,
+				DFA16A00298C400F0089381F /* PreferenceKeys */,
 				DFA169F9298C3A920089381F /* Core */,
 				DFA169F6298C39AA0089381F /* Extensions */,
 				DFA169EA298C34060089381F /* Enums */,
@@ -331,12 +341,13 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		DFA16A00298C400F0089381F /* Preferences */ = {
+		DFA16A00298C400F0089381F /* PreferenceKeys */ = {
 			isa = PBXGroup;
 			children = (
 				DFB8DB6C298C62F000AB7787 /* TrackBoundsPreferenceKey.swift */,
+				DFC3B3622996B5D10050CB46 /* SizePreferenceKey.swift */,
 			);
-			path = Preferences;
+			path = PreferenceKeys;
 			sourceTree = "<group>";
 		};
 		DFA16A03298C40540089381F /* Data */ = {
@@ -388,14 +399,31 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
-		DFE6B613298F2F9700F539FB /* Debug */ = {
+		DFC3B35F2996B55A0050CB46 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DFE6B611298F2F1200F539FB /* LayoutDebugView.swift */,
-				DFE6B614298F3B7F00F539FB /* CardDebugView.swift */,
-				DFE6B618298F484700F539FB /* DebugRowView.swift */,
+				DFC3B3602996B56C0050CB46 /* AdaptiveView.swift */,
+				DFC3B3642996B7340050CB46 /* FlexibleView.swift */,
+				DFC3B3662996B7830050CB46 /* _FlexibleView.swift */,
 			);
-			path = Debug;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DFC3B369299733340050CB46 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				DFC3B36A2997337B0050CB46 /* GameScene.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		DFC3B36C299739690050CB46 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				DFC3B36D299739780050CB46 /* CardNode.swift */,
+				DFC3B36F29973C2A0050CB46 /* DepotNode.swift */,
+			);
+			path = Nodes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -491,6 +519,7 @@
 				DF3AA8452991944800CBE983 /* AnimationCompletionObserverModifier.swift in Sources */,
 				DFBB330B2994948200639F99 /* VisibilityModifier.swift in Sources */,
 				DFA169D6298C2EE80089381F /* GameView.swift in Sources */,
+				DFC3B3652996B7340050CB46 /* FlexibleView.swift in Sources */,
 				DFA16A0F298C441A0089381F /* Globals.swift in Sources */,
 				DFA169E6298C32760089381F /* TableView.swift in Sources */,
 				DF3AA8762991D31400CBE983 /* Font.swift in Sources */,
@@ -498,11 +527,10 @@
 				DFB8DB73298C759B00AB7787 /* ViewSizeModifier.swift in Sources */,
 				DF3AA8492991D1DD00CBE983 /* StatusView.swift in Sources */,
 				DFB8DB75298C773300AB7787 /* ViewSize.swift in Sources */,
+				DFC3B3672996B7830050CB46 /* _FlexibleView.swift in Sources */,
 				DFA169F8298C3A2E0089381F /* String.swift in Sources */,
 				DFE6B610298F045A00F539FB /* Geometry.swift in Sources */,
-				DFE6B612298F2F1200F539FB /* LayoutDebugView.swift in Sources */,
 				DFA169ED298C343B0089381F /* Card.swift in Sources */,
-				DFE6B615298F3B7F00F539FB /* CardDebugView.swift in Sources */,
 				DF3AA8472991D0C300CBE983 /* ActionView.swift in Sources */,
 				DFB8DB6D298C62F000AB7787 /* TrackBoundsPreferenceKey.swift in Sources */,
 				DFA16A1B298C4CA90089381F /* CardEvent.swift in Sources */,
@@ -514,15 +542,18 @@
 				DFB8DB6F298C63A900AB7787 /* TrackBoundsModifier.swift in Sources */,
 				DFA169FF298C3DE10089381F /* Face.swift in Sources */,
 				DF1CD6062995E0FE00986E2A /* Orientation.swift in Sources */,
+				DFC3B3612996B56C0050CB46 /* AdaptiveView.swift in Sources */,
 				DFA169FD298C3D690089381F /* Pair.swift in Sources */,
 				DFA16A19298C4C7F0089381F /* CardEventData.swift in Sources */,
 				DF1AE5CF2991D99100D7BFE8 /* ActionsView.swift in Sources */,
 				DFA169E8298C33010089381F /* PlacementView.swift in Sources */,
 				DFB8DB67298C51AA00AB7787 /* Game.swift in Sources */,
+				DFC3B3632996B5D10050CB46 /* SizePreferenceKey.swift in Sources */,
 				DFA169F3298C35C00089381F /* Column.swift in Sources */,
 				DF1AE5CD2991D72000D7BFE8 /* Text.swift in Sources */,
 				DFA169F5298C37010089381F /* Rank.swift in Sources */,
 				DFB8DB78298C7C0400AB7787 /* HeaderView.swift in Sources */,
+				DFC3B36E299739780050CB46 /* CardNode.swift in Sources */,
 				DFA16A0C298C42970089381F /* View.swift in Sources */,
 				DF1AE5D32992E4C000D7BFE8 /* Move.swift in Sources */,
 				DF1AE5D12992DABA00D7BFE8 /* GameStatus.swift in Sources */,
@@ -530,13 +561,14 @@
 				DFB8DB6B298C58F700AB7787 /* Table.swift in Sources */,
 				DFA169F1298C35B50089381F /* Suite.swift in Sources */,
 				DFB8DB69298C51EA00AB7787 /* Deck.swift in Sources */,
+				DFC3B37029973C2A0050CB46 /* DepotNode.swift in Sources */,
 				DF1CD6082995E2DB00986E2A /* CardsView.swift in Sources */,
+				DFC3B36B2997337B0050CB46 /* GameScene.swift in Sources */,
 				DF3AA84329918B9400CBE983 /* ShakeEffect.swift in Sources */,
 				DFA169FB298C3B960089381F /* Inflector.swift in Sources */,
 				DF3AA8782991D33C00CBE983 /* UIFont.swift in Sources */,
 				DFA16A17298C4C550089381F /* PlayableCardModifier.swift in Sources */,
 				DFA169D4298C2EE80089381F /* Application.swift in Sources */,
-				DFE6B619298F484700F539FB /* DebugRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

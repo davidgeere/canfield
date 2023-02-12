@@ -21,7 +21,7 @@ struct TrackBoundsModifier: ViewModifier {
             .background(GeometryReader { geometry in
                 Color.clear.preference(
                     key: TrackBoundsPreferenceKey.self,
-                    value: geometry.frame(in: .named(Globals.TABLE.NAME)))
+                    value: geometry.frame(in: .named(GLOBALS.TABLE.NAME)))
             })
             .onPreferenceChange(TrackBoundsPreferenceKey.self){ value in
                 DispatchQueue.main.async {

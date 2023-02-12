@@ -9,9 +9,11 @@ import Foundation
 
 class Table {
     
+    public static let instance = Table()
+    
     private var placements: [Placement : CGRect]
     
-    init() {
+    private init() {
         self.placements = [:]
         
         self.placements[.stock] = CGRect.zero

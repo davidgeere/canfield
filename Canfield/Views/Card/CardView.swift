@@ -24,13 +24,13 @@ struct CardView: View {
                 VStack {
                     ZStack (alignment: .top) {
                         if self.card.face == .up && self.card.placement != .stock {
-                            Image("deck.chunky.\(card.suite.name).\(card.rank.name)")
+                            Image("decks/chunky/\(card.suite.name)/\(card.rank.name)")
                                 .resizable()
                                 .scaledToFit()
                                 .size(for: .full)
                                 .rotation3DEffect(.degrees(180), axis: self.axis)
                         } else {
-                            Image("deck.chunky.back")
+                            Image("decks/chunky/back")
                                 .resizable()
                                 .scaledToFit()
                                 .size(for: .full)
@@ -39,11 +39,8 @@ struct CardView: View {
                     .size(for: .full)
                 }
                 .size(for: .full)
-                .clipShape(RoundedRectangle(cornerRadius: (self.card.bounds.width * (4 / 130) )))
             }
             .size(for: .full)
-            .background(.white)
-            .clipShape(RoundedRectangle(cornerRadius: (self.card.bounds.width * (10 / 130) )   ))
             .opacity(card.placement == .none ? 0 : 1)
             .shadow(color: .black.opacity(0.2),
                     radius: card.moving ? 8 : card.order == 1 ? 2 : (card.placement.tableau && card.order > 1) ? 2 : 0,
@@ -72,6 +69,6 @@ struct CardView_Previews: PreviewProvider {
             CardView(.constant(card2))
         }
         .size(for: .full)
-        .background(Globals.TABLE.COLOR)
+        .background(GLOBALS.TABLE.COLOR)
     }
 }

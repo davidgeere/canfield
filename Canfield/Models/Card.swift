@@ -27,12 +27,10 @@ class Card: Identifiable, Equatable, ObservableObject {
     var placement: Placement {
         didSet {
             
-            if let child = self.child {
-                child.placement = self.placement
-            }
+            self.rebuild()
             
-            if self.order > 0 {
-                self.tilt = Double.random(in: -1.0...1.0)
+            if let child {
+                child.placement = self.placement
             }
             
             self.refresh()
@@ -52,7 +50,7 @@ class Card: Identifiable, Equatable, ObservableObject {
     var order: Int {
          didSet {
             
-            if let child = self.child {
+            if let child {
                 child.order = self.order + 1
             }
             
@@ -63,7 +61,7 @@ class Card: Identifiable, Equatable, ObservableObject {
     var moving: Bool {
         didSet {
             
-            if let child = self.child {
+            if let child {
                 child.moving = self.moving
             }
             
@@ -72,13 +70,21 @@ class Card: Identifiable, Equatable, ObservableObject {
         }
     }
     
-    //FIXME: - Bound offset
     var bounds: CGRect {
         didSet {
             
-            if let child = self.child {
+            if let child {
                 child.offset = self.offset
-                child.bounds = CGRect(origin: CGPoint(x: self.bounds.origin.x, y: self.bounds.origin.y + 20), size: self.bounds.size)
+                
+                child.rebuild()
+                
+//                var stagger = CGFloat.zero
+//
+//                if self.placement.tableau {
+//                    stagger = (self.bounds.height * (40 / 182))
+//                }
+//
+//                child.bounds = CGRect(origin: CGPoint(x: self.bounds.origin.x, y: self.bounds.origin.y + stagger), size: self.bounds.size)
             }
             
             self.refresh()
@@ -88,7 +94,7 @@ class Card: Identifiable, Equatable, ObservableObject {
     var offset: CGSize {
         didSet {
             
-            if let child = self.child {
+            if let child {
                 child.offset = self.offset
             }
             
@@ -105,7 +111,7 @@ class Card: Identifiable, Equatable, ObservableObject {
     var location: CGRect {
         didSet {
             
-            if let child = self.child {
+            if let child {
                 child.location = self.location
             }
             
@@ -129,8 +135,6 @@ class Card: Identifiable, Equatable, ObservableObject {
         }
     }
     
-    var tilt: Double
-    
     var revealed: Bool
     
     var parent: Card?
@@ -150,7 +154,6 @@ class Card: Identifiable, Equatable, ObservableObject {
         self.location = location
         self.match = false
         self.revealed = false
-        self.tilt = 0.0
     }
     
     public func refresh() {
@@ -198,6 +201,62 @@ class Card: Identifiable, Equatable, ObservableObject {
             
         default:
             return false
+        }
+    }
+    
+    public func place(on placement: Placement) {
+        
+        self.order = 1
+        self.placement = placement
+        self.available = self.child == nil
+        self.offset = .zero
+        
+        self.refresh()
+        
+    }
+    
+    public func place(on target: Card) {
+        
+        self.parent = target
+
+        if let parent {
+            
+            parent.available = false
+            parent.child = self
+            parent.refresh()
+            
+            self.order = parent.order + 1
+            self.placement = parent.placement
+            self.available = self.child == nil
+            self.offset = .zero
+        }
+        
+        self.refresh()
+    }
+    
+    public func rebuild() {
+        
+        var stagger: CGFloat = .zero
+        
+        let stagger_size = (Deck.instance.size.height * GLOBALS.CARD.STAGGER)
+        var area: CGRect = .zero
+        
+        if let parent {
+            stagger = parent.face == .up ? stagger_size : stagger_size / 2
+            area = parent.bounds
+            
+        } else {
+            stagger = CGFloat(self.order - 1) * (stagger_size / 2)
+            area = Table.instance[placement]
+        }
+        
+        switch self.placement {
+        case .none, .ready:
+            self.bounds = CGRect(x: area.midX, y: area.maxY + Deck.instance.size.height, width: Deck.instance.size.width, height: Deck.instance.size.height)
+        case .tableau:
+            self.bounds = CGRect(x: area.minX, y: area.minY + stagger, width: Deck.instance.size.width, height: Deck.instance.size.height)
+        case .foundation, .waste, .stock:
+            self.bounds = CGRect(x: area.minX, y: area.minY, width: Deck.instance.size.width, height: Deck.instance.size.height)
         }
     }
     

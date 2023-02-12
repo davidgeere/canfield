@@ -13,57 +13,57 @@ struct TableView: View {
     
     var body: some View {
         VStack(alignment: .trailing, spacing: 0) {
-            VStack(spacing: (self.game.card_size.width * (34/130))) {
-                HStack(alignment: .top, spacing: (self.game.card_size.width * (36/130))) {
+            VStack(spacing: ( Deck.instance.size.width * ( GLOBALS.TABLE.MARGIN / GLOBALS.CARD.WIDTH ))) {
+                HStack(alignment: .top, spacing: ( Deck.instance.size.width * ( GLOBALS.TABLE.SPACING / GLOBALS.CARD.WIDTH ))) {
                     PlacementView(for: .stock)
-                        .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
+                        .aspectRatio(GLOBALS.CARD.RATIO, contentMode: .fit)
                         .frame(maxWidth: .infinity)
-                        .track(bounds: { self.game.table[.stock] = $0 })
+                        .track(bounds: { Table.instance[.stock] = $0 })
                         .onTapGesture {
                             self.game.restock()
                         }
                     
                     Color.clear
-                        .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
+                        .aspectRatio(GLOBALS.CARD.RATIO, contentMode: .fit)
                         .frame(maxWidth: .infinity)
-                        .track(bounds: { self.game.table[.waste] = $0 })
+                        .track(bounds: { Table.instance[.waste] = $0 })
                     
                     Color.clear
-                        .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
+                        .aspectRatio(GLOBALS.CARD.RATIO, contentMode: .fit)
                         .frame(maxWidth: .infinity)
                         .track(bounds: { self.game.relayout($0) })
                     
                     ForEach(Suite.allCases) { suite in
                         PlacementView(for: .foundation(suite))
-                            .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
+                            .aspectRatio(GLOBALS.CARD.RATIO, contentMode: .fit)
                             .frame(maxWidth: .infinity)
-                            .track(bounds: { self.game.table[.foundation(suite)] = $0 })
+                            .track(bounds: { Table.instance[.foundation(suite)] = $0 })
                     }
                 }
                 
                 HStack(spacing: 0) {
                     Spacer(minLength: 0)
-                    HStack(alignment: .top, spacing: (self.game.card_size.width * (36/130))) {
+                    HStack(alignment: .top, spacing: ( Deck.instance.size.width * ( GLOBALS.TABLE.SPACING / GLOBALS.CARD.WIDTH )) ) {
                         ForEach(Column.allCases) { column in
                             PlacementView(for: .tableau(column))
-                                .aspectRatio(Globals.CARD.RATIO, contentMode: .fit)
+                                .aspectRatio(GLOBALS.CARD.RATIO, contentMode: .fit)
                                 .frame(maxWidth: .infinity)
-                                .track(bounds: { self.game.table[.tableau(column)] = $0 })
+                                .track(bounds: { Table.instance[.tableau(column)] = $0 })
                         }
                     }
                 }
                 Spacer()
             }
-            .padding((self.game.card_size.width * (34/130)))
+            .padding((Deck.instance.size.width * ( GLOBALS.TABLE.MARGIN / GLOBALS.CARD.WIDTH )))
             .size(for: .full)
         }
         .size(for: .full)
-        .background(Globals.TABLE.COLOR)
-        .coordinateSpace(name: Globals.TABLE.NAME)
+        .background(GLOBALS.TABLE.COLOR)
+        .coordinateSpace(name: GLOBALS.TABLE.NAME)
         .track(bounds: {
             
-            self.game.table[.none] = $0
-            self.game.table[.ready] = $0
+            Table.instance[.none] = $0
+            Table.instance[.ready] = $0
             
             if self.game.state == .none {
                 self.game.state = .ready

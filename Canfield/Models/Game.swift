@@ -59,18 +59,6 @@ class Game: ObservableObject {
     
     @Published public var status: [Status]
     
-    @Published public var card_size: CGSize {
-        didSet {
-            
-            self.cards.forEach( {
-                $0.bounds = self.position($0, in: $0.placement, on: $0.parent)
-            })
-            
-            self.refresh()
-            
-        }
-    }
-    
     private var moves: Int {
         didSet {
             
@@ -94,14 +82,13 @@ class Game: ObservableObject {
         }
     }
     
-    public var table: Table
     private var timer: Timer
     
     init() {
         
         self.state = .none
-        self.table = Table()
-        self.cards = Deck.draw
+        self.cards = Deck.instance.cards
+        
         self.timer = Timer()
         self.undo_moves = []
         self.autocompletable = false
@@ -112,14 +99,16 @@ class Game: ObservableObject {
         self.moves = 0
         self.score = 0
         
-        self.card_size = CGSize(width: Globals.CARD.WIDTH, height: Globals.CARD.WIDTH)
-        
     }
     
     //MARK: Private Methods
     public func relayout(_ bounds: CGRect) {
         
-        self.card_size = bounds.size
+        Deck.instance.resize(bounds.size)
+        
+        self.cards.forEach( { $0.rebuild() } )
+        
+        self.refresh()
     }
     
     private func status(for key: GameStatus, value: Int) {
@@ -186,10 +175,10 @@ class Game: ObservableObject {
 
         self.detach_from_previous_parent(card: card)
         
-        if let target = target {
-            self.place_card_on_card(child: card, parent: target)
+        if let target {
+            card.place(on: target)
         } else {
-            self.place_card_on_depot(card: card, placement: placement)
+            card.place(on: placement)
         }
         
         self.move(card, placement: placement_state, revealed: revealed_state, parent: parent_state)
@@ -235,24 +224,20 @@ class Game: ObservableObject {
             // move back to previous place
             move.card.order = self.order(for: move.placement.from) + 1
 
-            move.card.bounds = self.position(move.card, in: move.placement.from, on: move.parent.from)
-
-            move.card.placement = move.placement.from
             move.card.parent = move.parent.from
             move.card.offset = .zero
             move.card.revealed = move.revealed.from
-
             move.card.available = move.card.child == nil
+            move.card.placement = move.placement.from
 
             move.card.refresh()
             
         } else {
             
             move.card.order = self.order(for: move.placement.from) + 1
-            move.card.bounds = self.position(move.card, in: move.placement.from)
-            move.card.placement = move.placement.from
             move.card.available = move.card.child == nil
             move.card.offset = .zero
+            move.card.placement = move.placement.from
             
         }
         
@@ -308,32 +293,12 @@ class Game: ObservableObject {
     }
     
     private func place_card_on_depot(card: Card, placement: Placement) {
-        
-        card.order = 1
-        card.bounds = self.position(card, in: placement)
-        card.placement = placement
-        card.available = card.child == nil
-        card.offset = .zero
-        
+        card.place(on: placement)
     }
     
     private func place_card_on_card(child: Card, parent: Card) {
         
-        parent.available = false
-        parent.child = child
-        parent.refresh()
-        
-        child.order = parent.order + 1
-        
-        child.bounds = self.position(child, in: parent.placement, on: parent)
-        
-        child.placement = parent.placement
-        child.parent = parent
-        child.offset = .zero
-        
-        child.available = child.child == nil
-
-        child.refresh()
+        child.place(on: parent)
     }
     
     private func order_cards() {
@@ -347,7 +312,7 @@ class Game: ObservableObject {
         }
         
         for placement in Placement.allCases {
-            self.table[placement] = stacked_placement_bounds(placement: placement)
+            Table.instance[placement] = stacked_placement_bounds(placement: placement)
         }
         
     }
@@ -372,7 +337,7 @@ class Game: ObservableObject {
         
         for placement in Placement.allCases {
                         
-            let collision = depot.overlap(area: self.table[placement])
+            let collision = depot.overlap(area: Table.instance[placement])
             
             guard collision.rounded() > overlapped else { continue }
             
@@ -394,7 +359,7 @@ class Game: ObservableObject {
                   let first = items.first,
                   let last = items.last
             else {
-                return self.table[placement]
+                return Table.instance[placement]
             }
             
             let left = first.bounds.minX
@@ -408,7 +373,7 @@ class Game: ObservableObject {
             return bounds
             
         default:
-            return self.table[placement]
+            return Table.instance[placement]
         }
         
     }
@@ -532,44 +497,38 @@ class Game: ObservableObject {
         return self.cards.filter({ $0.placement == placement }).sorted(by: { $0.order < $1.order })
     }
 
-    private func position(_ card: Card, in placement: Placement, on target: Card? = nil) -> CGRect {
-        
-        var bounds: CGRect = .zero
-        var stagger: CGFloat = .zero
-        var location: CGPoint = .zero
-        var stagger_size = (self.card_size.height * (40/182))
-        
-        if let target = target {
-            
-            //FIXME: - Bound offset
-            stagger = target.face == .up ? stagger_size : stagger_size / 2
-            
-            bounds = target.bounds
-            
-        } else {
-            //FIXME: - Bound offset
-            stagger = CGFloat(card.order - 1) * (stagger_size / 2)
-            
-            bounds = self.table[placement]
-        }
-        
-        switch placement {
-        case .none, .ready:
-            //FIXME: - Bound height
-            location = CGPoint(x: bounds.midX, y: bounds.maxY + self.card_size.height)
-            
-        case .tableau:
-            
-            location = CGPoint(x: bounds.minX, y: bounds.minY + stagger)
-            
-        case .foundation, .waste, .stock:
-            
-            location = CGPoint(x: bounds.minX, y: bounds.minY)
-            
-        }
-        //FIXME: - Bound All
-        return CGRect(x: location.x, y: location.y, width: self.card_size.width, height: self.card_size.height)
-    }
+//    private func position(_ card: Card, in placement: Placement, on target: Card? = nil) -> CGRect {
+//
+//        var bounds: CGRect = .zero
+//        var stagger: CGFloat = .zero
+//        var location: CGPoint = .zero
+//        let stagger_size = (self.card_size.height * (40/182))
+//
+//        if let target = target {
+//
+//            stagger = target.face == .up ? stagger_size : stagger_size / 2
+//
+//            bounds = target.bounds
+//
+//        } else {
+//
+//            stagger = CGFloat(card.order - 1) * (stagger_size / 2)
+//
+//            bounds = Table.instance[placement]
+//        }
+//
+//        switch placement {
+//        case .none, .ready:
+//            location = CGPoint(x: bounds.midX, y: bounds.maxY + self.card_size.height)
+//        case .tableau:
+//            location = CGPoint(x: bounds.minX, y: bounds.minY + stagger)
+//        case .foundation, .waste, .stock:
+//            location = CGPoint(x: bounds.minX, y: bounds.minY)
+//        }
+//
+//        return CGRect(x: location.x, y: location.y, width: self.card_size.width, height: self.card_size.height)
+//
+//    }
     
     private func move(_ card: Card, placement: MoveState<Placement>, revealed: MoveState<Bool>) {
         self.move(card, placement: placement, revealed: revealed, parent: MoveState<Card?>(from: nil, to: nil ))
@@ -656,11 +615,10 @@ class Game: ObservableObject {
             card.revealed = true
             card.moving = true
             card.face = .up
-            card.placement = .ready
-            card.bounds = self.position(card, in: .ready)
             card.parent = nil
             card.child = nil
             card.offset = .zero
+            card.placement = .ready
             
             self.refresh()
         }
@@ -671,11 +629,11 @@ class Game: ObservableObject {
         
         for card in self.cards {
             card.face = .down
-            card.placement = .ready
             card.moving = false
             card.order = order
             card.offset = .zero
             card.revealed = false
+            card.placement = .ready
             
             order += 1
         }
@@ -702,7 +660,6 @@ class Game: ObservableObject {
             card.available = false
             card.face = .down
             card.placement = .none
-            card.bounds = self.position(card, in: .none)
             card.offset = .zero
         }
         
@@ -736,7 +693,6 @@ class Game: ObservableObject {
                 }
                 card.order = i + 1
                 card.placement = .tableau(column)
-                card.bounds = self.position(card, in: .tableau(column))
                 card.offset = .zero
 
                 self.refresh()
@@ -746,10 +702,9 @@ class Game: ObservableObject {
         var order = 1
 
         while let card = self.cards.first(where: { return $0.placement == .ready }) {
-            card.placement = .stock
-            card.bounds = self.position(card, in: .stock)
             card.order = order
             card.offset = .zero
+            card.placement = .stock
 
             order += 1
 
@@ -798,8 +753,6 @@ class Game: ObservableObject {
     
     public func restock(_ card: Card) {
         
-        card.placement = .stock
-        card.bounds = self.position(card, in: .stock)
         card.available = false
         card.order = self.order(for: .stock) + 1
         card.face = .down
@@ -807,6 +760,7 @@ class Game: ObservableObject {
         card.parent = nil
         card.child = nil
         card.offset = .zero
+        card.placement = .stock
         
         card.refresh()
     }
@@ -818,8 +772,6 @@ class Game: ObservableObject {
         let revealed_state = MoveState(from: card.revealed, to: true)
         let placement_state = MoveState(from: card.placement, to: .waste)
         
-        card.placement = .waste
-        card.bounds = self.position(card, in: .waste)
         
         card.face = .up
         card.order = wasted + 1
@@ -827,6 +779,7 @@ class Game: ObservableObject {
         card.revealed = true
         card.child = nil
         card.offset = .zero
+        card.placement = .waste
         
         card.refresh()
         
@@ -1203,4 +1156,5 @@ class Game: ObservableObject {
         
         return false
     }
+
 }

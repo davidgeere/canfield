@@ -33,7 +33,7 @@ struct ActionView_Previews: PreviewProvider {
             ActionView(name: "settings")
         }
         .size(for: .full)
-        .background(Globals.TABLE.COLOR)
+        .background(GLOBALS.TABLE.COLOR)
         
     }
 }
