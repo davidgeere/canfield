@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct Application: App {
     
-    @StateObject private var game = Game()
+    @StateObject private var game = Game.instance
     
     var body: some Scene {
         WindowGroup {

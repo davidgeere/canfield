@@ -29,8 +29,10 @@ class DepotNode : SKSpriteNode {
             imageName = "depot/\(suite.name)"
         }
         
-        let texture = SKTexture(imageNamed: imageName)
         
-        super.init(texture: texture, color: .clear, size: Deck.instance.size)
+        
+        let texture = SKTexture(image: UIImage(named: imageName)!.withTintColor(.white))
+        
+        super.init(texture: texture, color: .white, size: Deck.instance.size)
     }
 }

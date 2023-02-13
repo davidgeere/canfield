@@ -9,6 +9,7 @@ import Foundation
 import SpriteKit
 
 class CardNode : SKSpriteNode {
+    
     let frontTexture :SKTexture
     let backTexture :SKTexture
     
@@ -18,8 +19,8 @@ class CardNode : SKSpriteNode {
     
     init(card: Card) {
         
-        var front = UIImage(named: "decks/chunky/\(card.suite.name)/\(card.rank.name)")!
-        var back = UIImage(named: "decks/chunky/back")!
+        let front = UIImage(named: "decks/chunky/\(card.suite.name)/\(card.rank.name)")!
+        let back = UIImage(named: "decks/chunky/back")!
     
 //            .frame(width: card.bounds.width, height: card.bounds.height)
         

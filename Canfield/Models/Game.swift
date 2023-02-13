@@ -42,6 +42,7 @@ struct Status: Identifiable {
 
 class Game: ObservableObject {
     
+    public static let instance:Game = Game()
     public static let preview:Game = Game()
     
     @Published public var cards: [Card]

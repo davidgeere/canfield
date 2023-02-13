@@ -23,10 +23,8 @@ class GameScene: SKScene, ObservableObject {
         fatalError("init(coder:) is not supported")
     }
     
-    let card = CardNode(card: Deck.instance.cards.last!)
-    
     override func didMove(to view: SKView) {
-        
+
         for placement in Placement.allCases {
             let depot = DepotNode(placement: placement)
             
@@ -38,21 +36,36 @@ class GameScene: SKScene, ObservableObject {
             addChild(depot)
         }
         
-        card.position = CGPoint(x: (card.size.width / 2), y: size.height - (card.size.height / 2) )
-        
-        addChild(card)
+        for card in Game.instance.cards {
+            
+            let card_node = CardNode(card: card)
+            
+            let midX = card.bounds.midX
+            let midY = card.bounds.midY
+            
+            card_node.position = CGPoint(x: midX, y: size.height - midY)
+            
+            addChild(card_node)
+            
+//            let card = CardNode(card: Deck.instance.cards.last!)
+//
+//            card.position = CGPoint(x: (card.size.width / 2), y: size.height - (card.size.height / 2) )
+        }
+
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        let location = touch.location(in: self)
-        let box = SKSpriteNode(color: .red, size: CGSize(width: 50, height: 50))
-        box.position = location
-        box.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: 50))
-        addChild(box)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+      for touch in touches {
+        let location = touch.location(in: self)           // 1
+        if let card = atPoint(location) as? CardNode {        // 2
+          card.position = location
+        }
+      }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+    }
 }

@@ -43,6 +43,7 @@ struct GameView: View {
                 
                 SpriteView(scene: scene)
                     .background(GLOBALS.TABLE.COLOR)
+                    .environmentObject(self.game)
                     .size(for: .full)
             }
             .size(for: .full)
