@@ -76,9 +76,6 @@
 		DFC3B3632996B5D10050CB46 /* SizePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3622996B5D10050CB46 /* SizePreferenceKey.swift */; };
 		DFC3B3652996B7340050CB46 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3642996B7340050CB46 /* FlexibleView.swift */; };
 		DFC3B3672996B7830050CB46 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3662996B7830050CB46 /* _FlexibleView.swift */; };
-		DFC3B36B2997337B0050CB46 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B36A2997337B0050CB46 /* GameScene.swift */; };
-		DFC3B36E299739780050CB46 /* CardNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B36D299739780050CB46 /* CardNode.swift */; };
-		DFC3B37029973C2A0050CB46 /* DepotNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B36F29973C2A0050CB46 /* DepotNode.swift */; };
 		DFD40385299453CA00FE41D5 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD40384299453CA00FE41D5 /* Array.swift */; };
 		DFE6B610298F045A00F539FB /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B60F298F045A00F539FB /* Geometry.swift */; };
 		DFE6B617298F3E2800F539FB /* Numeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B616298F3E2800F539FB /* Numeric.swift */; };
@@ -156,9 +153,6 @@
 		DFC3B3622996B5D10050CB46 /* SizePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizePreferenceKey.swift; sourceTree = "<group>"; };
 		DFC3B3642996B7340050CB46 /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
 		DFC3B3662996B7830050CB46 /* _FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _FlexibleView.swift; sourceTree = "<group>"; };
-		DFC3B36A2997337B0050CB46 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		DFC3B36D299739780050CB46 /* CardNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardNode.swift; sourceTree = "<group>"; };
-		DFC3B36F29973C2A0050CB46 /* DepotNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepotNode.swift; sourceTree = "<group>"; };
 		DFD40384299453CA00FE41D5 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		DFE6B60F298F045A00F539FB /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
 		DFE6B616298F3E2800F539FB /* Numeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Numeric.swift; sourceTree = "<group>"; };
@@ -229,11 +223,9 @@
 		DFA169D2298C2EE80089381F /* Canfield */ = {
 			isa = PBXGroup;
 			children = (
-				DFC3B36C299739690050CB46 /* Nodes */,
 				DF09C0F02991D5AF00A2D442 /* Info.plist */,
 				DF3AA84A2991D29900CBE983 /* Fonts */,
 				DFA169E9298C33E30089381F /* Library */,
-				DFC3B369299733340050CB46 /* Scenes */,
 				DFA169EB298C341F0089381F /* Models */,
 				DFA169E1298C318D0089381F /* Views */,
 				DFA169D3298C2EE80089381F /* Application.swift */,
@@ -409,23 +401,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		DFC3B369299733340050CB46 /* Scenes */ = {
-			isa = PBXGroup;
-			children = (
-				DFC3B36A2997337B0050CB46 /* GameScene.swift */,
-			);
-			path = Scenes;
-			sourceTree = "<group>";
-		};
-		DFC3B36C299739690050CB46 /* Nodes */ = {
-			isa = PBXGroup;
-			children = (
-				DFC3B36D299739780050CB46 /* CardNode.swift */,
-				DFC3B36F29973C2A0050CB46 /* DepotNode.swift */,
-			);
-			path = Nodes;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -553,7 +528,6 @@
 				DF1AE5CD2991D72000D7BFE8 /* Text.swift in Sources */,
 				DFA169F5298C37010089381F /* Rank.swift in Sources */,
 				DFB8DB78298C7C0400AB7787 /* HeaderView.swift in Sources */,
-				DFC3B36E299739780050CB46 /* CardNode.swift in Sources */,
 				DFA16A0C298C42970089381F /* View.swift in Sources */,
 				DF1AE5D32992E4C000D7BFE8 /* Move.swift in Sources */,
 				DF1AE5D12992DABA00D7BFE8 /* GameStatus.swift in Sources */,
@@ -561,9 +535,7 @@
 				DFB8DB6B298C58F700AB7787 /* Table.swift in Sources */,
 				DFA169F1298C35B50089381F /* Suite.swift in Sources */,
 				DFB8DB69298C51EA00AB7787 /* Deck.swift in Sources */,
-				DFC3B37029973C2A0050CB46 /* DepotNode.swift in Sources */,
 				DF1CD6082995E2DB00986E2A /* CardsView.swift in Sources */,
-				DFC3B36B2997337B0050CB46 /* GameScene.swift in Sources */,
 				DF3AA84329918B9400CBE983 /* ShakeEffect.swift in Sources */,
 				DFA169FB298C3B960089381F /* Inflector.swift in Sources */,
 				DF3AA8782991D33C00CBE983 /* UIFont.swift in Sources */,

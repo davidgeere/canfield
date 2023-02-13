@@ -15,12 +15,6 @@ struct GameView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
-    var scene: GameScene {
-        let scene = GameScene(size: Table.instance[.ready].size)
-        scene.scaleMode = .resizeFill
-        return scene
-    }
-    
     var body: some View {
         VStack {
 //            if horizontalSizeClass == .compact && verticalSizeClass == .regular {
@@ -40,11 +34,6 @@ struct GameView: View {
                 
                 CardsView()
                     .environmentObject(self.game)
-                
-                SpriteView(scene: scene)
-                    .background(GLOBALS.TABLE.COLOR)
-                    .environmentObject(self.game)
-                    .size(for: .full)
             }
             .size(for: .full)
         }
