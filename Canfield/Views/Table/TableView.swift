@@ -33,7 +33,7 @@ struct TableView: View {
                         .frame(maxWidth: .infinity)
                         .track(bounds: { self.game.relayout($0) })
                     
-                    ForEach(Suite.allCases) { suite in
+                    ForEach(Suit.allCases) { suite in
                         PlacementView(for: .foundation(suite))
                             .aspectRatio(GLOBALS.CARD.RATIO, contentMode: .fit)
                             .frame(maxWidth: .infinity)

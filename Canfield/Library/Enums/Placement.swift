@@ -14,7 +14,7 @@ enum Placement: Equatable, Hashable, CaseIterable, Identifiable {
     case ready
     case stock
     case waste
-    case foundation( _ suite: Suite )
+    case foundation( _ suite: Suit )
     case tableau( _ column: Column )
     
     static var allTableaus: [Placement] {
@@ -45,7 +45,7 @@ enum Placement: Equatable, Hashable, CaseIterable, Identifiable {
         return Placement.allPlayable.contains { return $0 == self }
     }
     
-    var suite: Suite? {
+    var suite: Suit? {
         switch self {
         case .foundation(let suite) : return suite
         default: return nil

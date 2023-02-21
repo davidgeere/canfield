@@ -10,7 +10,7 @@ import Foundation
 class Card: Identifiable, Equatable, ObservableObject {
     
     var id:Int {
-        return ((suite.value - 1) * Rank.count) + rank.value
+        return ((suit.value - 1) * Rank.count) + rank.value
     }
     
     static func == (left: Card, right: Card) -> Bool {
@@ -18,10 +18,10 @@ class Card: Identifiable, Equatable, ObservableObject {
     }
     
     var symbol: String {
-        return self.suite.symbol + self.rank.symbol
+        return self.suit.symbol + self.rank.symbol
     }
     
-    let suite: Suite
+    let suit: Suit
     let rank: Rank
     
     var placement: Placement {
@@ -141,8 +141,8 @@ class Card: Identifiable, Equatable, ObservableObject {
     
     var child: Card?
     
-    init(suite: Suite, rank: Rank, placement:Placement = .none, face: Face = .down, available: Bool = false, moving: Bool = false, order: Int = 0, bounds: CGRect = .zero, offset: CGSize = .zero, location: CGRect = .zero) {
-        self.suite = suite
+    init(suite: Suit, rank: Rank, placement:Placement = .none, face: Face = .down, available: Bool = false, moving: Bool = false, order: Int = 0, bounds: CGRect = .zero, offset: CGSize = .zero, location: CGRect = .zero) {
+        self.suit = suite
         self.rank = rank
         self.placement = placement
         self.face = face
@@ -153,6 +153,14 @@ class Card: Identifiable, Equatable, ObservableObject {
         self.offset = offset
         self.location = location
         self.match = false
+        self.revealed = false
+    }
+    
+    public func reveal() {
+        self.revealed = true
+    }
+    
+    public func hide() {
         self.revealed = false
     }
     
@@ -171,7 +179,7 @@ class Card: Identifiable, Equatable, ObservableObject {
         case .foundation:
             
             guard self.rank == .ace,
-                  self.suite == placement.suite else { return false }
+                  self.suit == placement.suite else { return false }
             
             return true
             
@@ -181,11 +189,15 @@ class Card: Identifiable, Equatable, ObservableObject {
         }
     }
     
+    func nextRank() -> Rank? {
+        return Rank(rawValue: self.rank.rawValue + 1)
+    }
+    
     public func valid(for target: Card) -> Bool {
         switch target.placement {
         case .tableau:
             
-            guard target.suite.pair != self.suite.pair,
+            guard target.suit.pair != self.suit.pair,
                   target.rank.previous != nil,
                   target.rank.previous == self.rank else { return false }
             
@@ -193,7 +205,7 @@ class Card: Identifiable, Equatable, ObservableObject {
             
         case .foundation:
             
-            guard target.suite.pair == self.suite.pair,
+            guard target.suit.pair == self.suit.pair,
                   target.rank.next != nil,
                   target.rank.next == self.rank else { return false }
             

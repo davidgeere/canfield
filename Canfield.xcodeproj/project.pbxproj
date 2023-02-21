@@ -49,7 +49,7 @@
 		DFA169E8298C33010089381F /* PlacementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169E7298C33010089381F /* PlacementView.swift */; };
 		DFA169ED298C343B0089381F /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169EC298C343B0089381F /* Card.swift */; };
 		DFA169EF298C34A10089381F /* Placement.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169EE298C34A10089381F /* Placement.swift */; };
-		DFA169F1298C35B50089381F /* Suite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169F0298C35B50089381F /* Suite.swift */; };
+		DFA169F1298C35B50089381F /* Suit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169F0298C35B50089381F /* Suit.swift */; };
 		DFA169F3298C35C00089381F /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169F2298C35C00089381F /* Column.swift */; };
 		DFA169F5298C37010089381F /* Rank.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169F4298C37010089381F /* Rank.swift */; };
 		DFA169F8298C3A2E0089381F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA169F7298C3A2E0089381F /* String.swift */; };
@@ -77,6 +77,15 @@
 		DFC3B3652996B7340050CB46 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3642996B7340050CB46 /* FlexibleView.swift */; };
 		DFC3B3672996B7830050CB46 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3662996B7830050CB46 /* _FlexibleView.swift */; };
 		DFD40385299453CA00FE41D5 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD40384299453CA00FE41D5 /* Array.swift */; };
+		DFDA78F029A547DB0007D33A /* UndoableCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78EF29A547DB0007D33A /* UndoableCommand.swift */; };
+		DFDA78F329A548790007D33A /* MoveCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78F229A548790007D33A /* MoveCommand.swift */; };
+		DFDA78F529A551DA0007D33A /* Pile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78F429A551DA0007D33A /* Pile.swift */; };
+		DFDA78F829A56BEF0007D33A /* StockPile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78F729A56BEF0007D33A /* StockPile.swift */; };
+		DFDA78FA29A56C0A0007D33A /* WastePile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78F929A56C0A0007D33A /* WastePile.swift */; };
+		DFDA78FC29A56C270007D33A /* FoundationPile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78FB29A56C270007D33A /* FoundationPile.swift */; };
+		DFDA78FE29A56C430007D33A /* TableauPile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78FD29A56C430007D33A /* TableauPile.swift */; };
+		DFDA790029A56E0C0007D33A /* DealCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78FF29A56E0C0007D33A /* DealCommand.swift */; };
+		DFDA790229A56E360007D33A /* CommandHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA790129A56E360007D33A /* CommandHistory.swift */; };
 		DFE6B610298F045A00F539FB /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B60F298F045A00F539FB /* Geometry.swift */; };
 		DFE6B617298F3E2800F539FB /* Numeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B616298F3E2800F539FB /* Numeric.swift */; };
 /* End PBXBuildFile section */
@@ -126,7 +135,7 @@
 		DFA169E7298C33010089381F /* PlacementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementView.swift; sourceTree = "<group>"; };
 		DFA169EC298C343B0089381F /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		DFA169EE298C34A10089381F /* Placement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placement.swift; sourceTree = "<group>"; };
-		DFA169F0298C35B50089381F /* Suite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suite.swift; sourceTree = "<group>"; };
+		DFA169F0298C35B50089381F /* Suit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suit.swift; sourceTree = "<group>"; };
 		DFA169F2298C35C00089381F /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		DFA169F4298C37010089381F /* Rank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rank.swift; sourceTree = "<group>"; };
 		DFA169F7298C3A2E0089381F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -154,6 +163,15 @@
 		DFC3B3642996B7340050CB46 /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
 		DFC3B3662996B7830050CB46 /* _FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _FlexibleView.swift; sourceTree = "<group>"; };
 		DFD40384299453CA00FE41D5 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		DFDA78EF29A547DB0007D33A /* UndoableCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoableCommand.swift; sourceTree = "<group>"; };
+		DFDA78F229A548790007D33A /* MoveCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCommand.swift; sourceTree = "<group>"; };
+		DFDA78F429A551DA0007D33A /* Pile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pile.swift; sourceTree = "<group>"; };
+		DFDA78F729A56BEF0007D33A /* StockPile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPile.swift; sourceTree = "<group>"; };
+		DFDA78F929A56C0A0007D33A /* WastePile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WastePile.swift; sourceTree = "<group>"; };
+		DFDA78FB29A56C270007D33A /* FoundationPile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPile.swift; sourceTree = "<group>"; };
+		DFDA78FD29A56C430007D33A /* TableauPile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPile.swift; sourceTree = "<group>"; };
+		DFDA78FF29A56E0C0007D33A /* DealCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DealCommand.swift; path = Canfield/Models/Commands/DealCommand.swift; sourceTree = SOURCE_ROOT; };
+		DFDA790129A56E360007D33A /* CommandHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandHistory.swift; sourceTree = "<group>"; };
 		DFE6B60F298F045A00F539FB /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
 		DFE6B616298F3E2800F539FB /* Numeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Numeric.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -266,6 +284,7 @@
 		DFA169E9298C33E30089381F /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				DFDA78EE29A547C80007D33A /* Protocols */,
 				DFC3B35F2996B55A0050CB46 /* Views */,
 				DF1CD6022995E09500986E2A /* Observers */,
 				DFA16A10298C45A60089381F /* Constants */,
@@ -283,7 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				DFA169EE298C34A10089381F /* Placement.swift */,
-				DFA169F0298C35B50089381F /* Suite.swift */,
+				DFA169F0298C35B50089381F /* Suit.swift */,
 				DFA169F2298C35C00089381F /* Column.swift */,
 				DFA169F4298C37010089381F /* Rank.swift */,
 				DFA169FC298C3D690089381F /* Pair.swift */,
@@ -300,6 +319,8 @@
 		DFA169EB298C341F0089381F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DFDA78F629A56BE20007D33A /* Piles */,
+				DFDA78F129A548680007D33A /* Commands */,
 				DFA169EC298C343B0089381F /* Card.swift */,
 				DFB8DB66298C51AA00AB7787 /* Game.swift */,
 				DFB8DB68298C51EA00AB7787 /* Deck.swift */,
@@ -401,6 +422,36 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		DFDA78EE29A547C80007D33A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				DFDA78EF29A547DB0007D33A /* UndoableCommand.swift */,
+				DFDA78F429A551DA0007D33A /* Pile.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		DFDA78F129A548680007D33A /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				DFDA78FF29A56E0C0007D33A /* DealCommand.swift */,
+				DFDA78F229A548790007D33A /* MoveCommand.swift */,
+				DFDA790129A56E360007D33A /* CommandHistory.swift */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
+		DFDA78F629A56BE20007D33A /* Piles */ = {
+			isa = PBXGroup;
+			children = (
+				DFDA78F729A56BEF0007D33A /* StockPile.swift */,
+				DFDA78F929A56C0A0007D33A /* WastePile.swift */,
+				DFDA78FB29A56C270007D33A /* FoundationPile.swift */,
+				DFDA78FD29A56C430007D33A /* TableauPile.swift */,
+			);
+			path = Piles;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -491,16 +542,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFDA78F829A56BEF0007D33A /* StockPile.swift in Sources */,
 				DF3AA8452991944800CBE983 /* AnimationCompletionObserverModifier.swift in Sources */,
 				DFBB330B2994948200639F99 /* VisibilityModifier.swift in Sources */,
 				DFA169D6298C2EE80089381F /* GameView.swift in Sources */,
 				DFC3B3652996B7340050CB46 /* FlexibleView.swift in Sources */,
 				DFA16A0F298C441A0089381F /* Globals.swift in Sources */,
 				DFA169E6298C32760089381F /* TableView.swift in Sources */,
+				DFDA78F329A548790007D33A /* MoveCommand.swift in Sources */,
 				DF3AA8762991D31400CBE983 /* Font.swift in Sources */,
 				DFE6B617298F3E2800F539FB /* Numeric.swift in Sources */,
 				DFB8DB73298C759B00AB7787 /* ViewSizeModifier.swift in Sources */,
 				DF3AA8492991D1DD00CBE983 /* StatusView.swift in Sources */,
+				DFDA78F529A551DA0007D33A /* Pile.swift in Sources */,
 				DFB8DB75298C773300AB7787 /* ViewSize.swift in Sources */,
 				DFC3B3672996B7830050CB46 /* _FlexibleView.swift in Sources */,
 				DFA169F8298C3A2E0089381F /* String.swift in Sources */,
@@ -512,6 +566,7 @@
 				DFD40385299453CA00FE41D5 /* Array.swift in Sources */,
 				DF01B94729958D2100442C61 /* CGSize.swift in Sources */,
 				DFA169EF298C34A10089381F /* Placement.swift in Sources */,
+				DFDA78FC29A56C270007D33A /* FoundationPile.swift in Sources */,
 				DF1CD6042995E0A500986E2A /* DeviceOrientation.swift in Sources */,
 				DFA16A15298C4B970089381F /* CardView.swift in Sources */,
 				DFB8DB6F298C63A900AB7787 /* TrackBoundsModifier.swift in Sources */,
@@ -520,9 +575,11 @@
 				DFC3B3612996B56C0050CB46 /* AdaptiveView.swift in Sources */,
 				DFA169FD298C3D690089381F /* Pair.swift in Sources */,
 				DFA16A19298C4C7F0089381F /* CardEventData.swift in Sources */,
+				DFDA78F029A547DB0007D33A /* UndoableCommand.swift in Sources */,
 				DF1AE5CF2991D99100D7BFE8 /* ActionsView.swift in Sources */,
 				DFA169E8298C33010089381F /* PlacementView.swift in Sources */,
 				DFB8DB67298C51AA00AB7787 /* Game.swift in Sources */,
+				DFDA78FE29A56C430007D33A /* TableauPile.swift in Sources */,
 				DFC3B3632996B5D10050CB46 /* SizePreferenceKey.swift in Sources */,
 				DFA169F3298C35C00089381F /* Column.swift in Sources */,
 				DF1AE5CD2991D72000D7BFE8 /* Text.swift in Sources */,
@@ -533,11 +590,14 @@
 				DF1AE5D12992DABA00D7BFE8 /* GameStatus.swift in Sources */,
 				DFB8DB7A298C8D2A00AB7787 /* GameState.swift in Sources */,
 				DFB8DB6B298C58F700AB7787 /* Table.swift in Sources */,
-				DFA169F1298C35B50089381F /* Suite.swift in Sources */,
+				DFDA790229A56E360007D33A /* CommandHistory.swift in Sources */,
+				DFA169F1298C35B50089381F /* Suit.swift in Sources */,
 				DFB8DB69298C51EA00AB7787 /* Deck.swift in Sources */,
 				DF1CD6082995E2DB00986E2A /* CardsView.swift in Sources */,
 				DF3AA84329918B9400CBE983 /* ShakeEffect.swift in Sources */,
 				DFA169FB298C3B960089381F /* Inflector.swift in Sources */,
+				DFDA790029A56E0C0007D33A /* DealCommand.swift in Sources */,
+				DFDA78FA29A56C0A0007D33A /* WastePile.swift in Sources */,
 				DF3AA8782991D33C00CBE983 /* UIFont.swift in Sources */,
 				DFA16A17298C4C550089381F /* PlayableCardModifier.swift in Sources */,
 				DFA169D4298C2EE80089381F /* Application.swift in Sources */,

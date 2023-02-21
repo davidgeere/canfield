@@ -16,9 +16,22 @@ class Deck {
     public private(set) var size: CGSize
     
     private init() {
+        
+        self.size = GLOBALS.CARD.SIZE
+        
+        self.cards = []
+        
+        self.cards = self.sorted()
+        
+        self.cards.shuffle()
+        
+    }
+    
+    public func sorted() -> [Card] {
+        
         var _cards:[Card] = []
         
-        for suite in Suite.allCases {
+        for suite in Suit.allCases {
             for rank in Rank.allCases {
                 
                 let card = Card(suite: suite, rank: rank)
@@ -29,11 +42,8 @@ class Deck {
             }
         }
         
-        _cards.shuffle()
+        return _cards
         
-        self.cards = _cards
-        
-        self.size = GLOBALS.CARD.SIZE
     }
     
     public func resize(_ value: CGSize) {

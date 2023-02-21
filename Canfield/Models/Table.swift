@@ -23,7 +23,7 @@ class Table {
             self.placements[.tableau(column)] = CGRect.zero
         }
         
-        for suite in Suite.allCases {
+        for suite in Suit.allCases {
             self.placements[.foundation(suite)] = CGRect.zero
         }
     }

@@ -1,5 +1,5 @@
 //
-//  Suite.swift
+//  Suit.swift
 //  Canfield
 //
 //  Created by David Geere on 2/2/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Suite: Int, CaseIterable, Identifiable, Codable {
+enum Suit: Int, CaseIterable, Identifiable, Codable {
     
     case diamonds = 1
     case spades = 2
@@ -53,20 +53,20 @@ enum Suite: Int, CaseIterable, Identifiable, Codable {
         }
     }
     
-    var next: Suite {
+    var next: Suit {
         if self.rawValue + 1 <= 4 {
-            return Suite(rawValue: self.rawValue + 1)!
+            return Suit(rawValue: self.rawValue + 1)!
         } else {
-            return Suite(rawValue: 1)!
+            return Suit(rawValue: 1)!
         }
     }
     
-    var previous: Suite {
+    var previous: Suit {
         
         if self.rawValue - 1 >= 1 {
-            return Suite(rawValue: self.rawValue - 1)!
+            return Suit(rawValue: self.rawValue - 1)!
         } else {
-            return Suite(rawValue: 4)!
+            return Suit(rawValue: 4)!
         }
         
     }
