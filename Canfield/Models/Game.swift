@@ -498,39 +498,6 @@ class Game: ObservableObject {
         return self.cards.filter({ $0.placement == placement }).sorted(by: { $0.order < $1.order })
     }
     
-    //    private func position(_ card: Card, in placement: Placement, on target: Card? = nil) -> CGRect {
-    //
-    //        var bounds: CGRect = .zero
-    //        var stagger: CGFloat = .zero
-    //        var location: CGPoint = .zero
-    //        let stagger_size = (self.card_size.height * (40/182))
-    //
-    //        if let target = target {
-    //
-    //            stagger = target.face == .up ? stagger_size : stagger_size / 2
-    //
-    //            bounds = target.bounds
-    //
-    //        } else {
-    //
-    //            stagger = CGFloat(card.order - 1) * (stagger_size / 2)
-    //
-    //            bounds = Table.instance[placement]
-    //        }
-    //
-    //        switch placement {
-    //        case .none, .ready:
-    //            location = CGPoint(x: bounds.midX, y: bounds.maxY + self.card_size.height)
-    //        case .tableau:
-    //            location = CGPoint(x: bounds.minX, y: bounds.minY + stagger)
-    //        case .foundation, .waste, .stock:
-    //            location = CGPoint(x: bounds.minX, y: bounds.minY)
-    //        }
-    //
-    //        return CGRect(x: location.x, y: location.y, width: self.card_size.width, height: self.card_size.height)
-    //
-    //    }
-    
     private func move(_ card: Card, placement: MoveState<Placement>, revealed: MoveState<Bool>) {
         self.move(card, placement: placement, revealed: revealed, parent: MoveState<Card?>(from: nil, to: nil ))
     }
