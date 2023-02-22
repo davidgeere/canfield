@@ -77,14 +77,6 @@ class Card: Identifiable, Equatable, ObservableObject {
                 child.offset = self.offset
                 
                 child.rebuild()
-                
-//                var stagger = CGFloat.zero
-//
-//                if self.placement.tableau {
-//                    stagger = (self.bounds.height * (40 / 182))
-//                }
-//
-//                child.bounds = CGRect(origin: CGPoint(x: self.bounds.origin.x, y: self.bounds.origin.y + stagger), size: self.bounds.size)
             }
             
             self.refresh()

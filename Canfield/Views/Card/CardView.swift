@@ -24,7 +24,7 @@ struct CardView: View {
                 VStack {
                     ZStack (alignment: .top) {
                         if self.card.face == .up && self.card.placement != .stock {
-                            Image("decks/chunky/\(card.suite.name)/\(card.rank.name)")
+                            Image("decks/chunky/\(card.suit.name)/\(card.rank.name)")
                                 .resizable()
                                 .scaledToFit()
                                 .size(for: .full)

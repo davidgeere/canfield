@@ -62,30 +62,18 @@
 		DFA16A17298C4C550089381F /* PlayableCardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A16298C4C550089381F /* PlayableCardModifier.swift */; };
 		DFA16A19298C4C7F0089381F /* CardEventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A18298C4C7F0089381F /* CardEventData.swift */; };
 		DFA16A1B298C4CA90089381F /* CardEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A1A298C4CA90089381F /* CardEvent.swift */; };
+		DFA3027529A66E6600D30C01 /* BoundsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA3027429A66E6600D30C01 /* BoundsPreferenceKey.swift */; };
+		DFA3027929A6751C00D30C01 /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA3027829A6751C00D30C01 /* Dispatch.swift */; };
 		DFB8DB67298C51AA00AB7787 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB66298C51AA00AB7787 /* Game.swift */; };
 		DFB8DB69298C51EA00AB7787 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB68298C51EA00AB7787 /* Deck.swift */; };
 		DFB8DB6B298C58F700AB7787 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB6A298C58F700AB7787 /* Table.swift */; };
-		DFB8DB6D298C62F000AB7787 /* TrackBoundsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB6C298C62F000AB7787 /* TrackBoundsPreferenceKey.swift */; };
-		DFB8DB6F298C63A900AB7787 /* TrackBoundsModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB6E298C63A900AB7787 /* TrackBoundsModifier.swift */; };
 		DFB8DB73298C759B00AB7787 /* ViewSizeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB72298C759B00AB7787 /* ViewSizeModifier.swift */; };
 		DFB8DB75298C773300AB7787 /* ViewSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB74298C773300AB7787 /* ViewSize.swift */; };
 		DFB8DB78298C7C0400AB7787 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB77298C7C0400AB7787 /* HeaderView.swift */; };
 		DFB8DB7A298C8D2A00AB7787 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB79298C8D2A00AB7787 /* GameState.swift */; };
 		DFBB330B2994948200639F99 /* VisibilityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBB330A2994948200639F99 /* VisibilityModifier.swift */; };
-		DFC3B3612996B56C0050CB46 /* AdaptiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3602996B56C0050CB46 /* AdaptiveView.swift */; };
 		DFC3B3632996B5D10050CB46 /* SizePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3622996B5D10050CB46 /* SizePreferenceKey.swift */; };
-		DFC3B3652996B7340050CB46 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3642996B7340050CB46 /* FlexibleView.swift */; };
-		DFC3B3672996B7830050CB46 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3662996B7830050CB46 /* _FlexibleView.swift */; };
 		DFD40385299453CA00FE41D5 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD40384299453CA00FE41D5 /* Array.swift */; };
-		DFDA78F029A547DB0007D33A /* UndoableCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78EF29A547DB0007D33A /* UndoableCommand.swift */; };
-		DFDA78F329A548790007D33A /* MoveCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78F229A548790007D33A /* MoveCommand.swift */; };
-		DFDA78F529A551DA0007D33A /* Pile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78F429A551DA0007D33A /* Pile.swift */; };
-		DFDA78F829A56BEF0007D33A /* StockPile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78F729A56BEF0007D33A /* StockPile.swift */; };
-		DFDA78FA29A56C0A0007D33A /* WastePile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78F929A56C0A0007D33A /* WastePile.swift */; };
-		DFDA78FC29A56C270007D33A /* FoundationPile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78FB29A56C270007D33A /* FoundationPile.swift */; };
-		DFDA78FE29A56C430007D33A /* TableauPile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78FD29A56C430007D33A /* TableauPile.swift */; };
-		DFDA790029A56E0C0007D33A /* DealCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA78FF29A56E0C0007D33A /* DealCommand.swift */; };
-		DFDA790229A56E360007D33A /* CommandHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA790129A56E360007D33A /* CommandHistory.swift */; };
 		DFE6B610298F045A00F539FB /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B60F298F045A00F539FB /* Geometry.swift */; };
 		DFE6B617298F3E2800F539FB /* Numeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B616298F3E2800F539FB /* Numeric.swift */; };
 /* End PBXBuildFile section */
@@ -148,30 +136,18 @@
 		DFA16A16298C4C550089381F /* PlayableCardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableCardModifier.swift; sourceTree = "<group>"; };
 		DFA16A18298C4C7F0089381F /* CardEventData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEventData.swift; sourceTree = "<group>"; };
 		DFA16A1A298C4CA90089381F /* CardEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEvent.swift; sourceTree = "<group>"; };
+		DFA3027429A66E6600D30C01 /* BoundsPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundsPreferenceKey.swift; sourceTree = "<group>"; };
+		DFA3027829A6751C00D30C01 /* Dispatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
 		DFB8DB66298C51AA00AB7787 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		DFB8DB68298C51EA00AB7787 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		DFB8DB6A298C58F700AB7787 /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
-		DFB8DB6C298C62F000AB7787 /* TrackBoundsPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackBoundsPreferenceKey.swift; sourceTree = "<group>"; };
-		DFB8DB6E298C63A900AB7787 /* TrackBoundsModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackBoundsModifier.swift; sourceTree = "<group>"; };
 		DFB8DB72298C759B00AB7787 /* ViewSizeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeModifier.swift; sourceTree = "<group>"; };
 		DFB8DB74298C773300AB7787 /* ViewSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSize.swift; sourceTree = "<group>"; };
 		DFB8DB77298C7C0400AB7787 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		DFB8DB79298C8D2A00AB7787 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		DFBB330A2994948200639F99 /* VisibilityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityModifier.swift; sourceTree = "<group>"; };
-		DFC3B3602996B56C0050CB46 /* AdaptiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveView.swift; sourceTree = "<group>"; };
 		DFC3B3622996B5D10050CB46 /* SizePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizePreferenceKey.swift; sourceTree = "<group>"; };
-		DFC3B3642996B7340050CB46 /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
-		DFC3B3662996B7830050CB46 /* _FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _FlexibleView.swift; sourceTree = "<group>"; };
 		DFD40384299453CA00FE41D5 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
-		DFDA78EF29A547DB0007D33A /* UndoableCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoableCommand.swift; sourceTree = "<group>"; };
-		DFDA78F229A548790007D33A /* MoveCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCommand.swift; sourceTree = "<group>"; };
-		DFDA78F429A551DA0007D33A /* Pile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pile.swift; sourceTree = "<group>"; };
-		DFDA78F729A56BEF0007D33A /* StockPile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPile.swift; sourceTree = "<group>"; };
-		DFDA78F929A56C0A0007D33A /* WastePile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WastePile.swift; sourceTree = "<group>"; };
-		DFDA78FB29A56C270007D33A /* FoundationPile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPile.swift; sourceTree = "<group>"; };
-		DFDA78FD29A56C430007D33A /* TableauPile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPile.swift; sourceTree = "<group>"; };
-		DFDA78FF29A56E0C0007D33A /* DealCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DealCommand.swift; path = Canfield/Models/Commands/DealCommand.swift; sourceTree = SOURCE_ROOT; };
-		DFDA790129A56E360007D33A /* CommandHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandHistory.swift; sourceTree = "<group>"; };
 		DFE6B60F298F045A00F539FB /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
 		DFE6B616298F3E2800F539FB /* Numeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Numeric.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -284,8 +260,7 @@
 		DFA169E9298C33E30089381F /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				DFDA78EE29A547C80007D33A /* Protocols */,
-				DFC3B35F2996B55A0050CB46 /* Views */,
+				DFA3027729A674F200D30C01 /* Helpers */,
 				DF1CD6022995E09500986E2A /* Observers */,
 				DFA16A10298C45A60089381F /* Constants */,
 				DFA16A06298C41250089381F /* Modifiers */,
@@ -319,8 +294,6 @@
 		DFA169EB298C341F0089381F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DFDA78F629A56BE20007D33A /* Piles */,
-				DFDA78F129A548680007D33A /* Commands */,
 				DFA169EC298C343B0089381F /* Card.swift */,
 				DFB8DB66298C51AA00AB7787 /* Game.swift */,
 				DFB8DB68298C51EA00AB7787 /* Deck.swift */,
@@ -357,8 +330,8 @@
 		DFA16A00298C400F0089381F /* PreferenceKeys */ = {
 			isa = PBXGroup;
 			children = (
-				DFB8DB6C298C62F000AB7787 /* TrackBoundsPreferenceKey.swift */,
 				DFC3B3622996B5D10050CB46 /* SizePreferenceKey.swift */,
+				DFA3027429A66E6600D30C01 /* BoundsPreferenceKey.swift */,
 			);
 			path = PreferenceKeys;
 			sourceTree = "<group>";
@@ -375,7 +348,6 @@
 			isa = PBXGroup;
 			children = (
 				DFA16A16298C4C550089381F /* PlayableCardModifier.swift */,
-				DFB8DB6E298C63A900AB7787 /* TrackBoundsModifier.swift */,
 				DFB8DB72298C759B00AB7787 /* ViewSizeModifier.swift */,
 				DF3AA84229918B9400CBE983 /* ShakeEffect.swift */,
 				DF3AA8442991944800CBE983 /* AnimationCompletionObserverModifier.swift */,
@@ -401,6 +373,14 @@
 			path = Card;
 			sourceTree = "<group>";
 		};
+		DFA3027729A674F200D30C01 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DFA3027829A6751C00D30C01 /* Dispatch.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		DFB8DB76298C7BF500AB7787 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,46 +390,6 @@
 				DF1AE5CE2991D99100D7BFE8 /* ActionsView.swift */,
 			);
 			path = Navigation;
-			sourceTree = "<group>";
-		};
-		DFC3B35F2996B55A0050CB46 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				DFC3B3602996B56C0050CB46 /* AdaptiveView.swift */,
-				DFC3B3642996B7340050CB46 /* FlexibleView.swift */,
-				DFC3B3662996B7830050CB46 /* _FlexibleView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		DFDA78EE29A547C80007D33A /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				DFDA78EF29A547DB0007D33A /* UndoableCommand.swift */,
-				DFDA78F429A551DA0007D33A /* Pile.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
-		DFDA78F129A548680007D33A /* Commands */ = {
-			isa = PBXGroup;
-			children = (
-				DFDA78FF29A56E0C0007D33A /* DealCommand.swift */,
-				DFDA78F229A548790007D33A /* MoveCommand.swift */,
-				DFDA790129A56E360007D33A /* CommandHistory.swift */,
-			);
-			path = Commands;
-			sourceTree = "<group>";
-		};
-		DFDA78F629A56BE20007D33A /* Piles */ = {
-			isa = PBXGroup;
-			children = (
-				DFDA78F729A56BEF0007D33A /* StockPile.swift */,
-				DFDA78F929A56C0A0007D33A /* WastePile.swift */,
-				DFDA78FB29A56C270007D33A /* FoundationPile.swift */,
-				DFDA78FD29A56C430007D33A /* TableauPile.swift */,
-			);
-			path = Piles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -542,44 +482,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFDA78F829A56BEF0007D33A /* StockPile.swift in Sources */,
 				DF3AA8452991944800CBE983 /* AnimationCompletionObserverModifier.swift in Sources */,
 				DFBB330B2994948200639F99 /* VisibilityModifier.swift in Sources */,
 				DFA169D6298C2EE80089381F /* GameView.swift in Sources */,
-				DFC3B3652996B7340050CB46 /* FlexibleView.swift in Sources */,
 				DFA16A0F298C441A0089381F /* Globals.swift in Sources */,
 				DFA169E6298C32760089381F /* TableView.swift in Sources */,
-				DFDA78F329A548790007D33A /* MoveCommand.swift in Sources */,
 				DF3AA8762991D31400CBE983 /* Font.swift in Sources */,
 				DFE6B617298F3E2800F539FB /* Numeric.swift in Sources */,
 				DFB8DB73298C759B00AB7787 /* ViewSizeModifier.swift in Sources */,
+				DFA3027929A6751C00D30C01 /* Dispatch.swift in Sources */,
 				DF3AA8492991D1DD00CBE983 /* StatusView.swift in Sources */,
-				DFDA78F529A551DA0007D33A /* Pile.swift in Sources */,
 				DFB8DB75298C773300AB7787 /* ViewSize.swift in Sources */,
-				DFC3B3672996B7830050CB46 /* _FlexibleView.swift in Sources */,
 				DFA169F8298C3A2E0089381F /* String.swift in Sources */,
 				DFE6B610298F045A00F539FB /* Geometry.swift in Sources */,
 				DFA169ED298C343B0089381F /* Card.swift in Sources */,
 				DF3AA8472991D0C300CBE983 /* ActionView.swift in Sources */,
-				DFB8DB6D298C62F000AB7787 /* TrackBoundsPreferenceKey.swift in Sources */,
 				DFA16A1B298C4CA90089381F /* CardEvent.swift in Sources */,
 				DFD40385299453CA00FE41D5 /* Array.swift in Sources */,
 				DF01B94729958D2100442C61 /* CGSize.swift in Sources */,
 				DFA169EF298C34A10089381F /* Placement.swift in Sources */,
-				DFDA78FC29A56C270007D33A /* FoundationPile.swift in Sources */,
 				DF1CD6042995E0A500986E2A /* DeviceOrientation.swift in Sources */,
 				DFA16A15298C4B970089381F /* CardView.swift in Sources */,
-				DFB8DB6F298C63A900AB7787 /* TrackBoundsModifier.swift in Sources */,
 				DFA169FF298C3DE10089381F /* Face.swift in Sources */,
 				DF1CD6062995E0FE00986E2A /* Orientation.swift in Sources */,
-				DFC3B3612996B56C0050CB46 /* AdaptiveView.swift in Sources */,
 				DFA169FD298C3D690089381F /* Pair.swift in Sources */,
 				DFA16A19298C4C7F0089381F /* CardEventData.swift in Sources */,
-				DFDA78F029A547DB0007D33A /* UndoableCommand.swift in Sources */,
 				DF1AE5CF2991D99100D7BFE8 /* ActionsView.swift in Sources */,
 				DFA169E8298C33010089381F /* PlacementView.swift in Sources */,
 				DFB8DB67298C51AA00AB7787 /* Game.swift in Sources */,
-				DFDA78FE29A56C430007D33A /* TableauPile.swift in Sources */,
 				DFC3B3632996B5D10050CB46 /* SizePreferenceKey.swift in Sources */,
 				DFA169F3298C35C00089381F /* Column.swift in Sources */,
 				DF1AE5CD2991D72000D7BFE8 /* Text.swift in Sources */,
@@ -589,15 +519,13 @@
 				DF1AE5D32992E4C000D7BFE8 /* Move.swift in Sources */,
 				DF1AE5D12992DABA00D7BFE8 /* GameStatus.swift in Sources */,
 				DFB8DB7A298C8D2A00AB7787 /* GameState.swift in Sources */,
+				DFA3027529A66E6600D30C01 /* BoundsPreferenceKey.swift in Sources */,
 				DFB8DB6B298C58F700AB7787 /* Table.swift in Sources */,
-				DFDA790229A56E360007D33A /* CommandHistory.swift in Sources */,
 				DFA169F1298C35B50089381F /* Suit.swift in Sources */,
 				DFB8DB69298C51EA00AB7787 /* Deck.swift in Sources */,
 				DF1CD6082995E2DB00986E2A /* CardsView.swift in Sources */,
 				DF3AA84329918B9400CBE983 /* ShakeEffect.swift in Sources */,
 				DFA169FB298C3B960089381F /* Inflector.swift in Sources */,
-				DFDA790029A56E0C0007D33A /* DealCommand.swift in Sources */,
-				DFDA78FA29A56C0A0007D33A /* WastePile.swift in Sources */,
 				DF3AA8782991D33C00CBE983 /* UIFont.swift in Sources */,
 				DFA16A17298C4C550089381F /* PlayableCardModifier.swift in Sources */,
 				DFA169D4298C2EE80089381F /* Application.swift in Sources */,

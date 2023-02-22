@@ -18,13 +18,18 @@ extension View {
         }
     }
     
+    func bounds(_ changed: @escaping (CGRect) -> Void) -> some View {
+        background( GeometryReader { Color.clear.preference(key: BoundsPreferenceKey.self, value: $0.frame(in: .named(GLOBALS.TABLE.NAME)) ) } )
+            .onPreferenceChange(BoundsPreferenceKey.self) { bounds in
+                main {
+                    changed(bounds)
+                }
+            }
+    }
+    
     func size(_ change: @escaping (CGSize) -> Void) -> some View {
         background( GeometryReader { Color.clear.preference(key: SizePreferenceKey.self, value: $0.size) } )
-        .onPreferenceChange(SizePreferenceKey.self, perform: change)
-      }
-    
-    func track(bounds: @escaping (CGRect) -> Void) -> some View {
-        modifier(TrackBoundsModifier(receive: bounds))
+            .onPreferenceChange(SizePreferenceKey.self, perform: change)
     }
     
     func size(for size: ViewSize) -> some View {

@@ -55,7 +55,7 @@ class Game: ObservableObject {
     }
     
     @Published public var undo_moves: [Move]
-
+    
     @Published public var autocompletable: Bool
     
     @Published public var status: [Status]
@@ -113,7 +113,7 @@ class Game: ObservableObject {
     }
     
     private func status(for key: GameStatus, value: Int) {
-         
+        
         if let index = self.status.firstIndex(where: { $0.key == key }) {
             self.status[index] = Status(key: key, value: value)
         } else {
@@ -121,7 +121,7 @@ class Game: ObservableObject {
         }
         
     }
-
+    
     private func place(_ card: Card) {
         
         switch card.rank {
@@ -173,7 +173,7 @@ class Game: ObservableObject {
         let revealed_state = MoveState(from: card.revealed, to: true)
         let placement_state = MoveState(from: card.placement, to: placement)
         let parent_state = MoveState(from: card.parent, to: target)
-
+        
         self.detach_from_previous_parent(card: card)
         
         if let target {
@@ -194,7 +194,7 @@ class Game: ObservableObject {
     }
     
     private func undo(_ move: Move) {
-        
+
         // if there was no previous parent
         if move.placement.from == .waste {
             if let last = self.last(for: .waste) {
@@ -203,20 +203,20 @@ class Game: ObservableObject {
         } else {
             self.flip_back_previous_card(placement: move.placement.from)
         }
-        
+
         // Reattach to previous parent
         if let parent = move.parent.from {
-            
+
             parent.available = false
             parent.child = move.card
             parent.refresh()
-            
+
             move.card.parent = parent
-            
+
         }
 
         if let target = move.parent.to {
-            
+
             // Detach from new parent
             target.available = true
             target.child = nil
@@ -232,16 +232,16 @@ class Game: ObservableObject {
             move.card.placement = move.placement.from
 
             move.card.refresh()
-            
+
         } else {
-            
+
             move.card.order = self.order(for: move.placement.from) + 1
             move.card.available = move.card.child == nil
             move.card.offset = .zero
             move.card.placement = move.placement.from
-            
+
         }
-        
+
         self.moves += 1
         self.score -= 10
 
@@ -253,7 +253,7 @@ class Game: ObservableObject {
         let wasted = self.cards.filter( { return $0.placement == .waste } ).count
         
         guard wasted <= 0 else { return }
-            
+        
         guard let stock = self.cards.first(where: { return $0.placement == .stock }) else { return }
         
         self.waste(stock)
@@ -332,12 +332,12 @@ class Game: ObservableObject {
     }
     
     private func placement(depot: CGRect) -> Placement? {
-
+        
         var captured: Placement?
         var overlapped = 0.0
         
         for placement in Placement.allCases {
-                        
+            
             let collision = depot.overlap(area: Table.instance[placement])
             
             guard collision.rounded() > overlapped else { continue }
@@ -445,7 +445,7 @@ class Game: ObservableObject {
         
         let receiveables = self.receiveables()
         let moveables = self.moveables()
-
+        
         return moveables.union(with: receiveables)
         
     }
@@ -497,39 +497,39 @@ class Game: ObservableObject {
     private func read(all placement: Placement) -> [Card] {
         return self.cards.filter({ $0.placement == placement }).sorted(by: { $0.order < $1.order })
     }
-
-//    private func position(_ card: Card, in placement: Placement, on target: Card? = nil) -> CGRect {
-//
-//        var bounds: CGRect = .zero
-//        var stagger: CGFloat = .zero
-//        var location: CGPoint = .zero
-//        let stagger_size = (self.card_size.height * (40/182))
-//
-//        if let target = target {
-//
-//            stagger = target.face == .up ? stagger_size : stagger_size / 2
-//
-//            bounds = target.bounds
-//
-//        } else {
-//
-//            stagger = CGFloat(card.order - 1) * (stagger_size / 2)
-//
-//            bounds = Table.instance[placement]
-//        }
-//
-//        switch placement {
-//        case .none, .ready:
-//            location = CGPoint(x: bounds.midX, y: bounds.maxY + self.card_size.height)
-//        case .tableau:
-//            location = CGPoint(x: bounds.minX, y: bounds.minY + stagger)
-//        case .foundation, .waste, .stock:
-//            location = CGPoint(x: bounds.minX, y: bounds.minY)
-//        }
-//
-//        return CGRect(x: location.x, y: location.y, width: self.card_size.width, height: self.card_size.height)
-//
-//    }
+    
+    //    private func position(_ card: Card, in placement: Placement, on target: Card? = nil) -> CGRect {
+    //
+    //        var bounds: CGRect = .zero
+    //        var stagger: CGFloat = .zero
+    //        var location: CGPoint = .zero
+    //        let stagger_size = (self.card_size.height * (40/182))
+    //
+    //        if let target = target {
+    //
+    //            stagger = target.face == .up ? stagger_size : stagger_size / 2
+    //
+    //            bounds = target.bounds
+    //
+    //        } else {
+    //
+    //            stagger = CGFloat(card.order - 1) * (stagger_size / 2)
+    //
+    //            bounds = Table.instance[placement]
+    //        }
+    //
+    //        switch placement {
+    //        case .none, .ready:
+    //            location = CGPoint(x: bounds.midX, y: bounds.maxY + self.card_size.height)
+    //        case .tableau:
+    //            location = CGPoint(x: bounds.minX, y: bounds.minY + stagger)
+    //        case .foundation, .waste, .stock:
+    //            location = CGPoint(x: bounds.minX, y: bounds.minY)
+    //        }
+    //
+    //        return CGRect(x: location.x, y: location.y, width: self.card_size.width, height: self.card_size.height)
+    //
+    //    }
     
     private func move(_ card: Card, placement: MoveState<Placement>, revealed: MoveState<Bool>) {
         self.move(card, placement: placement, revealed: revealed, parent: MoveState<Card?>(from: nil, to: nil ))
@@ -584,11 +584,11 @@ class Game: ObservableObject {
             self.elapsed += 1
         }
     }
-
+    
     public func stop() {
         self.timer.invalidate()
     }
-
+    
     public func reset() {
         self.elapsed = 0
         self.timer.invalidate()
@@ -602,7 +602,7 @@ class Game: ObservableObject {
         self.objectWillChange.send()
         
     }
-    
+
     public func undo() {
         if let move = self.undo_moves.popLast() {
             self.undo(move)
@@ -680,13 +680,13 @@ class Game: ObservableObject {
     }
     
     public func deal() {
-
+        
         guard self.state == .setup else { return }
-
+        
         for column in Column.allCases {
             for i in 0...column.count {
                 guard let card = self.cards.first(where: { return $0.placement == .ready }) else { break }
-
+                
                 if column.count == i {
                     card.available = true
                     card.revealed = true
@@ -695,27 +695,27 @@ class Game: ObservableObject {
                 card.order = i + 1
                 card.placement = .tableau(column)
                 card.offset = .zero
-
+                
                 self.refresh()
             }
         }
-
+        
         var order = 1
-
+        
         while let card = self.cards.first(where: { return $0.placement == .ready }) {
             card.order = order
             card.offset = .zero
             card.placement = .stock
-
+            
             order += 1
-
+            
             self.refresh()
         }
         
         self.elapsed = 0
         self.moves = 0
         self.score = 0
-
+        
         self.state = .dealt
     }
     
@@ -1068,19 +1068,19 @@ class Game: ObservableObject {
             // go over each tableau column to find matches (we need to figure out if there are any more moves available)
             
             let playables = self.playables()
-
+            
             for playable in playables {
                 
                 guard !self.card_ace_to_foundation(playable) else { continue }
                 
                 guard !self.card_king_to_tableau(playable) else { continue }
-
+                
                 guard let receivable = self.receiveable(for: playable) else { continue }
                 
                 if let parent = playable.parent {
                     guard receivable.rank != parent.rank else { continue }
                 }
-                    
+                
                 self.place(playable, on: receivable)
                 
             }
@@ -1140,7 +1140,7 @@ class Game: ObservableObject {
             suite = suite.next
         }
     }
-
+    
     public func moves_available() -> Bool {
         
         let receiveables = self.receiveables()
@@ -1157,635 +1157,4 @@ class Game: ObservableObject {
         
         return false
     }
-
 }
-
-/*
- Thanks for sharing your code and requirements! I'll do my best to provide guidance on how to implement the methods you described.
-
- Method to organize the deck and deal a winnable game:
- To organize the deck perfectly in order and deal a winnable game, you could use an algorithm that shuffles the deck until a winnable game is found. One approach would be to generate all possible permutations of the deck, and then iterate through each permutation until a winnable game is found. This approach is not efficient, however, as there are 52! possible permutations of a deck of cards, which is a very large number.
-
- A more efficient approach would be to use a variant of the Fisher-Yates shuffle algorithm, which can be modified to ensure that the shuffled deck is winnable. The algorithm works by iterating through the deck from the end to the beginning, and at each iteration, swapping the current card with a randomly chosen card from the remaining cards. The modified algorithm would add a check after each swap to ensure that the current state of the deck is winnable. If not, the algorithm would reset the deck to its original state and try again.
-
- Method to determine if a shuffled and dealt game is winnable:
- To determine if a randomly shuffled and dealt game is winnable, you could use a backtracking algorithm that iterates through all possible moves and determines if there is a sequence of moves that results in a win. The algorithm would start with the initial state of the game, and for each move, it would make a copy of the game state, apply the move to the copy, and then recursively call itself with the new game state. If the recursive call results in a win, then the algorithm would return true. If not, the algorithm would try the next possible move. If all possible moves have been tried and none of them resulted in a win, then the algorithm would return false.
-
- Method to automatically play and complete a game:
- To automatically play and complete a game, you could use a similar backtracking algorithm as described in the previous section. The algorithm would start with the initial state of the game, and for each move, it would make a copy of the game state, apply the move to the copy, and then recursively call itself with the new game state. If the recursive call results in a win, then the algorithm would apply the move to the original game state and return true. If not, the algorithm would try the next possible move. If all possible moves have been tried and none of them resulted in a win, then the algorithm would return false.
-
- Method to complete a game where all cards are already revealed:
- If all cards are already revealed, then the game is either already won or already lost. If the game is already won, then no further moves are necessary. If the game is already lost, then there are no moves that can be made to win the game.
-
- Method to accrue a score based on how efficiently the user played the game:
- To accrue a score based on how efficiently the user played the game, you could define a scoring system that rewards the user for making moves that reveal hidden cards or move cards to the foundation stacks. For example, you could give the user a certain number of points for each card moved to a foundation stack, and a smaller number of points for each hidden card revealed. You could also deduct points for each move that does not result in progress toward winning the game, such as moving a card to a non-matching stack. The exact scoring system would depend on the specifics of your game and the desired user experience.
- */
-
-/*
- The dealWinnableGame() method first initializes the deck with all 52 cards in order, and creates a new Game instance with the ordered deck. It then deals the cards into the tableau piles and waste, using the placement property of the Card instances to keep track of which pile each card belongs to. It then finds a winnable game using the findWinnableGame() helper method.
-
- The findWinnableGame() method works by attempting to move each card to the foundation stacks or other tableau piles, and recursively calling itself until a winnable game is found or no more moves are possible. It does this by making a copy of the current game state, attempting a move, checking if the resulting game state is winnable, and if not, reverting to the original game state and attempting another move. It returns true if a winnable game is found, and false otherwise.
-
- The copy() helper method creates a deep copy of the current game state by creating a new
- */
-
-
-extension Game {
-    // Method to organize the deck perfectly in order and then deals a winnable game
-    func dealWinnableGame() -> [Card] {
-
-        self.cards = Deck.instance.sorted()
-
-        for column in Column.allCases {
-            for i in 0...column.count {
-                guard let card = self.cards.first(where: { return $0.placement == .ready }) else { break }
-
-                if column.count == i {
-                    card.available = true
-                    card.revealed = true
-                    card.face = .up
-                }
-                card.order = i + 1
-                card.placement = .tableau(column)
-                card.offset = .zero
-            }
-        }
-
-        var order = 1
-
-        while let card = self.cards.first(where: { return $0.placement == .ready }) {
-            card.order = order
-            card.offset = .zero
-            card.placement = .stock
-
-            order += 1
-        }
-
-        self.elapsed = 0
-        self.moves = 0
-        self.score = 0
-
-        self.state = .dealt
-
-        let winnable = self.findWinnableGame()
-
-        guard winnable else { return [] }
-
-        return self.cards
-    }
-
-//     Helper method to find a winnable game
-    private func findWinnableGame() -> Bool {
-
-        guard !self.isWinnable() else  { return true }
-
-        var moveMade = false
-
-        for i in 0..<self.cards.count {
-
-            if self.cards[i].placement.tableau {
-
-                let card = self.cards[i]
-                let tempGame = self.copy()
-
-                tempGame.move(card: card, toFoundation: true)
-
-                if tempGame.isWon() {
-                    self.cards = tempGame.cards
-                    return true
-                }
-
-                tempGame.cards = self.cards
-
-                for j in 1..<7 {
-                    if tempGame.canMove(card: card, toTableau: j) {
-                        tempGame.move(card: card, toTableau: j)
-                        if tempGame.isWon() {
-                            self.cards = tempGame.cards
-                            return true
-                        }
-                        moveMade = true
-                        break
-                    }
-                }
-            }
-            if moveMade {
-                break
-            }
-        }
-        if !moveMade {
-            return false
-        }
-        return self.findWinnableGame()
-    }
-//
-//    // Helper method to make a copy of the current game state
-//    private func copy() -> Game {
-//        let copy = Game(deck: [])
-//        copy.cards = self.cards.map { $0.copy() }
-//        copy.score = self.score
-//        copy.moves = self.moves
-//        copy.startDate = self.startDate
-//        copy.endDate = self.endDate
-//        copy.history = self.history
-//        return copy
-//    }
-//}
-
-
-
-
-/*
- The isWinnable() method checks whether a game is winnable by first checking if any tableau pile is blocked by a hidden card, which would make the pile unmovable. It then checks if any foundation stack is blocked by a card that could have been moved to it, which would also make the game uncompletable. It returns true if the game is winnable, and false otherwise.
- 
- */
-
-extension Game {
-    // Method to determine if a randomly shuffled and dealt game is "winnable" or "completable"
-    func isWinnable() -> Bool {
-        // Check if any tableau pile is blocked by a hidden card
-        for i in 0..<7 {
-            let pileCards = cards.filter { $0.placement == .tableau(i) }
-            if pileCards.count >= 2 && pileCards[pileCards.count - 2].isHidden {
-                return false
-            }
-        }
-
-        // Check if any foundation stack is blocked by a card that could have been moved to it
-        for suit in Card.Suit.allCases {
-            let foundationValue = Card.Value(rawValue: self.cards.filter { $0.placement == .foundation(suit) }.last?.value?.rawValue ?? 0)
-            if foundationValue != nil {
-                let matchingCard = cards.first(where: { $0.suit == suit && $0.value == foundationValue! })
-                if matchingCard != nil {
-                    return false
-                }
-            }
-        }
-
-        return true
-    }
-}
-
-
-
-/*
- The playAndCompleteGame() method plays a game automatically until it is won or no more moves can be made. It does this by making a copy of the current game state, attempting to move cards to the foundation stacks or other tableau piles, and recursively calling itself until the game is won or no more moves are possible. It returns true if the game is won, and false otherwise.
-
- The implementation uses the copy() helper method to create a deep copy of the current game state, so that the original game state is not modified. The move() method is used to make moves, and the canMove() method is used to check if a move is legal.
- */
-
-
-//extension Game {
-//    // Method to automatically play and complete a game
-//    func playAndCompleteGame() -> Bool {
-//        var gameInProgress = self.copy()
-//        var moveMade = true
-//        while moveMade {
-//            moveMade = false
-//            for i in 0..<7 {
-//                let pileCards = gameInProgress.cards.filter { $0.placement == .tableau(i) }
-//                if !pileCards.isEmpty {
-//                    let card = pileCards.last!
-//                    if gameInProgress.canMove(card: card, toFoundation: true) {
-//                        gameInProgress.move(card: card, toFoundation: true)
-//                        moveMade = true
-//                    } else {
-//                        for j in 0..<7 {
-//                            if i != j {
-//                                let otherPileCards = gameInProgress.cards.filter { $0.placement == .tableau(j) }
-//                                if !otherPileCards.isEmpty {
-//                                    let otherCard = otherPileCards.last!
-//                                    if gameInProgress.canMove(card: card, onto: otherCard) {
-//                                        gameInProgress.move(card: card, onto: otherCard)
-//                                        moveMade = true
-//                                        break
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        return gameInProgress.isWon()
-//    }
-//}
-
-
-/*
- The completeRevealedGame() method completes a game where all the cards are already revealed by first moving all cards to the foundation stacks, and then moving the remaining cards to the tableau piles or waste. It returns true if the game is completable, and false otherwise.
-
- The implementation uses the canMove() and move() methods to move the cards to the appropriate piles, and checks if the game is completable by checking if all cards are moved to the foundation stacks or tableau piles.
- */
-
-//extension Game {
-//    // Method to complete a game where all the cards are already revealed
-//    func completeRevealedGame() -> Bool {
-//        // First, move all cards to the foundation stacks
-//        for suit in Card.Suit.allCases {
-//            var matchingCards = cards.filter { $0.suit == suit && $0.placement == .tableau(0) }
-//            if matchingCards.count == 0 {
-//                matchingCards = cards.filter { $0.suit == suit && $0.placement == .tableau(1) }
-//            }
-//            if matchingCards.count == 1 {
-//                let card = matchingCards[0]
-//                if canMove(card: card, toFoundation: true) {
-//                    move(card: card, toFoundation: true)
-//                } else {
-//                    return false
-//                }
-//            }
-//        }
-//
-//        // Then, move remaining cards to the tableau piles or waste
-//        while cards.count > 0 {
-//            let card = cards.removeLast()
-//            if canMove(card: card, toTableau: 0) {
-//                move(card: card, toTableau: 0)
-//            } else if canMove(card: card, toWaste: true) {
-//                move(card: card, toWaste: true)
-//            } else {
-//                return false
-//            }
-//        }
-//
-//        return true
-//    }
-//}
-
-/*
- The calculateScore() method calculates the player's score based on how efficiently they played the game. It uses the elapsed time, number of moves, and number of times the stock was cycled to determine the score. It returns an integer score value.
-
- The implementation uses the timeIntervalSince(_:) method to calculate the elapsed time between the startDate and endDate properties of the Game instance, and uses this value to calculate a time-based score. It also uses the max() function to ensure that the score is always a non-negative integer.
-
- The moveScore is calculated based on the number of moves made, and the stockScore is calculated based on the number of times the stock was cycled. The maxMoves and maxStockMoves properties are used to calculate the maximum possible score for moves and stock cycles, respectively.
-
- You can call this method after the game is won or lost to display the final score to the player.
- */
-//extension Game {
-//    // Method to help accrue a score based on how efficiently the user played the game
-//    func calculateScore() -> Int {
-//        let elapsedTime = endDate.timeIntervalSince(startDate)
-//        let timeScore = max(Int(Double(maxScore) * (1 - elapsedTime / maxTime)), 0)
-//
-//        var moveScore = 0
-//        if moves > 0 {
-//            moveScore = max(Int(Double(maxScore) * (1 - Double(moves) / Double(maxMoves))), 0)
-//        }
-//
-//        let stockScore = max(Int(Double(maxScore) * (Double(stockMoves) / Double(maxStockMoves))), 0)
-//
-//        let score = timeScore + moveScore + stockScore
-//        return score
-//    }
-//}
-
-
-
-/*
- Sure, I can propose an alternative implementation for your undo system that should be more efficient for memory and storage, as well as easier to read and maintain.
-
- One approach is to use the Command pattern, which separates the request for an action from the actual execution of that action. This allows you to easily undo and redo actions by keeping track of a history of commands.
-
- Here's an example implementation for the Command pattern in Swift:
- 
- 
- // Protocol for commands that can be undone
- protocol UndoableCommand {
-     func execute()
-     func undo()
- }
-
- // Command for moving a card
- class MoveCommand: UndoableCommand {
-     let game: Game
-     let card: Card
-     let fromPile: Pile
-     let toPile: Pile
-     
-     init(game: Game, card: Card, fromPile: Pile, toPile: Pile) {
-         self.game = game
-         self.card = card
-         self.fromPile = fromPile
-         self.toPile = toPile
-     }
-     
-     func execute() {
-         game.move(card: card, from: fromPile, to: toPile, recordCommand: false)
-     }
-     
-     func undo() {
-         game.move(card: card, from: toPile, to: fromPile, recordCommand: false)
-     }
- }
-
- // Command for dealing a card
- class DealCommand: UndoableCommand {
-     let game: Game
-     
-     init(game: Game) {
-         self.game = game
-     }
-     
-     func execute() {
-         game.deal()
-     }
-     
-     func undo() {
-         game.undoDeal()
-     }
- }
-
- // Class for managing undo and redo history
- class CommandHistory {
-     private var undoStack: [UndoableCommand] = []
-     private var redoStack: [UndoableCommand] = []
-     
-     func execute(command: UndoableCommand) {
-         command.execute()
-         undoStack.append(command)
-         redoStack.removeAll()
-     }
-     
-     func undo() {
-         if let command = undoStack.popLast() {
-             command.undo()
-             redoStack.append(command)
-         }
-     }
-     
-     func redo() {
-         if let command = redoStack.popLast() {
-             command.execute()
-             undoStack.append(command)
-         }
-     }
-     
-     func canUndo() -> Bool {
-         return !undoStack.isEmpty
-     }
-     
-     func canRedo() -> Bool {
-         return !redoStack.isEmpty
-     }
-     
-     func clear() {
-         undoStack.removeAll()
-         redoStack.removeAll()
-     }
- }
- */
-
-
-/*
- class Game {
-     // Properties
-     var cards: [Card] = []
-     var waste: [Card] = []
-     var foundations: [Card] = []
-     var tableau: [[Card]] = Array(repeating: [], count: 7)
-     var stock: [Card] = []
-     var stockMoves: Int = 0
-     var moves: Int = 0
-     var maxScore: Int = 10000
-     var maxTime: Double = 600
-     var maxMoves: Int = 500
-     var maxStockMoves: Int = 3
-     var startDate: Date = Date()
-     var endDate: Date = Date()
-     var undoStack: [(() -> Void)] = []
-     var redoStack: [(() -> Void)] = []
-
-     // Other methods
-     
-     func undo() {
-         if let undoAction = undoStack.popLast() {
-             undoAction()
-             redoStack.append(undoAction)
-         }
-     }
-     
-     func redo() {
-         if let redoAction = redoStack.popLast() {
-             redoAction()
-             undoStack.append(redoAction)
-         }
-     }
-     
-     func clearUndoHistory() {
-         undoStack.removeAll()
-         redoStack.removeAll()
-     }
-     
-     // Move a card from one pile to another
-     func move(card: Card, from: Pile, to: Pile) {
-         let fromPileIndex = from.index()
-         let toPileIndex = to.index()
-         
-         switch (from, to) {
-         case (.tableau, .tableau):
-             if let cardIndex = tableau[fromPileIndex].firstIndex(of: card) {
-                 tableau[fromPileIndex].remove(at: cardIndex)
-                 tableau[toPileIndex].append(card)
-                 undoStack.append { self.move(card: card, from: to, to: from) }
-                 redoStack.removeAll()
-             }
-         case (.tableau, .foundation):
-             if let cardIndex = tableau[fromPileIndex].firstIndex(of: card), card.isTop {
-                 tableau[fromPileIndex].remove(at: cardIndex)
-                 foundations.append(card)
-                 undoStack.append { self.move(card: card, from: to, to: from) }
-                 redoStack.removeAll()
-             }
-         case (.waste, .foundation):
-             if let cardIndex = waste.firstIndex(of: card), card.isTop {
-                 waste.remove(at: cardIndex)
-                 foundations.append(card)
-                 undoStack.append { self.move(card: card, from: to, to: from) }
-                 redoStack.removeAll()
-             }
-         case (.waste, .tableau):
-             if let cardIndex = waste.firstIndex(of: card) {
-                 waste.remove(at: cardIndex)
-                 tableau[toPileIndex].append(card)
-                 undoStack.append { self.move(card: card, from: to, to: from) }
-                 redoStack.removeAll()
-             }
-         case (.stock, .waste):
-             if let card = stock.last {
-                 stock.removeLast()
-                 waste.append(card)
-                 undoStack.append { self.move(card: card, from: to, to: from) }
-                 redoStack.removeAll()
-                 stockMoves += 1
-             }
-         case (.stock, .tableau):
-             if let card = stock.last {
-                 stock.removeLast()
-                 tableau[toPileIndex].append(card)
-                 undoStack.append { self.move(card: card, from: to, to: from) }
-                 redoStack.removeAll()
-                 stockMoves += 1
-             }
-         default:
-             break
-         }
-     }
-     
-     //
-
-
- */
-
-
-/*
- extension Game {
-     // Complete a game where all the cards are already revealed
-     func completeRevealedGame() {
-         // Move all cards from tableau and waste to foundations
-         for i in 0..<tableau.count {
-             for card in tableau[i] {
-                 move(card: card, from: .tableau(i), to: .foundation)
-             }
-         }
-         while !waste.isEmpty {
-             move(card: waste.last!, from: .waste, to: .foundation)
-         }
-         
-         // Move all cards from stock to waste and then to foundations
-         while !stock.isEmpty {
-             move(card: stock.last!, from: .stock, to: .waste)
-         }
-         while !waste.isEmpty {
-             move(card: waste.last!, from: .waste, to: .foundation)
-         }
-     }
-     
-     // Accrue a score based on how efficiently the user played the game
-     func score() -> Int {
-         let scoreMoves = maxMoves - moves
-         let scoreStockMoves = maxStockMoves - stockMoves
-         let timeElapsed = max(1.0, endDate.timeIntervalSince(startDate))
-         let timeScore = Int((maxTime / timeElapsed) * 10000)
-         return scoreMoves * 10 + scoreStockMoves * 15 + timeScore
-     }
-     
-     // Deal a winnable game
-     func dealWinnableGame() {
-         // Reset game state
-         clearUndoHistory()
-         cards = Card.deck().shuffled()
-         waste.removeAll()
-         foundations.removeAll()
-         tableau = Array(repeating: [], count: 7)
-         stock = []
-         stockMoves = 0
-         moves = 0
-         startDate = Date()
-         
-         // Shuffle deck until a winnable game is dealt
-         var shuffledDeck = cards.shuffled()
-         while !isWinnable(cards: shuffledDeck) {
-             shuffledDeck = cards.shuffled()
-         }
-         cards = shuffledDeck
-         
-         // Deal cards to the tableau
-         for i in 0..<7 {
-             for j in 0...i {
-                 let card = cards.removeFirst()
-                 if i == j {
-                     card.isRevealed = true
-                 }
-                 tableau[i].append(card)
-             }
-         }
-     }
-     
-     // Check if the current game is winnable
-     func isWinnable() -> Bool {
-         return isWinnable(cards: cards)
-     }
-     
-     // Check if the given cards can be arranged into a winnable game
-     func isWinnable(cards: [Card]) -> Bool {
-         // Check if there are enough cards
-         if cards.count < 52 {
-             return false
-         }
-         
-         // Check if there are enough of each suit to start building on the foundations
-         let clubs = cards.filter { $0.suit == .club }
-         let diamonds = cards.filter { $0.suit == .diamond }
-         let hearts = cards.filter { $0.suit == .heart }
-         let spades = cards.filter { $0.suit == .spade }
-         if clubs.count < 1 || diamonds.count < 1 || hearts.count < 1 || spades.count < 1 {
-             return false
-         }
-         
-         // Check if the cards can be arranged into the tableau piles
-         var tableau = Array(repeating: [Card](), count: 7)
-         for i in 0..<7 {
-             for j in 0...i {
-                 let index = cards.index(i, offsetBy: j)
-                 let card = cards[index]
-                 if j == i {
-
- */
-
-
-/*
- In this example, the offset(for:) function retrieves the appropriate offset for the given pile, and the cardWidth and cardHeight variables represent the size of a card view. The withAnimation modifier is used to wrap the changes to the game state that result from moving the card, which in this case involve removing the card from the old pile and adding it to the new pile. Then, a second withAnimation modifier is used to animate the movement of the card view. The cardOffset and cardFrame variables are state variables that control the position and size of the card view, and changing them inside the withAnimation block triggers the animation. You can use a similar approach for animating cards moving from the stock to the waste pile, and from the tableau to the foundation piles.
- */
-
-//func animateMove(card: Card, from: Pile, to: Pile) {
-//    let fromPileIndex = from.index()
-//    let toPileIndex = to.index()
-//    let fromOffset = offset(for: from)
-//    let toOffset = offset(for: to)
-//
-//    withAnimation {
-//        // Remove the card from the old pile
-//        if from == .waste {
-//            waste.removeLast()
-//        } else {
-//            tableau[fromPileIndex].removeLast()
-//        }
-//
-//        // Add the card to the new pile
-//        if to == .waste {
-//            waste.append(card)
-//        } else {
-//            tableau[toPileIndex].append(card)
-//        }
-//    }
-//
-//    // Animate the movement of the card view
-//    let fromFrame = CGRect(x: fromOffset.x, y: fromOffset.y, width: cardWidth, height: cardHeight)
-//    let toFrame = CGRect(x: toOffset.x, y: toOffset.y, width: cardWidth, height: cardHeight)
-//
-//    withAnimation {
-//        cardOffset = toOffset
-//        cardFrame = toFrame
-//    }
-//}
-
-
-/*
- You could add the animateMove method to your existing Game class as an instance method. To use the method, you would call it after updating the game state to reflect the card move, passing in the relevant card, from pile, and to pile as parameters. Here's an example of how you could call the method to animate a move from the waste pile to the tableau pile:
- 
- */
-
-//// Update the game state to reflect the card move
-//if let card = waste.last, let toIndex = selectedTableauIndex {
-//    move(card: card, from: .waste, to: .tableau(toIndex))
-//
-//    // Animate the card move
-//    animateMove(card: card, from: .waste, to: .tableau(toIndex))
-//}
-
-/*
- In this example, the code assumes that waste and selectedTableauIndex are instance variables of the Game class. The code first updates the game state to reflect the card move by calling the move method, passing in the card and the relevant piles. Then, the animateMove method is called to animate the movement of the card view.
-
- Alternatively, you could modify your existing code to use SwiftUI views to represent the cards and piles, and then use the withAnimation modifier to animate card movements directly in the view code. In this approach, you would use a @State variable to represent the game state, and pass it down to the card and pile views as a binding. The card and pile views would then update the game state by modifying the binding, and the changes would be automatically animated by the withAnimation modifier.
- */

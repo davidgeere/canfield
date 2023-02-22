@@ -18,7 +18,7 @@ struct TableView: View {
                     PlacementView(for: .stock)
                         .aspectRatio(GLOBALS.CARD.RATIO, contentMode: .fit)
                         .frame(maxWidth: .infinity)
-                        .track(bounds: { Table.instance[.stock] = $0 })
+                        .bounds({ Table.instance[.stock] = $0 })
                         .onTapGesture {
                             self.game.restock()
                         }
@@ -26,18 +26,18 @@ struct TableView: View {
                     Color.clear
                         .aspectRatio(GLOBALS.CARD.RATIO, contentMode: .fit)
                         .frame(maxWidth: .infinity)
-                        .track(bounds: { Table.instance[.waste] = $0 })
+                        .bounds({ Table.instance[.waste] = $0 })
                     
                     Color.clear
                         .aspectRatio(GLOBALS.CARD.RATIO, contentMode: .fit)
                         .frame(maxWidth: .infinity)
-                        .track(bounds: { self.game.relayout($0) })
+                        .bounds({ self.game.relayout($0) })
                     
                     ForEach(Suit.allCases) { suite in
                         PlacementView(for: .foundation(suite))
                             .aspectRatio(GLOBALS.CARD.RATIO, contentMode: .fit)
                             .frame(maxWidth: .infinity)
-                            .track(bounds: { Table.instance[.foundation(suite)] = $0 })
+                            .bounds({ Table.instance[.foundation(suite)] = $0 })
                     }
                 }
                 
@@ -48,7 +48,7 @@ struct TableView: View {
                             PlacementView(for: .tableau(column))
                                 .aspectRatio(GLOBALS.CARD.RATIO, contentMode: .fit)
                                 .frame(maxWidth: .infinity)
-                                .track(bounds: { Table.instance[.tableau(column)] = $0 })
+                                .bounds({ Table.instance[.tableau(column)] = $0 })
                         }
                     }
                 }
@@ -60,7 +60,7 @@ struct TableView: View {
         .size(for: .full)
         .background(GLOBALS.TABLE.COLOR)
         .coordinateSpace(name: GLOBALS.TABLE.NAME)
-        .track(bounds: {
+        .bounds({
             
             Table.instance[.none] = $0
             Table.instance[.ready] = $0

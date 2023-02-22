@@ -1,14 +1,14 @@
 //
-//  TrackBoundsPreferenceKey.swift
+//  BoundsPreferenceKey.swift
 //  Canfield
 //
-//  Created by David Geere on 2/2/23.
+//  Created by David Geere on 2/22/23.
 //
 
 import Foundation
 import SwiftUI
 
-struct TrackBoundsPreferenceKey: PreferenceKey {
+struct BoundsPreferenceKey: PreferenceKey {
     
     typealias Value = CGRect
     
