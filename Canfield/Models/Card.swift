@@ -24,7 +24,7 @@ class Card: Identifiable, Equatable, ObservableObject {
     let suit: Suit
     let rank: Rank
     
-    var placement: Placement {
+    public /*private (set)*/ var placement: Placement {
         didSet {
             
             self.rebuild()
@@ -36,11 +36,13 @@ class Card: Identifiable, Equatable, ObservableObject {
             self.refresh()
         }
     }
+    
     var face: Face {
         didSet {
             self.refresh()
         }
     }
+    
     var available: Bool {
         didSet {
             self.refresh()
@@ -128,6 +130,7 @@ class Card: Identifiable, Equatable, ObservableObject {
     }
     
     var revealed: Bool
+    var last: Bool
     
     var parent: Card?
     
@@ -146,6 +149,7 @@ class Card: Identifiable, Equatable, ObservableObject {
         self.location = location
         self.match = false
         self.revealed = false
+        self.last = false
     }
     
     public func reveal() {
@@ -181,10 +185,6 @@ class Card: Identifiable, Equatable, ObservableObject {
         }
     }
     
-    func nextRank() -> Rank? {
-        return Rank(rawValue: self.rank.rawValue + 1)
-    }
-    
     public func valid(for target: Card) -> Bool {
         switch target.placement {
         case .tableau:
@@ -208,14 +208,61 @@ class Card: Identifiable, Equatable, ObservableObject {
         }
     }
     
-    public func place(on placement: Placement) {
+    public func moving(_ data: CardEventData) {
+        
+        data.card.offset = data.offset
+        data.card.location = data.location
+        data.card.moving = data.moving
+        data.card.refresh()
+        
+    }
+    
+    public func reset() {
         
         self.order = 1
-        self.placement = placement
-        self.available = self.child == nil
+        self.placement = .ready
+        self.available = false
+        self.revealed = true
+        self.moving = true
+        self.face = .up
+        self.parent = nil
+        self.child = nil
         self.offset = .zero
+        self.match = false
         
         self.refresh()
+    }
+    
+    public func place(on placement: Placement, order: Int = 1, last: Bool = false) {
+        
+        self.order = order
+        self.placement = placement
+        self.offset = .zero
+        self.moving = false
+        self.match = false
+        
+        switch placement {
+        case .stock: self.onStock()
+        case .waste: self.onWaste()
+        case .foundation: self.onFoundation()
+        case .tableau: self.onTableau(last: last)
+        case .ready: self.onReady()
+        case .none: self.onNone()
+        }
+        
+        self.refresh()
+        
+    }
+    
+    public func detach() {
+        
+        guard let parent = self.parent else { return }
+        
+        parent.available = true
+        parent.child = nil
+        parent.refresh()
+        
+        self.parent = nil
         
     }
     
@@ -262,6 +309,64 @@ class Card: Identifiable, Equatable, ObservableObject {
         case .foundation, .waste, .stock:
             self.bounds = CGRect(x: area.minX, y: area.minY, width: Deck.instance.size.width, height: Deck.instance.size.height)
         }
+    }
+    
+    public func onWaste() {
+        
+        self.available = false
+        self.face = .up
+        self.parent = nil
+        self.child = nil
+        self.revealed = true
+        
+    }
+    
+    public func onStock() {
+
+        self.available = false
+        self.face = .down
+        self.parent = nil
+        self.child = nil
+        
+    }
+    
+    public func onFoundation() {
+        
+        self.available = true
+        self.face = .up
+        self.parent = nil
+        self.child = nil
+        self.revealed = true
+        
+    }
+    
+    public func onTableau(last: Bool = false) {
+        
+        self.last = last
+        self.available = false
+        
+        if self.last {
+            self.revealed = true
+            self.available = true
+            self.face = .up
+        }
+        
+    }
+    
+    public func onReady() {
+        
+        self.available = false
+        self.face = .down
+        self.revealed = false
+        
+    }
+    
+    public func onNone() {
+        
+        self.available = false
+        self.face = .down
+        self.revealed = false
+        
     }
     
 #if DEBUG

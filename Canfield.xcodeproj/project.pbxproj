@@ -64,6 +64,8 @@
 		DFA16A1B298C4CA90089381F /* CardEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA16A1A298C4CA90089381F /* CardEvent.swift */; };
 		DFA3027529A66E6600D30C01 /* BoundsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA3027429A66E6600D30C01 /* BoundsPreferenceKey.swift */; };
 		DFA3027929A6751C00D30C01 /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA3027829A6751C00D30C01 /* Dispatch.swift */; };
+		DFA3027C29A679CA00D30C01 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA3027B29A679CA00D30C01 /* Command.swift */; };
+		DFA3027E29A6B6BB00D30C01 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA3027D29A6B6BB00D30C01 /* Hand.swift */; };
 		DFB8DB67298C51AA00AB7787 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB66298C51AA00AB7787 /* Game.swift */; };
 		DFB8DB69298C51EA00AB7787 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB68298C51EA00AB7787 /* Deck.swift */; };
 		DFB8DB6B298C58F700AB7787 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB8DB6A298C58F700AB7787 /* Table.swift */; };
@@ -138,6 +140,8 @@
 		DFA16A1A298C4CA90089381F /* CardEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEvent.swift; sourceTree = "<group>"; };
 		DFA3027429A66E6600D30C01 /* BoundsPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundsPreferenceKey.swift; sourceTree = "<group>"; };
 		DFA3027829A6751C00D30C01 /* Dispatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
+		DFA3027B29A679CA00D30C01 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		DFA3027D29A6B6BB00D30C01 /* Hand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
 		DFB8DB66298C51AA00AB7787 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		DFB8DB68298C51EA00AB7787 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		DFB8DB6A298C58F700AB7787 /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
@@ -260,6 +264,7 @@
 		DFA169E9298C33E30089381F /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				DFA3027A29A679B900D30C01 /* Protocols */,
 				DFA3027729A674F200D30C01 /* Helpers */,
 				DF1CD6022995E09500986E2A /* Observers */,
 				DFA16A10298C45A60089381F /* Constants */,
@@ -299,6 +304,7 @@
 				DFB8DB68298C51EA00AB7787 /* Deck.swift */,
 				DFB8DB6A298C58F700AB7787 /* Table.swift */,
 				DF1AE5D22992E4C000D7BFE8 /* Move.swift */,
+				DFA3027D29A6B6BB00D30C01 /* Hand.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -379,6 +385,14 @@
 				DFA3027829A6751C00D30C01 /* Dispatch.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		DFA3027A29A679B900D30C01 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				DFA3027B29A679CA00D30C01 /* Command.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		DFB8DB76298C7BF500AB7787 /* Navigation */ = {
@@ -505,7 +519,9 @@
 				DFA16A15298C4B970089381F /* CardView.swift in Sources */,
 				DFA169FF298C3DE10089381F /* Face.swift in Sources */,
 				DF1CD6062995E0FE00986E2A /* Orientation.swift in Sources */,
+				DFA3027C29A679CA00D30C01 /* Command.swift in Sources */,
 				DFA169FD298C3D690089381F /* Pair.swift in Sources */,
+				DFA3027E29A6B6BB00D30C01 /* Hand.swift in Sources */,
 				DFA16A19298C4C7F0089381F /* CardEventData.swift in Sources */,
 				DF1AE5CF2991D99100D7BFE8 /* ActionsView.swift in Sources */,
 				DFA169E8298C33010089381F /* PlacementView.swift in Sources */,

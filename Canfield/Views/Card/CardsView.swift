@@ -18,7 +18,7 @@ struct CardsView: View {
                     .playable(
                         card,
                         onTap: {
-                            if $0.card.face == .up {
+                            
                                 switch $0.card.placement {
                                 case .stock:
                                     self.game.waste($0)
@@ -26,10 +26,12 @@ struct CardsView: View {
                                     self.game.place($0)
                                 case .foundation: return
                                 case .tableau:
-                                    self.game.place($0)
+                                    if $0.card.face == .up {
+                                        self.game.place($0)
+                                    }
                                 default: return
                                 }
-                            }
+                            
                         },
                         onDrag: {
                             self.game.drag($0)

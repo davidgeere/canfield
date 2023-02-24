@@ -46,6 +46,7 @@ class Game: ObservableObject {
     public static let preview:Game = Game()
     
     @Published public var cards: [Card]
+    
     @Published public var state: GameState {
         didSet {
             if self.state == .ready {
@@ -174,12 +175,15 @@ class Game: ObservableObject {
         let placement_state = MoveState(from: card.placement, to: placement)
         let parent_state = MoveState(from: card.parent, to: target)
         
-        self.detach_from_previous_parent(card: card)
+        card.detach()
         
         if let target {
             card.place(on: target)
         } else {
-            card.place(on: placement)
+            
+            let order = self.count(for: placement) + 1
+            
+            card.place(on: placement, order: order, last: card.child == nil)
         }
         
         self.move(card, placement: placement_state, revealed: revealed_state, parent: parent_state)
@@ -241,6 +245,14 @@ class Game: ObservableObject {
             move.card.placement = move.placement.from
 
         }
+        
+        switch move.card.placement {
+        case .stock:
+            move.card.face = .down
+        case .waste:
+            move.card.face = .up
+        default: break
+        }
 
         self.moves += 1
         self.score -= 10
@@ -281,18 +293,6 @@ class Game: ObservableObject {
         
     }
     
-    private func detach_from_previous_parent(card: Card) {
-        
-        guard let parent = card.parent else { return }
-        
-        parent.available = true
-        parent.child = nil
-        parent.refresh()
-        
-        card.parent = nil
-        
-    }
-    
     private func place_card_on_depot(card: Card, placement: Placement) {
         card.place(on: placement)
     }
@@ -320,7 +320,7 @@ class Game: ObservableObject {
     
     private func drop(_ data: CardEventData, on placement: Placement) {
         
-        if let target = self.cards.last( where: { return $0.placement == placement && $0.available } ) {
+        if let target = self.available(for: placement) {
             
             self.place(data.card, on: target)
             
@@ -405,6 +405,10 @@ class Game: ObservableObject {
     
     private func last(for placement: Placement) -> Card? {
         return self.cards.filter( { return $0.placement == placement } ).sorted(by: { $0.order < $1.order } ).last
+    }
+    
+    private func available(for placement: Placement) -> Card? {
+        return self.cards.filter( { return $0.placement == placement && $0.available } ).sorted(by: { $0.order < $1.order } ).last
     }
     
     private func receiveable(for placement: Placement) -> Card? {
@@ -578,33 +582,11 @@ class Game: ObservableObject {
     
     public func restart() {
         
-        for card in self.cards {
-            card.available = false
-            card.revealed = true
-            card.moving = true
-            card.face = .up
-            card.parent = nil
-            card.child = nil
-            card.offset = .zero
-            card.placement = .ready
-            
-            self.refresh()
-        }
+        self.cards.forEach { $0.reset() }
         
         self.cards.shuffle()
         
-        var order = 1
-        
-        for card in self.cards {
-            card.face = .down
-            card.moving = false
-            card.order = order
-            card.offset = .zero
-            card.revealed = false
-            card.placement = .ready
-            
-            order += 1
-        }
+        self.cards.enumerated().forEach { $1.place(on: .ready, order: $0 + 1) }
         
         self.stop()
         self.undo_moves = []
@@ -622,20 +604,14 @@ class Game: ObservableObject {
     }
     
     public func setup() {
+        
         guard self.state == .ready else { return }
         
-        for card in self.cards {
-            card.available = false
-            card.face = .down
-            card.placement = .none
-            card.offset = .zero
-        }
+        self.cards.forEach { $0.place(on: .none) }
         
         self.refresh()
         
-        for card in self.cards {
-            card.placement = .ready
-        }
+        self.cards.forEach { $0.place(on: .ready) }
         
         self.elapsed = 0
         self.moves = 0
@@ -652,32 +628,18 @@ class Game: ObservableObject {
         
         for column in Column.allCases {
             for i in 0...column.count {
+                
                 guard let card = self.cards.first(where: { return $0.placement == .ready }) else { break }
                 
-                if column.count == i {
-                    card.available = true
-                    card.revealed = true
-                    card.face = .up
-                }
-                card.order = i + 1
-                card.placement = .tableau(column)
-                card.offset = .zero
+                card.place(on: .tableau(column), order: i + 1, last: column.count == i )
                 
                 self.refresh()
             }
         }
         
-        var order = 1
+        self.cards.filter({ return $0.placement == .ready }).enumerated().forEach { $1.place(on: .stock, order: $0 + 1) }
         
-        while let card = self.cards.first(where: { return $0.placement == .ready }) {
-            card.order = order
-            card.offset = .zero
-            card.placement = .stock
-            
-            order += 1
-            
-            self.refresh()
-        }
+        self.refresh()
         
         self.elapsed = 0
         self.moves = 0
@@ -720,36 +682,15 @@ class Game: ObservableObject {
     }
     
     public func restock(_ card: Card) {
-        
-        card.available = false
-        card.order = self.order(for: .stock) + 1
-        card.face = .down
-        card.moving = false
-        card.parent = nil
-        card.child = nil
-        card.offset = .zero
-        card.placement = .stock
-        
-        card.refresh()
+        card.place(on: .stock, order: self.order(for: .stock) + 1)
     }
     
     public func waste(_ card: Card) {
         
-        let wasted = self.count(for: .waste)
-        
         let revealed_state = MoveState(from: card.revealed, to: true)
         let placement_state = MoveState(from: card.placement, to: .waste)
         
-        
-        card.face = .up
-        card.order = wasted + 1
-        card.parent = nil
-        card.revealed = true
-        card.child = nil
-        card.offset = .zero
-        card.placement = .waste
-        
-        card.refresh()
+        card.place(on: .waste, order: self.order(for: .waste) + 1)
         
         self.move(card, placement: placement_state, revealed: revealed_state)
         
@@ -758,10 +699,7 @@ class Game: ObservableObject {
     
     public func waste(_ data: CardEventData) {
         
-        data.card.offset = data.offset
-        data.card.location = data.location
-        data.card.moving = data.moving
-        data.card.refresh()
+        data.card.moving(data)
         
         self.waste(data.card)
         
@@ -771,10 +709,7 @@ class Game: ObservableObject {
         
         guard data.event == .tap else { return }
         
-        data.card.offset = data.offset
-        data.card.location = data.location
-        data.card.moving = data.moving
-        data.card.refresh()
+        data.card.moving(data)
         
         self.place(data.card)
         
@@ -785,173 +720,13 @@ class Game: ObservableObject {
         
         guard data.event == .drop else { return }
         
-        data.card.offset = data.offset
-        data.card.location = data.location
-        data.card.moving = data.moving
-        data.card.refresh()
+        data.card.moving(data)
         
         if let placement = self.placement(depot: data.location) {
             self.drop(data, on: placement)
         }
         
         self.refresh()
-    }
-    
-    private func card(_ suite: Suit, _ rank: Rank) -> Card {
-        let card = self.cards.first(where: { return $0.suit == suite && $0.rank == rank })!
-        
-        card.placement = .waste
-        card.revealed = true
-        card.available = true
-        card.face = .up
-        
-        return card
-    }
-    
-    public func test_setup() {
-        
-        // Waste
-        
-        let diamonds_two = self.card(.diamonds, .two)
-        let clubs_eight = self.card(.clubs, .eight)
-        let diamonds_three = self.card(.diamonds, .three)
-        let spades_five = self.card(.spades, .five)
-        let spades_four = self.card(.spades, .four)
-        let diamonds_four = self.card(.diamonds, .four)
-        let spades_three = self.card(.spades, .three)
-        
-        self.waste(diamonds_two)
-        self.waste(clubs_eight)
-        self.waste(diamonds_three)
-        self.waste(spades_five)
-        self.waste(spades_four)
-        self.waste(diamonds_four)
-        self.waste(spades_three)
-        
-        // Stock
-        
-        let hearts_six = self.card(.hearts, .six)
-        let diamonds_five = self.card(.diamonds, .five)
-        let diamonds_seven = self.card(.diamonds, .seven)
-        let hearts_three = self.card(.hearts, .three)
-        let spades_two = self.card(.spades, .two)
-        let spades_ten = self.card(.spades, .ten)
-        let hearts_nine = self.card(.hearts, .nine)
-        let clubs_four = self.card(.clubs, .four)
-        let clubs_six = self.card(.clubs, .six)
-        
-        self.restock(hearts_six)
-        self.restock(diamonds_five)
-        self.restock(diamonds_seven)
-        self.restock(hearts_three)
-        self.restock(spades_two)
-        self.restock(spades_ten)
-        self.restock(hearts_nine)
-        self.restock(clubs_four)
-        self.restock(clubs_six)
-        
-        // Tableau One
-        let hearts_king = self.card(.hearts, .king)
-        let spades_queen = self.card(.spades, .queen)
-        let diamonds_jack = self.card(.diamonds, .jack)
-        
-        self.place(hearts_king, on: .tableau(.one))
-        self.place(spades_queen, on: hearts_king)
-        self.place(diamonds_jack, on: spades_queen)
-        
-        // Tableau Two
-        let diamonds_ten = self.card(.diamonds, .ten)
-        let spades_nine = self.card(.spades, .nine)
-        let hearts_eight = self.card(.hearts, .eight)
-        let spades_seven = self.card(.spades, .seven)
-        let diamonds_six = self.card(.diamonds, .six)
-        let clubs_five = self.card(.clubs, .five)
-        let hearts_four = self.card(.hearts, .four)
-        let clubs_three = self.card(.clubs, .three)
-        let hearts_two = self.card(.hearts, .two)
-        let spades_ace = self.card(.spades, .ace)
-        
-        self.place(diamonds_ten, on: .tableau(.two))
-        self.place(spades_nine, on: diamonds_ten)
-        self.place(hearts_eight, on: spades_nine)
-        self.place(spades_seven, on: hearts_eight)
-        self.place(diamonds_six, on: spades_seven)
-        self.place(clubs_five, on: diamonds_six)
-        self.place(hearts_four, on: clubs_five)
-        self.place(clubs_three, on: hearts_four)
-        self.place(hearts_two, on: clubs_three)
-        self.place(spades_ace, on: hearts_two)
-        
-        // Tableau Three
-        let spades_king = self.card(.spades, .king)
-        let hearts_queen = self.card(.hearts, .queen)
-        let clubs_jack = self.card(.clubs, .jack)
-        let hearts_ten = self.card(.hearts, .ten)
-        let clubs_nine = self.card(.clubs, .nine)
-        let diamonds_eight = self.card(.diamonds, .eight)
-        let clubs_seven = self.card(.clubs, .seven)
-        
-        self.place(spades_king, on: .tableau(.three))
-        self.place(hearts_queen, on: spades_king)
-        self.place(clubs_jack, on: hearts_queen)
-        self.place(hearts_ten, on: clubs_jack)
-        self.place(clubs_nine, on: hearts_ten)
-        self.place(diamonds_eight, on: clubs_nine)
-        self.place(clubs_seven, on: diamonds_eight)
-        
-        // Tableau Four
-        let clubs_king = self.card(.clubs, .king)
-        let diamonds_queen = self.card(.diamonds, .queen)
-        let spades_jack = self.card(.spades, .jack)
-        
-        self.place(clubs_king, on: .tableau(.four))
-        self.place(diamonds_queen, on: clubs_king)
-        self.place(spades_jack, on: diamonds_queen)
-        
-        // Tableau Five
-        let diamonds_king = self.card(.diamonds, .king)
-        let clubs_queen = self.card(.clubs, .queen)
-        let hearts_jack = self.card(.hearts, .jack)
-        let clubs_ten = self.card(.clubs, .ten)
-        let diamonds_nine = self.card(.diamonds, .nine)
-        let spades_eight = self.card(.spades, .eight)
-        let hearts_seven = self.card(.hearts, .seven)
-        let spades_six = self.card(.spades, .six)
-        let hearts_five = self.card(.hearts, .five)
-        
-        self.place(diamonds_king, on: .tableau(.five))
-        self.place(clubs_queen, on: diamonds_king)
-        self.place(hearts_jack, on: clubs_queen)
-        self.place(clubs_ten, on: hearts_jack)
-        self.place(diamonds_nine, on: clubs_ten)
-        self.place(spades_eight, on: diamonds_nine)
-        self.place(hearts_seven, on: spades_eight)
-        self.place(spades_six, on: hearts_seven)
-        self.place(hearts_five, on: spades_six)
-        
-        // Tableau Six
-        
-        // Tableau Seven
-        
-        // Foundation Diamonds
-        let diamonds_ace = self.card(.diamonds, .ace)
-        
-        self.place(diamonds_ace, on: .foundation(.diamonds))
-        
-        // Foundation Spades
-        
-        // Foundation Hearts
-        let hearts_ace = self.card(.hearts, .ace)
-        
-        self.place(hearts_ace, on: .foundation(.hearts))
-        
-        // Foundation Clubs
-        let clubs_ace = self.card(.clubs, .ace)
-        let clubs_two = self.card(.clubs, .two)
-        
-        self.place(clubs_ace, on: .foundation(.clubs))
-        self.place(clubs_two, on: clubs_ace)
-        
     }
     
     private func refill_waste() {
