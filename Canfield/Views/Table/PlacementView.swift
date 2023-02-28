@@ -22,25 +22,16 @@ struct PlacementView: View {
         Group {
             switch self.placement {
             case .waste, .none, .ready:
-                Image("depot/blank")
-                    .resizable()
-                    .scaledToFit()
+                VectorImage("depot/blank")
             case .stock:
-                Image("depot/reload")
-                    .resizable()
-                    .scaledToFit()
+                VectorImage("depot/reload")
             case .tableau:
-                Image("depot/open")
-                    .resizable()
-                    .scaledToFit()
+                VectorImage("depot/open")
             case .foundation(let suite):
-                Image("depot/\(suite.name)")
-                    .resizable()
-                    .scaledToFit()
+                VectorImage("depot/\(suite.name)")
             }
         }
         .foregroundColor(.white.opacity(0.4))
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

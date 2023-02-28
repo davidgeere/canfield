@@ -14,8 +14,9 @@ struct Application: App {
     
     var body: some Scene {
         WindowGroup {
-            GameView()
-                .environmentObject(self.game)
+//            GameView()
+//                .environmentObject(self.game)
+            TestView()
         }
     }
 }

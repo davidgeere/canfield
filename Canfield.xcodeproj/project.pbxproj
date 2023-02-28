@@ -76,6 +76,8 @@
 		DFBB330B2994948200639F99 /* VisibilityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBB330A2994948200639F99 /* VisibilityModifier.swift */; };
 		DFC3B3632996B5D10050CB46 /* SizePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3B3622996B5D10050CB46 /* SizePreferenceKey.swift */; };
 		DFD40385299453CA00FE41D5 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD40384299453CA00FE41D5 /* Array.swift */; };
+		DFDA26AC29A9531D00A97718 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA26AB29A9531D00A97718 /* TestView.swift */; };
+		DFDA26AE29A982D400A97718 /* VectorImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA26AD29A982D400A97718 /* VectorImage.swift */; };
 		DFE6B610298F045A00F539FB /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B60F298F045A00F539FB /* Geometry.swift */; };
 		DFE6B617298F3E2800F539FB /* Numeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B616298F3E2800F539FB /* Numeric.swift */; };
 /* End PBXBuildFile section */
@@ -152,6 +154,8 @@
 		DFBB330A2994948200639F99 /* VisibilityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityModifier.swift; sourceTree = "<group>"; };
 		DFC3B3622996B5D10050CB46 /* SizePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizePreferenceKey.swift; sourceTree = "<group>"; };
 		DFD40384299453CA00FE41D5 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		DFDA26AB29A9531D00A97718 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		DFDA26AD29A982D400A97718 /* VectorImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorImage.swift; sourceTree = "<group>"; };
 		DFE6B60F298F045A00F539FB /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
 		DFE6B616298F3E2800F539FB /* Numeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Numeric.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -248,6 +252,7 @@
 				DFA16A13298C4B870089381F /* Card */,
 				DFA169E2298C319E0089381F /* Table */,
 				DFA169D5298C2EE80089381F /* GameView.swift */,
+				DFDA26AB29A9531D00A97718 /* TestView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -274,6 +279,7 @@
 				DFA169F9298C3A920089381F /* Core */,
 				DFA169F6298C39AA0089381F /* Extensions */,
 				DFA169EA298C34060089381F /* Enums */,
+				DFDA26AD29A982D400A97718 /* VectorImage.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -522,6 +528,7 @@
 				DFA3027C29A679CA00D30C01 /* Command.swift in Sources */,
 				DFA169FD298C3D690089381F /* Pair.swift in Sources */,
 				DFA3027E29A6B6BB00D30C01 /* Hand.swift in Sources */,
+				DFDA26AC29A9531D00A97718 /* TestView.swift in Sources */,
 				DFA16A19298C4C7F0089381F /* CardEventData.swift in Sources */,
 				DF1AE5CF2991D99100D7BFE8 /* ActionsView.swift in Sources */,
 				DFA169E8298C33010089381F /* PlacementView.swift in Sources */,
@@ -544,6 +551,7 @@
 				DFA169FB298C3B960089381F /* Inflector.swift in Sources */,
 				DF3AA8782991D33C00CBE983 /* UIFont.swift in Sources */,
 				DFA16A17298C4C550089381F /* PlayableCardModifier.swift in Sources */,
+				DFDA26AE29A982D400A97718 /* VectorImage.swift in Sources */,
 				DFA169D4298C2EE80089381F /* Application.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
